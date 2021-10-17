@@ -2,15 +2,21 @@
 .row{
     margin-left: 20px ;
     color: #fff;  
+    
 }
 .posters{
-   
     display: flex;
     overflow-y: hidden;
     overflow-x: auto;
     padding: 18px; 
-    scrollbar-width: none;     
+    scrollbar-width: none;
+        
 }
+/*scrollbar hidden-> firfox^,chrome */
+.posters::-webkit-scrollbar{
+    display: none;
+}
+
 
 .img{
     object-fit: contain;

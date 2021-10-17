@@ -11,7 +11,7 @@ const requests={
     Drama:`/discover/movie?api_key=${API_KEY}&with_genres=18`,
     Scifi:`/discover/movie?api_key=${API_KEY}&with_genres=878`,
     TvMovie:`/discover/movie?api_key=${API_KEY}&with_genres=10770`,
-
+    
     //
 };
 
