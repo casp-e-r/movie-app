@@ -19,32 +19,18 @@ function Row({title,url,isLargeRow=false}) {
         }
 
     }
+    
     useEffect(() => {
-        //axios.get(`/trending/all/week?api_key=${API_KEY}&language=en-US`).then((response)=>{
-            
-       /*  axios.get(requests.url).then((response)=>{
-            console.table(response.data);
-            setMovies(response.data.results)
-            
-        }).catch(err=>{
-
-        }) */
         async function fetchData(){
             const request = await axios.get(url)
-            setMovies(request.data.results)
-            
+            setMovies(request.data.results) 
             return request
-        }
-        
-            
-            fetchData()
-
-        
+        }   
+            fetchData()        
     }, [url])
    
 
-    
-          //Netflix originals contains wrong video content : Avoiding react-player(video) for largerow (netflix originals)
+    //Netflix originals contains wrong video content : Avoiding react-player(video) for largerow (netflix originals)
 
 
     return (

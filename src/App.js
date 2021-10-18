@@ -14,9 +14,8 @@ function App() {
     <div className="App">
       
       <Navbar/>
-      <Movie>
       <Banner/>
-      
+      <Movie>  
       <Row title="Netflix originals" url={requests.NetflixOriginals} isLargeRow   /> 
       <Row title="Action" url={requests.Action}   />
       <Row title="Top Rated" url={requests.TopRated}   /> 

@@ -4,7 +4,7 @@ import { useState,createContext } from "react";
 export const MovieDetailsContext=createContext(null)
 
 function Movie({children}){
-    const [MovieDetails, setMovieDetails] = useState({})
+    const [MovieDetails, setMovieDetails] = useState([])
     
     return (
       <MovieDetailsContext.Provider value={{ MovieDetails, setMovieDetails}}>

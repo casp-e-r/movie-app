@@ -1,7 +1,6 @@
 import React,{useContext,useEffect,useState} from 'react'
 import { MovieDetailsContext } from '../../context'
 import './Show.css'
-//import Youtube from 'react-youtube'
 import ReactPlayer from "react-player/youtube";
 import axios from '../../axios'
 import { API_KEY} from '../../constants/constants'
@@ -9,24 +8,37 @@ import { imageUrl } from '../../constants/constants';
 
 
 
+
 function Show({isLargeRow}) {
     
     const {MovieDetails} = useContext(MovieDetailsContext)
     const [videoId, setVideoId] = useState()
-    const [country, setCountry] = useState('')
-    useEffect(()=>{
-       console.log(MovieDetails);
-       
-   })
-   if(MovieDetails.origin_country){
-    axios.get(`/configuration/countries?api_key=${API_KEY}`).then((res)=>{
-        //console.log(res.data);
-        let country=res.data
-        let obj=country.find(o=>o.iso_3166_1===MovieDetails.origin_country[0])
-        //console.log(obj.english_name);
-        setCountry(obj.english_name) 
-        })
-   }
+    // const [country, setCountry] = useState('')
+    // const [language, setLanguage] = useState('')
+    // const [cast, setCast] = useState()
+    
+
+//    if(MovieDetails.origin_country){
+//     axios.get(`/configuration/countries?api_key=${API_KEY}`).then(res=>{
+//         let country=res.data
+//         let obj=country.find(o=>o.iso_3166_1===MovieDetails.origin_country[0])
+//         setCountry(obj.english_name) 
+//         })
+//    }
+//    axios.get(`/configuration/languages?api_key=${API_KEY}`).then(res=>{
+//     let obj=res.data.find(o=>o.iso_639_1===MovieDetails.original_language)
+//     setLanguage(obj.english_name)
+//    })
+
+    // if (isLargeRow){
+    //     axios.get(`/tv/${MovieDetails.id}/credits?api_key=${API_KEY}&language=en-US`).then(res=>{
+    //         console.log(res.data.cast);
+    //         let obj=res.data.cast.find(o=>setCast({'name':o.original_name,'character':o.character}))
+    //     })
+    // }
+    // console.log(cast);
+    
+   
    
   
 
@@ -36,8 +48,9 @@ function Show({isLargeRow}) {
         if(response.data.results.length>0){
             setVideoId(response.data.results[0].key)
         }
+        
     }).catch(err=>{
-        console.log(err)
+       
     })
     //console.log(videoId);
 
@@ -64,7 +77,7 @@ function Show({isLargeRow}) {
             <p>{MovieDetails.first_air_date || MovieDetails.release_date }</p>
             <p>{MovieDetails.popularity}</p>
             <p>{MovieDetails.vote_average}</p>
-            <p>{MovieDetails.original_language}</p>
+            <p>Language:{language}</p>
             {country && <p>origin country :{country}</p>}
             {/* <img className={`img-p${isLargeRow && "img-b"}`} src={`${imageUrl}${ isLargeRow ? MovieDetails.backdrop_path :MovieDetails.poster_path}`} alt=''></img> */}
             </div>
@@ -78,7 +91,7 @@ function Show({isLargeRow}) {
             config={{youtube: {playerVars: { showinfo: 1}} }} 
             list={null}
             controls={true}
-            loop={1}
+            loop={true}
             pip={false}
             
             />
