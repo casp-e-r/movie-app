@@ -1,0 +1,9 @@
+.c{
+    background-color: transparent;
+    height: 100vh;
+    width:100%;
+}
+.toggle{
+display: flex;
+justify-content: center;
+}

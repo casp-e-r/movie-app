@@ -15,6 +15,9 @@ function Banner() {
         }).catch(err=>{console.log(err);}) 
         
     }, [])
+    function truncate(string, n){
+        return string?.length>n ?string.substr(0,n-1) +'...':string;
+    }
     return (
         <div
          style={{
@@ -25,11 +28,7 @@ function Banner() {
             
             <div className="content">
                 <h1 className="title">{movie ? movie.name || movie.original_name || movie.title :""}</h1>
-                <div className="banner-buttons">
-                    <button className="button">s</button>
-                    <button className="button">d</button>
-                </div>
-                <h2 className="description">{movie ? movie.overview :""}</h2>
+                <h2 className="description">{truncate(movie ? movie.overview :"",250)}</h2>
             </div>
             <div className="fade-bottom"></div>
     
