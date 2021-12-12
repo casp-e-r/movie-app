@@ -4,6 +4,8 @@ import { useLocation } from 'react-router'
 import { TvContext } from '../../context'
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 
 function Episodes() {
@@ -16,7 +18,7 @@ function Episodes() {
     const { tv } = useContext(TvContext)
     const TV = tv
     useEffect(() => {
-        
+
         if (TV.seasons) {
             const obj = TV.seasons.map((obj) => {
                 return (obj)
@@ -27,7 +29,7 @@ function Episodes() {
     }, [TV])
     useEffect(() => {
         window.scrollTo(null);
-      },[]);
+    }, []);
     //console.log(season);
     // useEffect(() => {
     //     setS1ep([])
@@ -94,30 +96,46 @@ function Episodes() {
 
                         })}
                     </div>
-                    
-                        {sno && season && season.map(obj => {
-                            if (obj.season_number === sno) {
-                                // console.log(obj.poster_path);
-                                return (<div className='episode-container'>
-                                    <div className='sno-poster'>
-                                        <img src={`${imageUrl + obj.poster_path}`} />
-                                    </div>
-                                    <div className='ep-n'>
-                                        {ep && ep.map(obj => {
-                                            //console.log(obj);         
-                                            return (
-                                                <div className='ep'>
-                                                    <p>{obj.air_date}</p>
-                                                    <img src={`${imageUrl}${obj.still_path}`} alt='oops' />
-                                                </div>
-                                            )
-                                        })}
-                                    </div>
-                                </div>)
-                            }
-                        })
+
+                    {sno && season && season.map(obj => {
+                        if (obj.season_number === sno) {
+                            // console.log(obj.poster_path);
+                            return (<div className='episode-container'>
+                                <div className='sno-poster'>
+                                    <img src={`${imageUrl + obj.poster_path}`} />
+                                </div>
+                                <div className='ep-n'>
+                                    {ep && ep.map(obj => {
+                                        // console.log(obj);
+                                        return (
+                                            <div className='ep'>
+                                                <p>{obj.episode_number}</p>
+                                                <p>{obj.air_date}</p>
+                                                <p>{obj.overview}</p>
+                                            </div>
+                                        ) 
+                                    }).sort(obj.episode_number)}
+                                    {console.log(ep)}                                       
+                                </div>
+                                <Carousel
+                                        className='carousel'
+                                        autoPlay
+                                        infiniteLoop
+                                        showStatus={false}
+                                        showIndicators={false}
+                                        showThumbs={false}
+                                        interval={5000}>
+                                            {ep && ep.map(obj=>{
+                                                return(<div>
+                                                    <img src={`${imageUrl}${obj.still_path}`} />
+                                                    </div>)      
+                                            })}
+                                </Carousel>
+                            </div>)
                         }
-                    
+                    })
+                    }
+
                 </div>
 
             }

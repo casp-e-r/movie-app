@@ -50,14 +50,14 @@
     overflow-y: auto;
 
 }
+ .carousel{
+    height: rem;
+    position: fixed;
+}
 .ep{
-    width:400px;
-    
-    
-    
+    font-size: small;
+    text-align: left;
+    width:400px;    
 }
-.ep img{
-    border: 2px solid;
-    width: 200px;
-}
+
 

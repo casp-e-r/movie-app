@@ -1,6 +1,8 @@
 const API_KEY = '57b782ed1e57b332740e30da5d75e862'
 
 const requests={
+    // TrendingT:`/trending/tv/week?api_key=${API_KEY}&language=en-US`,
+    // TrendingM:`/trending/movie/week?api_key=${API_KEY}&language=en-US`,
     Trending:`/trending/all/week?api_key=${API_KEY}&language=en-US`,
     NetflixOriginals:`/discover/tv?api_key=${API_KEY}&with_networks=213`,
     TopRated:`/movie/top_rated?api_key=${API_KEY}&language=en-US`,

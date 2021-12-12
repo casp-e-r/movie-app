@@ -3,22 +3,50 @@ import "./Banner.css"
 import axios from "../../axios";
 import {imageUrl} from '../../constants/constants'
 import requests from "../../requests";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
+import { shuffleArray } from "../../helpers/helper";
 
 function Banner() {
-      const [movie, setMovie] = useState({})
-
+      const [movie, setMovie] = useState()
+      console.log(movie);
+    //   const [category, setCategory] = useState(1)
+    //   //const [url, setUrl] = useState()
+    //   useEffect(() => {
+    //     const showData=window.localStorage.getItem('show')
+    //     setCategory(JSON.parse(showData))    
+    // },[])
     useEffect(() => {
+        
         axios.get(requests.Trending).then((response)=>{
-            console.log(response.data);
-            const responses=response.data.results[Math.floor(Math.random()*response.data.results.length-1)]
-            setMovie(responses)
+            console.log(response.data.results);
+            const s=shuffleArray(response.data.results)
+            console.log(s);
+            setMovie(s)
+            // const responses=response.data.results[Math.floor(Math.random()*response.data.results.length-1)]
+            // setMovie(responses)
         }).catch(err=>{console.log(err);}) 
         
     }, [])
     function truncate(string, n){
         return string?.length>n ?string.substr(0,n-1) +'...':string;
     }
+    console.log(movie);
     return (
+        <div className='banner'>
+        <Carousel
+        className='carousel'
+        autoPlay
+        infiniteLoop
+        showArrows={false}
+        showStatus={false}
+        showIndicators={true}
+        showThumbs={false}
+        interval={5000}>
+        {movie && movie.map(movie=>{
+
+        
+        return(
         <div
          style={{
              backgroundSize:"cover",
@@ -32,6 +60,9 @@ function Banner() {
             </div>
             <div className="fade-bottom"></div>
     
+        </div>)
+        })}
+        </Carousel>
         </div>
     )
 }

@@ -1,3 +1,13 @@
+.carousel{
+    background-size: cover;
+    height: 610px;
+   
+    /* object-fit: cover; */
+    align-self: center;
+    
+
+    color: #fff;
+}
 .banner{
     background-size: cover;
     height: 610px;
