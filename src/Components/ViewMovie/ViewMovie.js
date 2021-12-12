@@ -196,6 +196,20 @@ function ViewMovie() {
                     
                 </div>
             </div>
+            <div className='inner-container-3'>
+                <>
+                    <h1>reccommended</h1>
+                    <div className='recomm'>
+
+                    {recommend && recommend.map(e=>{
+                        return  <div className='recomm-movie'>
+                                <img src={imageUrl+e.poster_path} alt='' />
+                                <p>{e.id}</p>
+                            </div>
+                    })}
+                    </div>
+                </>
+            </div>
                 {/* <div className="movie-details">
                      */}
                     {/* <div className='movie-details-info'>
