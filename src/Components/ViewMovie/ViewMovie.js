@@ -14,6 +14,7 @@ function ViewMovie() {
 
 
     const [country, setCountry] = useState('')
+    const [recommend, setRecommend] = useState([])
     const [cast, setCast] = useState([])
     const [movie, setMovie] = useState([])
     //const [seasons, setSeasons] = useState([])
@@ -22,16 +23,21 @@ function ViewMovie() {
     //to get Tv or Movie
     const location = useLocation()
     const state = location.state.update
-    //console.log(state.isTv);
+    // console.log(state);
     let history = useHistory()
+    let isTv
 
     const ID = location.state.id
     let TvMovie
     if (state.isTv) {
         TvMovie = 'tv'
+        isTv=true
+        
 
     } else {
         TvMovie = 'movie'
+        isTv=false
+        
     }
     useEffect(() => {
         axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
@@ -43,11 +49,11 @@ function ViewMovie() {
             setTv(movie)
         }
     })
+    
     useEffect(() => {
         if (movie.origin_country && movie.origin_country.length !== 0) {
             axios.get(`/configuration/countries?api_key=${API_KEY}`).then(res => {
                 let c = res.data
-                console.log(res.data);
                 let obj = c.find(o => o.iso_3166_1 === movie.origin_country[0])
                 // console.log(movie.origin_country.length);
                 setCountry(obj.english_name)
@@ -56,6 +62,10 @@ function ViewMovie() {
         // axios.get(`/${TvMovie}/${ID}}/images?api_key=${API_KEY}&language=en-US&include_image_language=en,null`).then(res=>{
         //     console.log(res.data);
         // })
+        axios.get(`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(e=>{
+            // console.log(e.data)
+            setRecommend(e.data.results)
+        })
         //cast :seperate for tv and movie to get 'character name'
         axios.get(`/${TvMovie}/${ID}/${state.isTv ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
             //console.log(res.data.cast);
@@ -94,7 +104,7 @@ function ViewMovie() {
 
     // })
     // console.log(movie.seasons);
-    console.log(movie);
+    
 
     return (
         <div className="details-container" >
@@ -182,9 +192,9 @@ function ViewMovie() {
                                     <img  src={imageUrl + e.profile_path} alt='' /> 
                                  </div>})}
                     </div>}
-                    
+                    <h1>cast</h1>
                     <div className="cast">
-                    {cast.slice(0,10).map(obj =>
+                    {cast &&cast.slice(0,10).map(obj =>
                         <div className='profile-img' >
                             {obj.img ? <img src={`${imageUrl}${obj.img}`} alt='' /> : <img src={unknown} alt='' />}
                             <p>{obj.name}</p>
@@ -197,84 +207,24 @@ function ViewMovie() {
                 </div>
             </div>
             <div className='inner-container-3'>
+                {console.log(movie,recommend)}
                 <>
                     <h1>reccommended</h1>
                     <div className='recomm'>
 
                     {recommend && recommend.map(e=>{
                         return  <div className='recomm-movie'>
-                                <img src={imageUrl+e.poster_path} alt='' />
+                                <img src={imageUrl+e.poster_path} alt='' 
+                                onClick={()=>{
+                                            history.push(`/${e.id}`,{update:{isTv},id:e.id})
+                        }}
+                    />
                                 <p>{e.id}</p>
                             </div>
                     })}
                     </div>
                 </>
             </div>
-                {/* <div className="movie-details">
-                     */}
-                    {/* <div className='movie-details-info'>
-                        <h1>{movie ? movie.name || movie.original_name || movie.title : ""}</h1>
-                        <label >Overview</label>
-                        <h5>{movie.overview}</h5>
-                        
-                        <div className='btn'>
-                            <button>mm</button>
-                            <button>mm</button>
-                        </div>
-                    </div> */}
-                {/* </div> */}
-                {/* <div className='movie-details-2'>
-                    <div className='movie-details-info-2'>
-                        <div>
-                            <label >Release Date</label>
-                            <p>{movie.first_air_date || movie.release_date}</p>
-                        </div>
-                        <div>
-                            <p>Rating</p>
-                            <p>{movie.vote_average}</p>
-                        </div>
-                    </div>
-                    <div>
-
-                    </div>
-
-                </div> */}
-    
-                    
-                    {/* <div className="movie-details-poster">
-                        <img src={`${imageUrl}${movie.poster_path}`} alt=''></img>
-                    </div>
-                    <div className="movie-details-info">
-                        <h1>{movie ? movie.name || movie.original_name || movie.title : ""}</h1>
-                        <label >Overview</label>
-                        <h5>{movie.overview}</h5>
-                        <label >Release Date</label>
-                        <p>{movie.first_air_date || movie.release_date}</p>
-                        <p>{movie.vote_average}</p>
-
-                        {country && <p>origin country :{country}</p>}
-
-                        <div className="cast-container">
-                            <h2>Cast</h2>
-                            {movie && cast &&
-
-                                <div className="cast-inner-container">
-
-                                    {cast.map(obj =>
-                                        <div className="cast">
-
-                                            {obj.img ? <img src={`${imageUrl}${obj.img}`} alt='' /> : <img src={unknown} alt='' />}
-                                            <p>{obj.name}</p>
-                                            <p>{obj.character}</p>
-                                        </div>
-                                    )}
-                                </div>}
-                        </div>
-                    </div> */}
-
-
-                
-            {/* </div>   */}
         </div>
 
     )

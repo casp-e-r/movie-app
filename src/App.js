@@ -8,6 +8,7 @@ import  Tv from "./context";
 import ViewMovie from "./Components/ViewMovie/ViewMovie";
 import Episodes from "./Components/Episodes/Episodes";
 import Footer from "./Components/Footer/Footer";
+import Banner1 from './Components/Banner/Banner1'
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Navbar />
           <Route exact path='/'>
             <Banner />
+            {/* <Banner1/> */}
             <Container />
           </Route>
           <Route path='/:id'>

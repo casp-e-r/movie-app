@@ -8,8 +8,6 @@ import {imageUrl} from '../../constants/constants'
 
 function Row({title,url,isTv=false}) {
     const [movies, setMovies] = useState([])
-  
-
     let history = useHistory()
     
     
@@ -19,6 +17,7 @@ function Row({title,url,isTv=false}) {
             }).catch(err=>console.log(err))
             
     }, [url,setMovies])
+    console.log(movies)
 
 
     return (

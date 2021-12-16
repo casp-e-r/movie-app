@@ -97,6 +97,22 @@
     max-width: 120px;
     margin: 10px;
 }
+.inner-container-3{
+    padding: 2% 4%;
+}
+
+.recomm{
+    padding: 10px;
+    color: bisque;
+    display: flex;
+    flex-direction: row;
+}
+.recomm-movie{
+    padding: 0.3% 1%;
+}
+.recomm-movie img{
+    width: 200px;
+}
 
 
 
