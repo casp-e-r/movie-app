@@ -19,7 +19,6 @@ function Banner() {
     useEffect(() => {
         
         axios.get(requests.Trending).then((response)=>{
-            console.log(response.data.results);
             const s=shuffleArray(response.data.results)
             setMovie(s)
             // const responses=response.data.results[Math.floor(Math.random()*response.data.results.length-1)]
@@ -49,6 +48,7 @@ function Banner() {
                 style={{
                     backgroundBlendMode:'normal',
                     backgroundSize:'cover',
+                    
                     backgroundImage:`url(${movie? imageUrl+movie.backdrop_path:""})`,  
                    }}
                 >

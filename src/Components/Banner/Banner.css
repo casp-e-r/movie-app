@@ -1,14 +1,19 @@
 
+
 .banner-content{
+    opacity: .6;
     object-fit: contain;
     position: relative;
-    height: 90vh;
+    height: 85vh;
     width: 100%;    
+    
+    
 }
 
 
 .banner-details{
-    position: absolute;
+
+    position: relative;
     bottom: 0;
     padding: 10% 3% 4% 4%;
 }
@@ -20,7 +25,7 @@
 } 
 @media screen and (max-width:890px) {
     .banner-content{
-        background-position-y: center;
+        /* background-position-y: center; */
         height: 60vh;
         background-position: center;
     }

@@ -13,28 +13,40 @@
     scrollbar-width: none;
         
 }
+
 /*scrollbar hidden-> firfox^,chrome */
 .posters::-webkit-scrollbar{
     display: none;
 }
 
+.img-backdrop{
+    object-fit: contain;
+    transition: transform 400ms;
+    max-height: 180px;
+    margin-right: 7px;
+}
 
-
-.img-large{  
+.img-poster{  
     margin-right: 7px;
     object-fit: contain;
     transition: transform 450ms;
     max-height: 250px;
 }
-.img-large:hover{
+.img-poster:hover{
     transform: scale(1.07);
+    opacity: 1;
+}
+.img-backdrop:hover{
+    transform: scale(1.06);
     opacity: 1;
 }
 
 
 
+
+
 @media screen and (max-width:890px) {
-    .img-large{
+    .img-poster{
         max-height: 180px;
         margin-right: 3px;
     }

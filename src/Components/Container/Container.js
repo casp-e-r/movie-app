@@ -23,7 +23,7 @@ function Container() {
             
                 <div className='toggle'>
                 {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
-                <button onClick={() => setCategory(0)}>
+                <button onClick={() => setCategory(0)} >
                     tv
                 </button>
                 <button onClick={() => setCategory(1)}>

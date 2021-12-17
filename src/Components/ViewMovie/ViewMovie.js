@@ -23,7 +23,7 @@ function ViewMovie() {
     //to get Tv or Movie
     const location = useLocation()
     const state = location.state.update
-    // console.log(state);
+    console.log(state);
     let history = useHistory()
     let isTv
 
