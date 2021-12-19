@@ -9,8 +9,8 @@ function Movie() {
     return (
         <div>
             <Row title='Popular' url={requests.movie.Popular} isLarge />
-            <Row title='Top Rated' url={requests.movie.TopRated} isLarge/>
-            <Row title='Latest' url={requests.movie.Latest} />
+            <Row title='Top Rated' url={requests.movie.TopRated} />
+            {/* <Row title='Latest' url={requests.movie.Latest} /> */}
             
 
             <Row title='Action' url={requests.movie.Drama} />

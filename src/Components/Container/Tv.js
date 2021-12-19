@@ -8,7 +8,6 @@ function Tv() {
     return (
         <div>
             <Row title='Popular' url={requests.tv.Popular} isLarge />
-            <Row title='Latest' url={requests.tv.Latest} />
 
             <Row title='Action' url={requests.tv.Drama} />
             <Row title='Comedy' url={requests.tv.Comedy} />

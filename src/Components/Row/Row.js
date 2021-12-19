@@ -10,23 +10,18 @@ function Row({title,url,isTv=false,isLarge=false}) {
     const [movies, setMovies] = useState([])
     const [movie, setMovie] = useState()
     let history = useHistory()
-    console.log(title);
+    console.log(movies);
     useEffect(() => {
         
     }, [])
     
     useEffect(() => {  
-        if(title=='Latest'){
-        axios.get(url).then(res=>{
-            console.log(res);
-            setMovie(res.data)
-        }) 
-    }else{
+       
             axios.get(url).then(res=>{ 
                 setMovies(res.data.results)
                 
             }).catch(err=>console.log(err))
-        }  
+         
     }, [url,setMovies])
 //    console.log(movies,url,title,isTv,isLarge)
 
@@ -37,7 +32,7 @@ function Row({title,url,isTv=false,isLarge=false}) {
             <h2>{title}</h2>
             <div className="posters">
                 {movies && movies.map((obj)=>
-                    
+                     <div className='poster'>
 
                     <img className={isLarge ? 'img-backdrop':'img-poster'}
                     key={obj.id}
@@ -46,18 +41,14 @@ function Row({title,url,isTv=false,isLarge=false}) {
                         history.push(`/${obj.id}`,{update:{isTv},id:obj.id})
                         
                     }}
-                    />                          
+                    /> 
+                    <div className='poster-overlay'>
+                        <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
+
+                    </div>
+                    </div>                          
                 )}
-                {movie && 
-                    <img className={isLarge ? 'img-backdrop':'img-poster'}
-                    key={movie.id}
-                    src={isLarge ? imageUrl+movie.backdrop_path : imageUrl+movie.poster_path} alt={movie.name}
-                    onClick={()=>{
-                        history.push(`/${movie.id}`,{update:{isTv},id:movie.id})
-                        
-                    }}
-                    />                          
-                }
+                
             </div>
   
            </div>
