@@ -6,6 +6,7 @@ import { API_KEY, imageUrl } from '../../constants/constants'
 import unknown from "../../images/unknown.jpg"
 import { useLocation } from 'react-router'
 import { useHistory } from "react-router-dom";
+import Trailer from './Trailer/Trailer';
 
 
 
@@ -32,7 +33,6 @@ function ViewMovie() {
             // isTv=false   
         }
     }, [isTv,setTvMovie])
-    console.log(isTv,ID,TvMovie);
     useEffect(() => {
         axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
             setMovie(res.data)
@@ -50,17 +50,18 @@ function ViewMovie() {
                 let c = res.data
                 let obj = c.find(o => o.iso_3166_1 === movie.origin_country[0])
                 setCountry(obj.english_name)
-            }).catch()
+            }).catch(err=>console.log(err))
         }
         // axios.get(`/${TvMovie}/${ID}}/images?api_key=${API_KEY}&language=en-US&include_image_language=en,null`).then(res=>{
         //     console.log(res.data);
         // })
+        
         axios.get(`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(e=>{
             setRecommend(e.data.results)
         })
         //cast :seperate for tv and movie to get 'character name'
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
-            //console.log(res.data.cast);
+            // console.log(res.data);
             if (isTv===1) { //state.isTv
                 let obj = res.data.cast.map(o => {
                     let ob = o.roles.map(ob => { return (ob.character) })
@@ -96,8 +97,7 @@ function ViewMovie() {
         <div className="details-container" >
             <div className="inner-container-1">
                 <div className='viewbanner'>
-                    <img src={imageUrl + movie.backdrop_path}></img>
-                    
+                    <img src={imageUrl + movie.backdrop_path}></img>  
                 </div>
                 <div className='view-details-container'>
                         <div className='back'>
@@ -128,7 +128,9 @@ function ViewMovie() {
                                     <h5>{movie.overview}</h5>
                                 </div>
                                 <div className='view-btns'>
-                                    <button>trailer</button>
+                                    {/* <button>trailer</button> */}
+                                    <Trailer ID={ID} TvMovie={TvMovie}/>
+
                                 </div>
                             </div>
                         </div>
@@ -171,6 +173,7 @@ function ViewMovie() {
                 </div>
                 
                 <div className='view-cast-creator'>
+                    <h1>created by</h1>
                 {movie.created_by && 
                     <div className='creator'>
                             {movie.created_by.map(e=>{return<div className='profile-img'>
@@ -193,7 +196,6 @@ function ViewMovie() {
                 </div>
             </div>
             <div className='inner-container-3'>
-                {console.log(movie,recommend)}
                 <>
                     <h1>reccommended</h1>
                     <div className='recomm'>
