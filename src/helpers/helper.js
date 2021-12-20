@@ -1,5 +1,5 @@
 
-const shuffleArray = (array) => {
+export const shuffleArray = (array) => {
     let shuffled = [...array];
     for (let i = shuffled.length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
@@ -8,7 +8,8 @@ const shuffleArray = (array) => {
     return shuffled;
   };
   
-
-  export {
-      shuffleArray
-  }
+  export const getYear = (date) => {
+    if (date) {
+      return date.split('-')[0];
+    }
+  };

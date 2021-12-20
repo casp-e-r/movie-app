@@ -129,7 +129,12 @@ function ViewMovie() {
                                 </div>
                                 <div className='view-btns'>
                                     {/* <button>trailer</button> */}
-                                    <Trailer ID={ID} TvMovie={TvMovie}/>
+                                    <Trailer 
+                                    ID={ID} 
+                                    TvMovie={TvMovie}
+                                    releaseYear={movie?.release_date || '0'}
+                                    name={movie ? movie.name || movie.original_name || movie.title : ""}
+                                    />
 
                                 </div>
                             </div>
