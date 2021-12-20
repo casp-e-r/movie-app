@@ -60,6 +60,7 @@
     padding:2% 5%;
     color: #fff;
     height: 900px;
+    height: auto;
 }
 
 .view-more-info{
@@ -84,7 +85,9 @@
 }
 .cast{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));    
+    
+    grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+    /* grid-template-rows: repeat(auto-fit, minmax(120px, 2fr)) ;     */
 }
 .view-cast-creator img{
     width: 100px;
@@ -99,9 +102,11 @@
 }
 .inner-container-3{
     padding: 2% 4%;
+   
 }
 
 .recomm{
+    
     padding: 10px;
     color: bisque;
     display: flex;
@@ -210,6 +215,7 @@
         width: 100%;
     }
     .view-more-info div{
+        margin: auto;
         padding: 5% 1%;
         width: auto;
     }

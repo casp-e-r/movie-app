@@ -6,24 +6,16 @@ import {imageUrl} from '../../constants/constants'
 
 
 
-function Row({title,url,isTv=false,isLarge=false}) {
+function Row({title,url,isLarge=false}) {
     const [movies, setMovies] = useState([])
-    const [movie, setMovie] = useState()
     let history = useHistory()
-    console.log(movies);
-    useEffect(() => {
-        
-    }, [])
-    
-    useEffect(() => {  
-       
+    const isTv=window.localStorage.getItem('show')   
+    useEffect(() => {       
             axios.get(url).then(res=>{ 
-                setMovies(res.data.results)
-                
+                setMovies(res.data.results)  
             }).catch(err=>console.log(err))
          
     }, [url,setMovies])
-//    console.log(movies,url,title,isTv,isLarge)
 
 
     return (
@@ -44,7 +36,6 @@ function Row({title,url,isTv=false,isLarge=false}) {
                     /> 
                     <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-
                     </div>
                     </div>                          
                 )}

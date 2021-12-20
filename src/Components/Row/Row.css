@@ -64,7 +64,7 @@
     opacity: .4;
 }
 .poster:hover .poster-overlay{
-    opacity: .5;
+    opacity: 1;
 }
 
 

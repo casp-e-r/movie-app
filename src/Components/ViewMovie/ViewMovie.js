@@ -12,40 +12,34 @@ import { useHistory } from "react-router-dom";
 
 function ViewMovie() {
 
-
     const [country, setCountry] = useState('')
     const [recommend, setRecommend] = useState([])
     const [cast, setCast] = useState([])
     const [movie, setMovie] = useState([])
-    //const [seasons, setSeasons] = useState([])
-
     const { setTv } = useContext(TvContext)
-    //to get Tv or Movie
     const location = useLocation()
-    const state = location.state.update
-    console.log(state);
     let history = useHistory()
-    let isTv
-
+    const isTv=JSON.parse(window.localStorage.getItem('show'))   
     const ID = location.state.id
-    let TvMovie
-    if (state.isTv) {
-        TvMovie = 'tv'
-        isTv=true
-        
-
-    } else {
-        TvMovie = 'movie'
-        isTv=false
-        
-    }
+    const [TvMovie, setTvMovie] = useState('tv')
+    
+    useEffect(() => {
+        if (isTv ===1 ) {
+            setTvMovie('tv')
+            // isTv=true
+        } else if(isTv===0) {
+            setTvMovie('movie')
+            // isTv=false   
+        }
+    }, [isTv,setTvMovie])
+    console.log(isTv,ID,TvMovie);
     useEffect(() => {
         axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
             setMovie(res.data)
         }).catch()
     }, [ID, TvMovie])
     useEffect(() => {
-        if (movie && state.isTv) {
+        if (movie && isTv) { //state.isTv
             setTv(movie)
         }
     })
@@ -55,7 +49,6 @@ function ViewMovie() {
             axios.get(`/configuration/countries?api_key=${API_KEY}`).then(res => {
                 let c = res.data
                 let obj = c.find(o => o.iso_3166_1 === movie.origin_country[0])
-                // console.log(movie.origin_country.length);
                 setCountry(obj.english_name)
             }).catch()
         }
@@ -63,45 +56,38 @@ function ViewMovie() {
         //     console.log(res.data);
         // })
         axios.get(`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(e=>{
-            // console.log(e.data)
             setRecommend(e.data.results)
         })
         //cast :seperate for tv and movie to get 'character name'
-        axios.get(`/${TvMovie}/${ID}/${state.isTv ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
+        axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
             //console.log(res.data.cast);
-            if (state.isTv) {
+            if (isTv===1) { //state.isTv
                 let obj = res.data.cast.map(o => {
                     let ob = o.roles.map(ob => { return (ob.character) })
                     return ({
                         'name': o.original_name,
                         'character': ob[0],
-                        'img': o.profile_path
-                    })
+                        'img': o.profile_path})
                 })
                 setCast(obj)
-            } else {
+            }else{
                 let obj = res.data.cast.map(o => {
                     return ({
                         'name': o.original_name,
                         'character': o.character,
-                        'img': o.profile_path
-                    })
+                        'img': o.profile_path})
                 })
                 setCast(obj)
             }
         }).catch()
-
     }, [ID, TvMovie, country,movie.origin_country])
     // useEffect(() => {
     //     if (state.isTv && movie.seasons) {
     //         const obj = movie.seasons.map((obj, index) => {
     //             return { 'no': index + 1, 'Date': obj.air_date, 'episodes': obj.episode_count };
-
-
     //         });
     //         setSeasons(obj)
     //     }
-
     // })
     // console.log(movie.seasons);
     
@@ -216,7 +202,7 @@ function ViewMovie() {
                         return  <div className='recomm-movie'>
                                 <img src={imageUrl+e.poster_path} alt='' 
                                 onClick={()=>{
-                                            history.push(`/${e.id}`,{update:{isTv},id:e.id})
+                                            history.push(`/${e.id}`,{id:e.id})
                         }}
                     />
                                 <p>{e.id}</p>

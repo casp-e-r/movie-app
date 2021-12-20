@@ -5,7 +5,7 @@ import Tv from './Tv'
 
 
 function Container() {
-    const [category, setCategory] = useState(1)
+    const [category, setCategory] = useState(0)
     useEffect(() => {
         const showData=window.localStorage.getItem('show')
         setCategory(JSON.parse(showData))    
@@ -23,17 +23,17 @@ function Container() {
             
                 <div className='toggle'>
                 {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
-                <button onClick={() => setCategory(0)} >
+                <button onClick={() => setCategory(1)} >
                     tv
                 </button>
-                <button onClick={() => setCategory(1)}>
+                <button onClick={() => setCategory(0)}>
                     movie
                 </button>
 
             </div>
             
                 
-            {category===1 ? <Movie /> : <Tv/> }
+            {category===0 ? <Movie /> : <Tv/> }
 
 
 
