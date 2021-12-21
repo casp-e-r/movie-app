@@ -13,6 +13,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
     const [VideoModal, setVideoModal] = useState(false)
     const [modal, setModal] = useState(false)
     useEffect(() => {
+        setVideo('')
         axios.get(`/${TvMovie}/${ID}}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
             console.log(res.data.results);
             res.data.results.map(e=>{
@@ -38,13 +39,11 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
           fill: '#fff'
         }
       };
-    
 
     // video[0] && console.log(video[0].key.length)
-    
     return (
         <div className='Trailer-outer'>
-            {console.log(video,ID)}
+            {/* {console.log(video,ID)} */}
             <div>
             <ModalVideo
             channel="youtube"
@@ -69,7 +68,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
           Search in Youtube
         </a>
       </Modal>
-                <button onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>s</button>
+            <button onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>s</button>
             </div>
         </div>
     )

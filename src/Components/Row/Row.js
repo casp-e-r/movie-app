@@ -30,7 +30,7 @@ function Row({title,url,isLarge=false}) {
                     key={obj.id}
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path} alt={obj.name}
                     onClick={()=>{
-                        history.push(`/${obj.id}`,{update:{isTv},id:obj.id})
+                        history.push(`/${obj.id}`,{id:obj.id})
                         
                     }}
                     /> 

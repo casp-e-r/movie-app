@@ -1,26 +1,41 @@
 
 
 .banner-content{
-    opacity: .6;
+    /* opacity: .6;
     object-fit: contain;
-    position: relative;
+    position: relative; */
     height: 85vh;
     width: 100%;    
     
     
 }
+.banner-backdrop{
+    height: 100%;
+}
+.banner-backdrop img{
+    opacity: 0.4;
+    object-position: top;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
 
 
 .banner-details{
-
-    position: relative;
+    cursor: default;
+    position: absolute;
     bottom: 0;
-    padding: 10% 3% 4% 4%;
+    text-align: left;
+    font-size: .9rem;
+    padding: 0 50% 10% 6%;
 }
 .fade-bottom{
     z-index: 99;
     position: absolute;
     bottom: 0;
+    height: 15%;
+    width: 100%;
     background-image: linear-gradient(180deg,transparent,rgba(20, 20, 20, 0.849),#111);  
 } 
 @media screen and (max-width:890px) {

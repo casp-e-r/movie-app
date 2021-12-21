@@ -6,23 +6,19 @@ import requests from "../../requests";
 import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { shuffleArray } from "../../helpers/helper";
+import { useHistory } from 'react-router';
+// import Carousel from "react-responsive-carousel/lib/js/components/Carousel/index";
 
 function Banner() {
       const [movie, setMovie] = useState()
-      
-    //   const [category, setCategory] = useState(1)
-    //   //const [url, setUrl] = useState()
-    //   useEffect(() => {
-    //     const showData=window.localStorage.getItem('show')
-    //     setCategory(JSON.parse(showData))    
-    // },[])
+        let history = useHistory()
+
     useEffect(() => {
         
         axios.get(requests.Trending).then((response)=>{
             const s=shuffleArray(response.data.results)
             setMovie(s)
             // const responses=response.data.results[Math.floor(Math.random()*response.data.results.length-1)]
-            // setMovie(responses)
         }).catch(err=>{console.log(err);}) 
         
     }, [])
@@ -36,29 +32,31 @@ function Banner() {
         className='carousel'
         autoPlay
         infiniteLoop
-        showArrows={false}
+        showArrows={true}
         showStatus={false}
         showIndicators={true}
         showThumbs={false}
         interval={5000}
+        emulateTouch={true}
+        transitionTime={500}
+        swipeScrollTolerance={10}
         swipeable={true}>
         {movie && movie.map(movie=>{
                 
-                return<div className='banner-content' 
-                style={{
-                    backgroundBlendMode:'normal',
-                    backgroundSize:'cover',
-                    
-                    backgroundImage:`url(${movie? imageUrl+movie.backdrop_path:""})`,  
-                   }}
-                >
-                        {/* <div className='banner-backdrop'>
+                return<div className='banner-content' >
+                        <div className='banner-backdrop'>
                             <img src={movie? imageUrl+movie.backdrop_path:""}/>
-                        </div> */}
+                        <div className='fade-bottom'></div>
+                        </div>
                         <div className='banner-details'>
                             <h1>{movie ? movie.name || movie.original_name || movie.title :""}</h1>
+                            <p>{truncate(movie.overview,200)}</p>
+                            {console.log(movie)}
+                            <button onClick={()=>{
+                                    history.push(`/${movie.id}`,{id:movie.id})
+                        
+                    }}  >view </button>
                         </div>
-                        <div className='fade-bottom'></div>
 
                     </div>
             
