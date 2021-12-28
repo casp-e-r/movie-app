@@ -21,7 +21,13 @@ function Row({title,url,isLarge=false}) {
     return (
         
         <div className="row" >
-            <h2>{title}</h2>
+            <div className='row-header'>
+                <h2>{title}</h2>
+                <p onClick={()=>{
+                        history.push(`/${title}`,{title:title})
+                        
+                    }}>...</p>
+            </div>
             <div className="posters">
                 {movies && movies.map((obj)=>
                      <div className='poster'>
@@ -30,7 +36,7 @@ function Row({title,url,isLarge=false}) {
                     key={obj.id}
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path} alt={obj.name}
                     onClick={()=>{
-                        history.push(`/${obj.id}`,{id:obj.id})
+                        history.push(`/view/${obj.id}`,{id:obj.id})
                         
                     }}
                     /> 

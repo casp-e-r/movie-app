@@ -3,7 +3,7 @@ const API_KEY = '57b782ed1e57b332740e30da5d75e862'
 const requests={
     movie:{
         TopRated:`/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
-        Popular:`/movie/popular?api_key=${API_KEY}&language=en-US&page=1`,
+        Popular:`/movie/popular?api_key=${API_KEY}&language=en-US`,
         Latest:`/movie/latest?api_key=${API_KEY}&language=en-US`,
         Action:`/discover/movie?api_key=${API_KEY}&with_genres=28`,
         Comedy:`/discover/movie?api_key=${API_KEY}&with_genres=35`,

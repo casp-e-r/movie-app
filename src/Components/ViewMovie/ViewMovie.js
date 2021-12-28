@@ -25,6 +25,7 @@ function ViewMovie() {
     const [TvMovie, setTvMovie] = useState('tv')
     
     useEffect(() => {
+        
         if (isTv ===1 ) {
             setTvMovie('tv')
             // isTv=true
@@ -37,12 +38,13 @@ function ViewMovie() {
         axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
             setMovie(res.data)
         }).catch()
-    }, [ID, TvMovie])
+    }, [ID, TvMovie,isTv])
     useEffect(() => {
         if (movie && isTv) { //state.isTv
             setTv(movie)
         }
     })
+    
     
     useEffect(() => {
         if (movie.origin_country && movie.origin_country.length !== 0) {
@@ -132,7 +134,7 @@ function ViewMovie() {
                                     <Trailer 
                                     ID={ID} 
                                     TvMovie={TvMovie}
-                                    releaseYear={movie?.release_date || '0'}
+                                    releaseYear={movie?.release_date || movie.first_air_date ||'0'}
                                     name={movie ? movie.name || movie.original_name || movie.title : ""}
                                     />
 
@@ -209,7 +211,7 @@ function ViewMovie() {
                         return  <div className='recomm-movie'>
                                 <img src={imageUrl+e.poster_path} alt='' 
                                 onClick={()=>{
-                                            history.push(`/${e.id}`,{id:e.id})
+                                            history.push(`/view/${e.id}`,{id:e.id})
                         }}
                     />
                                 <p>{e.id}</p>

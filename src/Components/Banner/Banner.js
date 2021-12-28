@@ -25,7 +25,11 @@ function Banner() {
     function truncate(string, n){
         return string?.length>n ?string.substr(0,n-1) +'...':string;
     }
-    
+    const handleView=(movie)=>{
+        history.push(`/view/${movie.id}`,{id:movie.id})
+        window.localStorage.setItem('show',JSON.stringify(movie.media_type==='tv' ? 1:0))
+
+    }
     return (
         <div className='banner'>
         <Carousel
@@ -51,11 +55,7 @@ function Banner() {
                         <div className='banner-details'>
                             <h1>{movie ? movie.name || movie.original_name || movie.title :""}</h1>
                             <p>{truncate(movie.overview,200)}</p>
-                            {console.log(movie)}
-                            <button onClick={()=>{
-                                    history.push(`/${movie.id}`,{id:movie.id})
-                        
-                    }}  >view </button>
+                            <button onClick={()=>handleView(movie)}  >view </button>
                         </div>
 
                     </div>

@@ -8,11 +8,15 @@ import  Tv from "./context";
 import ViewMovie from "./Components/ViewMovie/ViewMovie";
 import Episodes from "./Components/Episodes/Episodes";
 import Footer from "./Components/Footer/Footer";
-import Banner1 from './Components/Banner/Banner1'
+import axios from "./axios";
+import { API_KEY } from "./constants/constants";
+
 
 
 function App() {
   
+  // axios.get(`/search/multi?api_key=${API_KEY}&language=en-US&query=ss&page=1&include_adult=false`).then(e=>
+  //   console.log(e.data.results))
   return (
     <div className="App">
       
@@ -21,14 +25,16 @@ function App() {
           <Navbar />
           <Route exact path='/'>
             <Banner />
-            {/* <Banner1/> */}
             <Container />
           </Route>
-          <Route path='/:id'>
+          <Route path='/view/:id'>
             <Tv>
             <ViewMovie />
             {/* <Episodes/> */}
             </Tv>
+          </Route>
+          <Route exact path='/:title'>
+            <Banner/>
           </Route>
         
       </Router>

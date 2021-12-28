@@ -15,7 +15,6 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
     useEffect(() => {
         setVideo('')
         axios.get(`/${TvMovie}/${ID}}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
-            console.log(res.data.results);
             res.data.results.map(e=>{
                 if (e.type==='Trailer' || 'Teaser'  && e.site==='Youtube') {
                     setVideo(e)
@@ -23,8 +22,9 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
             })
         })
         
-    }, [ID,TvMovie])
+    }, [ID,TvMovie,window])
     const youtube = 'https://www.youtube.com/results?search_query=';
+   
     const modalStyle = {
         modal: {
           background: '#0f1214',
@@ -63,12 +63,13 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         <p>View in youtube instead</p>
         <a
           className="modal__link"
-          href={`${youtube + name + getYear(releaseYear)}`}
+          href={`${youtube + name +' '  + getYear(releaseYear)}`}
           target="_blank">
           Search in Youtube
         </a>
+        
       </Modal>
-            <button onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>s</button>
+            <button onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>T R A I L E R</button>
             </div>
         </div>
     )

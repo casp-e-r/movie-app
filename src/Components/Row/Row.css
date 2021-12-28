@@ -5,6 +5,12 @@
     color: #fff;  
     
 }
+.row-header{
+    display: flex;
+}
+.row-header p{
+    padding: 0 1%;
+}
 .posters{
     display: flex;
     overflow-y: hidden;

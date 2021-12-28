@@ -2,10 +2,14 @@ import React from 'react'
 import  Row  from "../Row/Row";
 import  requests  from "../../requests";
 import  './C.css'
+import axios from '../../axios';
+import { API_KEY } from '../../constants/constants';
 
 function Movie() {
 
-
+    axios.get(`${requests.movie.Drama}&page=2`).then(e=>{
+        console.log(e);
+    })
     return (
         <div>
             <Row title='Popular' url={requests.movie.Popular} isLarge />
