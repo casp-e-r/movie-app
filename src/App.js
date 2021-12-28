@@ -10,6 +10,7 @@ import Episodes from "./Components/Episodes/Episodes";
 import Footer from "./Components/Footer/Footer";
 import axios from "./axios";
 import { API_KEY } from "./constants/constants";
+import ViewTitle from "./Components/ViewTitle/ViewTitle";
 
 
 
@@ -34,7 +35,7 @@ function App() {
             </Tv>
           </Route>
           <Route exact path='/:title'>
-            <Banner/>
+            <ViewTitle/>
           </Route>
         
       </Router>

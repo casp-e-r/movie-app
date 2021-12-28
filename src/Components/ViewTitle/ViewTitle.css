@@ -1,0 +1,13 @@
+.view-title-container{
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+}
+.view-title-container div{
+   
+    min-width: 180px;
+    max-width: 300px;
+    flex-basis: 14%;
+    padding: 2% 3%;
+}

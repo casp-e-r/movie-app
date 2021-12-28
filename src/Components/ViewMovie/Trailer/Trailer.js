@@ -13,7 +13,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
     const [VideoModal, setVideoModal] = useState(false)
     const [modal, setModal] = useState(false)
     useEffect(() => {
-        setVideo('')
+        setVideo([])
         axios.get(`/${TvMovie}/${ID}}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
             res.data.results.map(e=>{
                 if (e.type==='Trailer' || 'Teaser'  && e.site==='Youtube') {

@@ -24,8 +24,7 @@ function Row({title,url,isLarge=false}) {
             <div className='row-header'>
                 <h2>{title}</h2>
                 <p onClick={()=>{
-                        history.push(`/${title}`,{title:title})
-                        
+                        history.push(`/${title}`,{title:title,url:url })     
                     }}>...</p>
             </div>
             <div className="posters">
@@ -36,8 +35,7 @@ function Row({title,url,isLarge=false}) {
                     key={obj.id}
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path} alt={obj.name}
                     onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})
-                        
+                        history.push(`/view/${obj.id}`,{id:obj.id})     
                     }}
                     /> 
                     <div className='poster-overlay'>
