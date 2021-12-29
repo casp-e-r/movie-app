@@ -13,17 +13,20 @@ function ViewTitle() {
     const title=location.state.title
     const url = location.state.url  
     const history=useHistory()
-    
+    const handleScroll=(e)=>{
+        const {scrollTop,clientHeight,scrollHeight}=e.currentTarget
+        console.log(scrollTop,clientHeight,scrollHeight);
+    }
     useEffect(() => {
         axios.get(url+`&page=${page}`).then(e=>{
             console.log(e.data.results,page);
-            setResults(results=>[...results,e.data.results])
+            setResults(results=>[...results,...e.data.results])
         })   
     }, [page,setResults,url])
     console.log(results);
     return (
         <div >
-            <div className='view-title-container'>
+            <div className='view-title-container' onScroll={handleScroll}>
 
             
             {results && results.map((obj)=>
