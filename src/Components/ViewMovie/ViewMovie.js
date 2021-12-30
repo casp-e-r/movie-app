@@ -10,6 +10,7 @@ import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
 import {IoIosReturnLeft} from 'react-icons/io'
 import {AiOutlineGlobal} from 'react-icons/ai'
+import Cast from './Cast/Cast';
 
 
 
@@ -57,8 +58,6 @@ function ViewMovie() {
         // axios.get(`/${TvMovie}/${ID}}/images?api_key=${API_KEY}&language=en-US&include_image_language=en,null`).then(res=>{
         //     console.log(res.data);
         // })
-        
-        
         //cast :seperate for tv and movie to get 'character name'
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
             // console.log(res.data);
@@ -68,7 +67,9 @@ function ViewMovie() {
                     return ({
                         'name': o.original_name,
                         'character': ob[0],
-                        'img': o.profile_path})
+                        'img': o.profile_path,
+                        'gender':o.gender
+                    })
                 })
                 setCast(obj)
             }else{
@@ -76,7 +77,9 @@ function ViewMovie() {
                     return ({
                         'name': o.original_name,
                         'character': o.character,
-                        'img': o.profile_path})
+                        'img': o.profile_path,
+                        'gender':o.gender
+                    })
                 })
                 setCast(obj)
             }
@@ -190,7 +193,7 @@ function ViewMovie() {
                    
                 </div>
                 
-                <div className='view-cast-creator'>
+                {/* <div className='view-cast-creator'>
                     {isTv ? <h1>created by</h1>:null}
                 {movie.created_by && 
                     <div className='creator'>
@@ -211,7 +214,8 @@ function ViewMovie() {
                     </div>
                     
                     
-                </div>
+                </div> */}
+                <Cast creator={movie.created_by} cast={cast}/>
             </div>
             <div className='inner-container-3'>
                 <>

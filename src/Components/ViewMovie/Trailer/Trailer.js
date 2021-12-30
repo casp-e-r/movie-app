@@ -8,6 +8,7 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import './Trailer.css'
 import {BsFillPlayFill} from 'react-icons/bs'
+import {ImYoutube2} from 'react-icons/im'
 
 
 
@@ -30,7 +31,8 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
    
     const modalStyle = {
         modal: {
-          background: '#0f1214',
+          // background: '#0f1214',
+          background:'#000',
           padding: '50px',
           borderRadius: '6px'
         },
@@ -47,7 +49,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
     return (
         <div className='Trailer-outer'>
             {/* {console.log(video,ID)} */}
-            <div>
+            <div className='trailer-search'>
             <ModalVideo
             channel="youtube"
             modalVideo="movie-modal-video"
@@ -57,6 +59,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
             videoId={video.length!=0 && video.key}
              />
               <Modal
+              className='Modal'
                 center
                 onClose={()=>setModal(false)}
                 open={modal}
@@ -64,11 +67,16 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
                 >
         <h2>No Trailer Found</h2>
         <p>View in youtube instead</p>
+        
+        
         <a
           className="modal__link"
           href={`${youtube + name +' '  + getYear(releaseYear)}`}
           target="_blank">
-          Search in Youtube
+        <ImYoutube2 
+          color='red' 
+          size={70}/>
+          
         </a>
         
       </Modal>

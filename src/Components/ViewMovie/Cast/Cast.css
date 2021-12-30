@@ -1,0 +1,34 @@
+.view-cast-creator{
+    margin: 5% 2%;
+    display: flex;
+    flex-direction: column; 
+    width: 100%;   
+}
+.view-cast-creator h1{
+    font-size: 1rem;
+}
+.creator{
+    display:flex;
+    flex-direction: row;
+}
+.cast{
+    display: grid;   
+    grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
+}
+.view-cast-creator img{
+    width: 100px;
+    border-radius: 5%;
+}
+.profile-img{ 
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 120px;
+    margin: 10px;
+}
+.profile-img p{
+    font-size: .9rem;
+}
+.profile-img p1{
+    color: rgba(177, 177, 177, 0.829);
+    font-size: .7rem;
+}
