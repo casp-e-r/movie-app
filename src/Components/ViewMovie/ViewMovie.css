@@ -105,20 +105,6 @@
    
 }
 
-.recomm{
-    
-    padding: 10px;
-    color: bisque;
-    display: flex;
-    flex-direction: row;
-}
-.recomm-movie{
-    padding: 0.3% 1%;
-}
-.recomm-movie img{
-    width: 200px;
-}
-
 
 
 

@@ -6,7 +6,7 @@ import {imageUrl} from '../../constants/constants'
 
 
 
-function Row({title,url,isLarge=false}) {
+function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
     let history = useHistory()
     const isTv=window.localStorage.getItem('show')   
@@ -23,9 +23,10 @@ function Row({title,url,isLarge=false}) {
         <div className="row" >
             <div className='row-header'>
                 <h2>{title}</h2>
+                {more &&
                 <p onClick={()=>{
                         history.push(`/${title}`,{title:title,url:url })     
-                    }}>...</p>
+                    }}>...</p>}
             </div>
             <div className="posters">
                 {movies && movies.map((obj)=>

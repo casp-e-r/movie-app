@@ -7,6 +7,7 @@ import unknown from "../../images/unknown.jpg"
 import { useLocation } from 'react-router'
 import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
+import Row from '../Row/Row';
 
 
 
@@ -204,20 +205,7 @@ function ViewMovie() {
             </div>
             <div className='inner-container-3'>
                 <>
-                    <h1>reccommended</h1>
-                    <div className='recomm'>
-
-                    {recommend && recommend.map(e=>{
-                        return  <div className='recomm-movie'>
-                                <img src={imageUrl+e.poster_path} alt='' 
-                                onClick={()=>{
-                                            history.push(`/view/${e.id}`,{id:e.id})
-                        }}
-                    />
-                                <p>{e.id}</p>
-                            </div>
-                    })}
-                    </div>
+                    <Row title={'reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
                 </>
             </div>
         </div>
