@@ -37,7 +37,7 @@ function ViewMovie() {
     useEffect(() => {
         axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
             setMovie(res.data)
-        }).catch()
+        }).catch(err=>console.log(err))
     }, [ID, TvMovie,isTv])
     useEffect(() => {
         if (movie && isTv) { //state.isTv
@@ -129,7 +129,7 @@ function ViewMovie() {
                                 </div>
                                 <div className='view-overview'>
                                     <label>Overview</label>
-                                    <h5>{movie.overview}</h5>
+                                    <h4>{movie.overview}</h4>
                                 </div>
                                 <div className='view-btns'>
                                     <Trailer 
@@ -151,11 +151,11 @@ function ViewMovie() {
                         <h5>release date</h5>
                         {isTv ? <p>{movie.first_air_date}</p>:<p>{movie.release_date}</p>}
                     </div>
-                    <div>
+                    {movie.homepage && movie.homepage.length!=0 ? <div>
                         <h5>home page</h5>
-                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer">home page<AiOutlineGlobal
+                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer"><AiOutlineGlobal
                         style={{color:'#fff'}}/></a>
-                    </div>
+                    </div>:null}
                     <div>
                         <h5>genres</h5>
                         {movie.genres && movie.genres.map(e=>
@@ -181,13 +181,13 @@ function ViewMovie() {
                         {country && <p>{country}</p>}
                         {/* tv only */}
                     </div>:null}
-                    <div> 
-                        {movie.networks && movie.networks.map(e=>
+                     
+                    {movie.networks && movie.networks.map(e=>
                             {return<div>
                                  <img src={imageUrl + e.logo_path} width='90px'/>
                                 <p>{e.name}</p>
                                 </div>})}
-                    </div>
+                   
                 </div>
                 
                 <div className='view-cast-creator'>
@@ -215,7 +215,7 @@ function ViewMovie() {
             </div>
             <div className='inner-container-3'>
                 <>
-                    <Row title={'reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
+                    <Row title={'Reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
                 </>
             </div>
         </div>
