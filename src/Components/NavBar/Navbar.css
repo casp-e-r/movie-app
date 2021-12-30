@@ -13,9 +13,15 @@
     background-color: #151515;
 }
 .nav_content{
+    width: 100%;
+    margin: auto;
     display: flex;
     position: relative;
     justify-content: space-between;
+}
+.nav_content div{
+  position: absolute;
+  top: 0;
 }
 .logo{
     position:fixed;
@@ -32,13 +38,14 @@
     color: #fff;
 }
 .search-box{
-    /* position: absolute; */
-    /* right: 0; */
-    margin-right: 20px;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-right: 60px;
     width: fit-content;
     height: 20px;
     height: fit-content;
-    position: relative;
+    /* position: relative; */
   }
   .input-search{
     height: 20px;
@@ -50,7 +57,7 @@
     outline: none;
     border-radius: 25px;
     transition: all .5s ease-in-out;
-    background-color: #22a6b3;
+    background-color: transparent;
     padding-right: 40px;
     color:#fff;
   }

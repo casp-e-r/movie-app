@@ -25,7 +25,10 @@ function ViewTitle() {
     }, [page,setResults,url])
     console.log(results);
     return (
-        <div >
+        <div className='view-title' >
+            <div>
+                <h1>{title}</h1>
+            </div>
             <div className='view-title-container' onScroll={handleScroll}>
 
             
