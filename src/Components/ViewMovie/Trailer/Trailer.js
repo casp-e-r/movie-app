@@ -31,7 +31,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
    
     const modalStyle = {
         modal: {
-          // background: '#0f1214',
+          textAlign:'center',  
           background:'#000',
           padding: '50px',
           borderRadius: '6px'
@@ -45,11 +45,10 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         }
       };
 
-    // video[0] && console.log(video[0].key.length)
+
     return (
         <div className='Trailer-outer'>
-            {/* {console.log(video,ID)} */}
-            <div className='trailer-search'>
+            <div >
             <ModalVideo
             channel="youtube"
             modalVideo="movie-modal-video"
@@ -59,24 +58,20 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
             videoId={video.length!=0 && video.key}
              />
               <Modal
-              className='Modal'
                 center
                 onClose={()=>setModal(false)}
                 open={modal}
                 styles={modalStyle}
                 >
         <h2>No Trailer Found</h2>
-        <p>View in youtube instead</p>
-        
-        
+        <p>View in youtube instead</p>  
         <a
           className="modal__link"
           href={`${youtube + name +' '  + getYear(releaseYear)}`}
           target="_blank">
         <ImYoutube2 
           color='red' 
-          size={70}/>
-          
+          size={70}/>  
         </a>
         
       </Modal>
