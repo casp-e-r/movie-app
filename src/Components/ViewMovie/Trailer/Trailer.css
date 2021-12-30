@@ -2,3 +2,18 @@
     width: 100%;
     height: 100%;
 }
+.Trailer-outer .btn{
+    gap: 21px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 2%;
+    transition: all 0.9s linear 0s;
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+.Trailer-outer .btn:hover{
+    background-color: #000;
+
+}

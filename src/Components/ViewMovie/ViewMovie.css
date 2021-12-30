@@ -24,19 +24,35 @@
     height: 100%;
 }
 .view-details-container{
-    padding: 20% 0 2% 2%;
+    padding: 15% 0 2% 2%;
     width: 100%;
     position: relative;
     display: flex;
     flex-direction: column;
 
 }
+.back {
+    width: min-content;
+    color: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    outline:  none;
+    display: flex;
+    align-items: center;
+    padding:0 0 5% 8%;
+}
+.back h1{
+    margin-left: 2%;
+    font-size: 1rem;
+}
 .view-details-wrapper{
     margin: 0 5%;
-    width: 80%;
+    width: 90%;
     position: relative;
     display: flex 
 }
+
 .view-poster{
     min-width: 200px;
     object-fit: contain;
@@ -50,10 +66,42 @@
     position: relative;
 }
 .view-details{
-    padding: 8% 4%;
+    width: 100%;
+    padding: 5% 4%;
     flex-direction: column;
     color: #fff;
     margin-top: auto;
+}
+.view-details .view-name{
+    letter-spacing: .1rem;
+}
+.view-details .tagline{
+    font-family: 'Nunito Sans', sans-serif;
+    margin: .7%  ;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+    font-style: oblique;
+    font-size: 0.8rem;
+    font-weight: bolder;
+}
+.view-details .genres{
+    display: flex;
+    margin: .1% 0 ;
+}
+.view-details .genres p{
+    margin-right: 1% ;
+    padding: 1% 2%;
+    background-color: rgba(8, 8, 8, 0.39);
+    border-radius: 15px;
+    border: .11rem solid #fff;
+    font-size: .9rem;
+}
+.view-details .view-overview{
+    padding: 1% 0;
+    line-height: 2;
+}
+.view-details .view-overview label{
+    margin: 2% 0;
 }
 .inner-container-2{
     display: flex;
@@ -84,10 +132,8 @@
     flex-direction: row;
 }
 .cast{
-    display: grid;
-    
+    display: grid;   
     grid-template-columns: repeat(auto-fit, minmax(120px, 2fr));
-    /* grid-template-rows: repeat(auto-fit, minmax(120px, 2fr)) ;     */
 }
 .view-cast-creator img{
     width: 100px;
@@ -105,69 +151,11 @@
    
 }
 
-
-
-
-
-/* .movie-details-info{
-    width: 60%;
-    padding: 50px ;
-}
-.movie-details-poster{
-    margin:auto;
-    text-align: center;
-    
-}
-.movie-details-poster img{
-    width: 400px;
-}
-.movie-details h5{
-    margin: 10px;
-    font-size: 20px;
-    color: #ffffff;
-}
-.movie-details h1{
-    color: #ffffff;
-    font-size: 70px;
-    margin: 10px;
-    
-}
-.cast-container{
-    margin-top: 50px;
-}
-
-.cast img{
-    width: 100px;
-}
-
-.cast-inner-container{
-    background-color: transparent;
-    color: rgb(255, 255, 255);
-    font-size: small;
-    display: flex;
-    overflow-y: hidden;
-    overflow-x: auto;
-    padding: 9px;
-    width: 90%;
-    margin-top: 20px;
-    
-}
-.cast{
-    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-    font-size: 12px;
-    padding: 3px;
-}
-.movie-details-season{
-    color: #ffffff;
-    font-size: medium;
-    padding:50px;
-    display: inline-block;
-    
-} */
 @media screen and (max-width:890px) {
     .inner-container-1{
         width: 100%;
     }
+ 
     .viewbanner {
         top: 0;
         position:absolute;
@@ -182,7 +170,12 @@
         object-fit: fill;
         height: auto;    
     }
+    .view-details-container{
+        padding:22% 0 0 0;
+    }
     .view-details-wrapper{
+       
+        width: auto;
         top: 40%;
         flex-direction: column;
     }
@@ -190,21 +183,41 @@
         padding: 5% 1% 5% 2%;
         gap: 10px;
         margin: auto;
+        font-size:xx-small;
+    }
+    
+    .view-details .view-overview{
+        letter-spacing: .1em;
+        font-size: small;   
+        font-weight: lighter;
+        
     }
     .inner-container-2{
         flex-direction: column;
     }
     .view-more-info{
-        display: flex;
+        /* display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
+        flex-wrap: wrap; */
+        display: grid;
+        grid-template-columns: repeat(2,50%);
+        justify-content: stretch;
         width: 100%;
     }
     .view-more-info div{
-        margin: auto;
-        padding: 5% 1%;
-        width: auto;
+        text-align: start;
+        /* margin: auto; */
+        margin: 5% 1%;
+        width: 200px;
+        height: 10%;
     }
+    .view-more-info a a:link a:visited{
+        color: #fff;    
+    }
+    .view-more-info h5{
+        padding: 1% 0;
+    }
+    
     .view-cast-creator{
         justify-content: center;
     }

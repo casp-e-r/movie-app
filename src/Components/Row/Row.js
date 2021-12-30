@@ -39,9 +39,9 @@ function Row({title,url,isLarge=false,more=true}) {
                         history.push(`/view/${obj.id}`,{id:obj.id})     
                     }}
                     /> 
-                    <div className='poster-overlay'>
+                    {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                    </div>
+                    </div>}
                     </div>                          
                 )}
                 

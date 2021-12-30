@@ -8,6 +8,8 @@ import { useLocation } from 'react-router'
 import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
+import {IoIosReturnLeft} from 'react-icons/io'
+import {AiOutlineGlobal} from 'react-icons/ai'
 
 
 
@@ -15,7 +17,6 @@ import Row from '../Row/Row';
 function ViewMovie() {
 
     const [country, setCountry] = useState('')
-    const [recommend, setRecommend] = useState([])
     const [cast, setCast] = useState([])
     const [movie, setMovie] = useState([])
     const { setTv } = useContext(TvContext)
@@ -29,10 +30,8 @@ function ViewMovie() {
         
         if (isTv ===1 ) {
             setTvMovie('tv')
-            // isTv=true
         } else if(isTv===0) {
-            setTvMovie('movie')
-            // isTv=false   
+            setTvMovie('movie')  
         }
     }, [isTv,setTvMovie])
     useEffect(() => {
@@ -59,9 +58,7 @@ function ViewMovie() {
         //     console.log(res.data);
         // })
         
-        axios.get(`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`).then(e=>{
-            setRecommend(e.data.results)
-        })
+        
         //cast :seperate for tv and movie to get 'character name'
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
             // console.log(res.data);
@@ -83,7 +80,7 @@ function ViewMovie() {
                 })
                 setCast(obj)
             }
-        }).catch()
+        }).catch(err=>console.log(err))
     }, [ID, TvMovie, country,movie.origin_country])
     // useEffect(() => {
     //     if (state.isTv && movie.seasons) {
@@ -93,7 +90,7 @@ function ViewMovie() {
     //         setSeasons(obj)
     //     }
     // })
-    // console.log(movie.seasons);
+    console.log(movie);
     
 
     return (
@@ -103,8 +100,12 @@ function ViewMovie() {
                     <img src={imageUrl + movie.backdrop_path}></img>  
                 </div>
                 <div className='view-details-container'>
-                        <div className='back'>
-                            <h1>back</h1>
+                        <div className='back'
+                               onClick={history.goBack} 
+                                >
+                                <IoIosReturnLeft size={50}/>
+                                <h1> back</h1>
+                                
                         </div>
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
@@ -115,11 +116,11 @@ function ViewMovie() {
                                     <h1>{movie ? movie.name || movie.original_name || movie.title : ""}</h1>
                                 </div>
                                 {movie.tagline &&
-                                <div >
+                                <div className='tagline' >
                                     <p>{movie.tagline}</p>
                                 </div>
                                 }
-                                <div style={{display:'flex'}}>
+                                <div className='genres'>
                                     {movie.genres && movie.genres.map(e=>
                                     {return<p>{e.name}</p>})}
                                 </div>
@@ -131,7 +132,6 @@ function ViewMovie() {
                                     <h5>{movie.overview}</h5>
                                 </div>
                                 <div className='view-btns'>
-                                    {/* <button>trailer</button> */}
                                     <Trailer 
                                     ID={ID} 
                                     TvMovie={TvMovie}
@@ -148,40 +148,50 @@ function ViewMovie() {
                 <div className='view-more-info'>
 
                     <div>
-                        <p>release date</p>
-                        <p>{movie.first_air_date}</p>
+                        <h5>release date</h5>
+                        {isTv ? <p>{movie.first_air_date}</p>:<p>{movie.release_date}</p>}
                     </div>
                     <div>
-                        <p>home page</p>
-                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer">h</a>
+                        <h5>home page</h5>
+                        <a href={movie.homepage} target="_blank" rel="noopener noreferrer">home page<AiOutlineGlobal
+                        style={{color:'#fff'}}/></a>
                     </div>
                     <div>
-                        <p>genres</p>
+                        <h5>genres</h5>
                         {movie.genres && movie.genres.map(e=>
                             {return<p>{e.name}</p>})}
                     </div>
                     <div>
-                        <p>language</p>
+                        <h5>language</h5>
                         <p>{movie.original_language}</p>
                     </div>
-                    <div>
-                        <p>runtime/no of seasons</p>
-                    </div>
-                    <div>
-                        <p>origin country</p>
+                    
+                        {isTv ? <div>
+                            <h5>number of seasons</h5>
+                            <p>{movie.number_of_seasons}</p>
+                            </div>
+                            :<div> 
+                                <h5>runtime</h5>
+                                <p>{movie.runtime} minutes</p>
+                            </div>}
+                        
+                    
+                    {isTv ? <div>
+                        <h5>origin country</h5>
                         {country && <p>{country}</p>}
                         {/* tv only */}
-                    </div>
+                    </div>:null}
                     <div> 
                         {movie.networks && movie.networks.map(e=>
                             {return<div>
                                  <img src={imageUrl + e.logo_path} width='90px'/>
+                                <p>{e.name}</p>
                                 </div>})}
                     </div>
                 </div>
                 
                 <div className='view-cast-creator'>
-                    <h1>created by</h1>
+                    {isTv ? <h1>created by</h1>:null}
                 {movie.created_by && 
                     <div className='creator'>
                             {movie.created_by.map(e=>{return<div className='profile-img'>

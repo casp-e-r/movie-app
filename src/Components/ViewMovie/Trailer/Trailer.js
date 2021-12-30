@@ -6,6 +6,9 @@ import ModalVideo from 'react-modal-video'
 import 'react-modal-video/css/modal-video.css'
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
+import './Trailer.css'
+import {BsFillPlayFill} from 'react-icons/bs'
+
 
 
 function Trailer({TvMovie,ID,name,releaseYear}) {
@@ -20,7 +23,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
                     setVideo(e)
                 }
             })
-        })
+        }).catch(err=>console.log(err))
         
     }, [ID,TvMovie,window])
     const youtube = 'https://www.youtube.com/results?search_query=';
@@ -69,7 +72,9 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         </a>
         
       </Modal>
-            <button onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>T R A I L E R</button>
+            <button className='btn' onClick={()=>video.length===0?setModal(true):setVideoModal(true)}>
+              T R A I L E R 
+              <BsFillPlayFill/></button>
             </div>
         </div>
     )
