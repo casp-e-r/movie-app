@@ -16,7 +16,7 @@ function Navbar() {
     }
     const handleSubmit=(e)=>{
             search.length!=0  && 
-            history.push(`/search/${search}`,{query:search})
+            history.push(`/search/${search}`)
 
     }
     useEffect(() => {

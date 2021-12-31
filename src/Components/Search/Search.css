@@ -1,0 +1,9 @@
+.search-grid-wrapper{
+    padding: 0 10px;
+    margin: auto;
+    max-width: 1200px;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(5,20%) 
+}
