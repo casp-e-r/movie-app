@@ -7,9 +7,9 @@
 .row-header div{
     height: 100%;
     cursor: pointer;
-    gap: 12%;
+    gap: 3%;
     display: flex;
-    width: 20%;
+    max-width: 35%;
 }
 .row-header:hover p{
     opacity: 1;
@@ -98,7 +98,7 @@
         font-size: 80%;
     }
     .img-backdrop{
-        max-height: 120px;
+        max-height: 150px;
     }
     .img-poster{
         max-height: 180px;

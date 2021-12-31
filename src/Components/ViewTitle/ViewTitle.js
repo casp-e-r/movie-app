@@ -1,6 +1,6 @@
 import axios from '../../axios'
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory, useLocation, useParams } from 'react-router'
 import requests from '../../requests'
 import './ViewTitle.css'
 import { imageUrl } from '../../constants/constants'
@@ -10,7 +10,8 @@ function ViewTitle() {
     const [results, setResults] = useState([])
     const [page, setPage] = useState(1)
     const location = useLocation()
-    const title=location.state.title
+    // const title=location.state.title
+    const {title}=useParams()
     const url = location.state.url  
     const history=useHistory()
     const handleScroll=(e)=>{

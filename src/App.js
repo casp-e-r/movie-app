@@ -11,6 +11,7 @@ import Footer from "./Components/Footer/Footer";
 import axios from "./axios";
 import { API_KEY } from "./constants/constants";
 import ViewTitle from "./Components/ViewTitle/ViewTitle";
+import Search from "./Components/Search/Search";
 
 
 
@@ -27,6 +28,9 @@ function App() {
           <Route exact path='/'>
             <Banner />
             <Container />
+          </Route>
+          <Route path='/search/:query'>
+            <Search/>
           </Route>
           <Route path='/view/:id'>
             <Tv>

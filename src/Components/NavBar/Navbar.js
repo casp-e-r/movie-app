@@ -6,6 +6,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 function Navbar() {
     let history = useHistory()
     const [show, handleShow] = useState(false)
+    const [search, setSearch] = useState('')
     const transitionNavBar = () => {
         if (window.scrollY > 100) {
             handleShow(true)
@@ -14,8 +15,8 @@ function Navbar() {
         }
     }
     const handleSubmit=(e)=>{
-            e.preventDefault()
-            console.log('1111');
+            search.length!=0  && 
+            history.push(`/search/${search}`,{query:search})
 
     }
     useEffect(() => {
@@ -25,6 +26,7 @@ function Navbar() {
             window.removeEventListener('scroll', transitionNavBar)
         }
     }, [])
+
     return (
         <div className={`nav ${ show && 'nav_black'}`}>
             <div className="nav_content">
@@ -35,9 +37,12 @@ function Navbar() {
                 <div class="search-box">
                     <button class="btn-search"
                     onClick={handleSubmit}>
-                    <BiSearchAlt2/>
+                    <BiSearchAlt2 />
                     </button>
-                    <input type="text" class="input-search" placeholder="Type to Search..." />
+                    <input 
+                    value={search}
+                    onChange={(e)=>setSearch(e.target.value)}
+                    type="text" class="input-search" placeholder=" Search..." />
                 </div>
 
 

@@ -27,7 +27,7 @@
 }
 @media screen and (max-width:890px) {
     .view-title-container{
-        margin: 0;
+        margin: o;
         justify-content: space-around;
         grid-template-columns: repeat(3,20%);
     }
