@@ -3,7 +3,7 @@ import './Footer.css'
 
 function Footer() {
     return (
-        <div className='container'>
+        <div className='footer-container'>
             <h3>powered by tmdb api</h3>
             
         </div>

@@ -37,6 +37,7 @@ function App() {
           <Route exact path='/:title'>
             <ViewTitle/>
           </Route>
+          {/* <Footer/> */}
         
       </Router>
      

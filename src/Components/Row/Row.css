@@ -2,15 +2,29 @@
 
 .row{
     margin-left: 20px ;
-    color: #fff;  
-    
+    color: #fff;      
 }
-.row-header{
+.row-header div{
+    height: 100%;
+    cursor: pointer;
+    gap: 12%;
     display: flex;
+    width: 20%;
+}
+.row-header:hover p{
+    opacity: 1;
+    transition: opacity ease .8s,transform ease .8s ;
+    transform: scale(1.5,1);
+    transform-origin: left;
 }
 .row-header p{
+    display: inline-block;
+    align-self: end;
+    opacity: 0;
     padding: 0 1%;
 }
+
+
 .posters{
     display: flex;
     overflow-y: hidden;
@@ -43,7 +57,7 @@
     backface-visibility: hidden;
 }
 .img-poster:hover{
-    transform: scale(1.07);
+    transform: scale(1.05);
     opacity: 1;
 }
 .img-backdrop:hover{
@@ -51,15 +65,17 @@
     opacity: 1;
 }
 .poster{
+    cursor: pointer;
     position: relative;
 }
 .poster-overlay{
-    cursor:default;
     text-align: center;
     color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
     bottom: 30%;
     left: 40%;
     font-size: 0.9rem;
+    font-weight: bolder;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     opacity: 0;
@@ -78,9 +94,18 @@
 
 
 @media screen and (max-width:890px) {
+    .row{
+        font-size: 80%;
+    }
+    .img-backdrop{
+        max-height: 120px;
+    }
     .img-poster{
         max-height: 180px;
         margin-right: 3px;
+    }
+    .poster-overlay{
+        font-size: .8rem;
     }
 
 }

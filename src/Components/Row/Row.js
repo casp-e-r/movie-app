@@ -3,6 +3,7 @@ import "./Row.css"
 import axios from "../../axios";
 import { useHistory } from "react-router-dom";
 import {imageUrl} from '../../constants/constants'
+import {IoIosMore} from 'react-icons/io'
 
 
 
@@ -22,11 +23,12 @@ function Row({title,url,isLarge=false,more=true}) {
         
         <div className="row" >
             <div className='row-header'>
-                <h2>{title}</h2>
-                {more &&
-                <p onClick={()=>{
+            {more ? <div onClick={()=>{
                         history.push(`/${title}`,{title:title,url:url })     
-                    }}>...</p>}
+                    }}>
+                <h2>{title}</h2>
+                <p><IoIosMore size={20}/></p>
+                    </div>:<h2>{title}</h2>}
             </div>
             <div className="posters">
                 {movies && movies.map((obj)=>
