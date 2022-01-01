@@ -1,9 +1,50 @@
+.search-view-container{
+    margin-top: 40px;
+}
+.search-view-inner{
+    /* padding: 1% 2%; */
+    margin: 10% 2% ;
+}
+.search-header{
+    margin: 2% 4%;
+}
+.search-tab,.active-search-tab{
+    margin: 1% 4% 5% 4%;
+    display: flex;
+    justify-content: start;
+    border-bottom: 1px solid rgba(131, 130, 130, 0.397);
+}
+.search-tab p:hover,.active-search-tab p:hover{
+    cursor: pointer;
+    background-color: rgba(123, 123, 172, 0.103);
+    transition: ease-in-out all .3s;
+}
+.active-tab {
+    background-color: rgba(123, 123, 172, 0.212);
+    transition: ease-in-out all .3s;
+}
+.search-tab p,.active-search-tab p{
+        padding: .5% 5% .5% .5%;
+}
 .search-grid-wrapper{
-    padding: 0 10px;
-    margin: auto;
-    max-width: 1200px;
     display: grid;
     justify-items: center;
     justify-content: center;
     grid-template-columns: repeat(5,20%) 
+}
+.search-grid-wrapper div{
+    padding: 0 2%;
+}
+@media screen and (max-width:890px) {
+    .search-view-container{
+            margin-top: 20%;
+    }
+    .search-header{
+        padding: 2% 0 ;
+    }
+    .search-grid-wrapper{
+        margin: auto;
+        justify-content: space-around;
+        grid-template-columns: repeat(3,20%);
+    }
 }
