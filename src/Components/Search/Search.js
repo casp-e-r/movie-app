@@ -5,36 +5,35 @@ import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
 
 function Search() {
+    // const [tvPage, setTvPage] = useState(1)
+    // const [moviePage, setMoviePage] = useState(1)
     const [tvPage, setTvPage] = useState(1)
-    const [moviePage, setmoviePage] = useState(1)
-    const [tvResults, setTvResults] = useState({})
-    const [movieResults, setMovieResults] = useState({})
+    const [moviePage, setMoviePage] = useState(1)
+    const [tvResults, setTvResults] = useState([])
+    const [movieResults, setMovieResults] = useState([])
     const [count, setCount] = useState(0)
     const [state, setState] = useState(1)
     const history = useHistory()
     const location = useLocation()
     const { query } = useParams()
+    
+    useEffect(() => {
+        setTvPage(location.state.page)
+        setMoviePage(location.state.page)
+    }, [])
     useEffect(() => {
         axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${tvPage}&include_adult=false`).then(e => {
-            setTvResults(e.data)
+            // console.log(e.data);
+            // setTvResults(tvResults=>[...tvResults,...e.data.results])
+            setTvResults(e.data.results)
         })
         axios.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${moviePage}&include_adult=false`).then(e => {
-            setMovieResults(e.data)
+            // console.log(e.data);
+            setMovieResults(e.data.results)
         })
-    }, [query])
-    useEffect(() => {
-        axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&include_adult=false`).then(e => {
-            console.log(e.data);
+    }, [query,tvPage,moviePage])
+    console.log(query, tvResults, movieResults, tvPage,moviePage);
 
-            //     e.data.results && e.data.results.map((obj,index)=>{
-            //     if(obj.poster_path && obj.backdrop_path){
-            //         setCount(index+1)
-            //     } 
-            // })
-        })
-    }, [])
-
-    console.log(query, tvResults, movieResults, count);
     return (
         <div className='search-view-container'>
             <div className='search-view-inner'>
@@ -46,12 +45,13 @@ function Search() {
                         <p onClick={()=>setState(1)} className={state && 'active-tab'}>Movie</p>
                         <p onClick={()=>setState(0)} className={!state && 'active-tab'}>Tv Shows</p>
                     </div>
-
                 </div>
                 <div className='search-grid-wrapper'>
                     {state ? 
-                    movieResults.results && movieResults.results.map((obj, index) =>
-                    obj.poster_path && obj.backdrop_path &&
+                    
+                    movieResults && movieResults.map((obj, index) =>
+                    
+                    // obj.poster_path && obj.backdrop_path &&
                     <div className='poster'>
                         <img className='img-poster'
                             key={obj.id}
@@ -61,9 +61,9 @@ function Search() {
                             }}
                         />
                     </div>
-                )
+                    )
                     :
-                    tvResults.results && tvResults.results.map((obj, index) =>
+                    tvResults && tvResults.map((obj, index) =>
                         obj.poster_path && obj.backdrop_path &&
                         <div className='poster'>
                             <img className='img-poster'
@@ -76,6 +76,17 @@ function Search() {
                         </div>
                     )}
                 </div>
+                {state ?
+                <div><button 
+                onClick={()=>history.push(`/${query}`,{page:moviePage+1})}
+                // onClick={()=>setMoviePage(moviePage+1)}
+                >MvPa</button></div>
+                :
+                <div><button 
+                // onClick={()=>setTvPage(tvPage+1)}
+                onClick={()=>history.push(`/${query}`,{page:tvPage+1})}
+                >TvPa</button></div>
+                }
             </div>
         </div>
     )

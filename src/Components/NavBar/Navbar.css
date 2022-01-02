@@ -103,7 +103,7 @@
   .input-search:focus{
     width: 170px;
     padding: 1%;
-    transform: translateX(-20px);
+    transform: translateX(-25px);
     border-radius: 0px;
     background-color: transparent;
     border-bottom:1px solid rgba(255,255,255,.5);

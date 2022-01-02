@@ -25,6 +25,22 @@
     flex-basis: 20%;
     padding: 3% 4%;
 }
+.loading-outer{
+    padding: 6%;
+    max-width: 50%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loading{
+    margin: auto;
+}
+.loading p{
+    /* transform: rotate(); */
+    transform: rotate('360');
+}
+
 @media screen and (max-width:890px) {
     .view-title-container{
         margin: 0;

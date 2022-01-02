@@ -7,6 +7,7 @@ function Navbar() {
     let history = useHistory()
     const [show, handleShow] = useState(false)
     const [search, setSearch] = useState('')
+    const page=1
     const transitionNavBar = () => {
         if (window.scrollY > 100) {
             handleShow(true)
@@ -16,7 +17,7 @@ function Navbar() {
     }
     const handleSubmit=(e)=>{
             search.length!=0  && 
-            history.push(`/search/${search}`)
+            history.push(`/search/${search}`,{page:page})
 
     }
     useEffect(() => {

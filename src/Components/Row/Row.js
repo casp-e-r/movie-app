@@ -24,7 +24,7 @@ function Row({title,url,isLarge=false,more=true}) {
         <div className="row" >
             <div className='row-header'>
             {more ? <div onClick={()=>{
-                        history.push(`/${title}`,{title:title,url:url })     
+                        history.push(`/${title}`,{page:1,url:url })     
                     }}>
                 <h2>{title}</h2>
                 <p><IoIosMore size={20}/></p>
