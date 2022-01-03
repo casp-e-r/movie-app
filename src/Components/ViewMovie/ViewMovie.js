@@ -4,7 +4,7 @@ import { TvContext } from '../../context';
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
 import unknown from "../../images/unknown.jpg"
-import { useLocation } from 'react-router'
+import { useLocation, useParams } from 'react-router'
 import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
@@ -26,9 +26,20 @@ function ViewMovie() {
     const isTv=JSON.parse(window.localStorage.getItem('show'))   
     const ID = location.state.id
     const [TvMovie, setTvMovie] = useState('tv')
-    
     useEffect(() => {
-        
+        location && window.scrollTo(0, 0);
+        // const unlisten = history.listen(() => {
+        //     window.scrollTo(0, 0);
+        //   });
+        //   return () => {
+        //     unlisten();
+        //   }
+        return()=>{
+            window.scrollTo(0,0)
+        }
+      
+      }, [location,ID]);
+    useEffect(() => {
         if (isTv ===1 ) {
             setTvMovie('tv')
         } else if(isTv===0) {
@@ -93,7 +104,7 @@ function ViewMovie() {
     //         setSeasons(obj)
     //     }
     // })
-    console.log(movie);
+    console.log(movie,imageUrl);
     
 
     return (
@@ -192,29 +203,6 @@ function ViewMovie() {
                                 </div>})}
                    
                 </div>
-                
-                {/* <div className='view-cast-creator'>
-                    {isTv ? <h1>created by</h1>:null}
-                {movie.created_by && 
-                    <div className='creator'>
-                            {movie.created_by.map(e=>{return<div className='profile-img'>
-                                    <p>{e.name}</p>
-                                    <img  src={imageUrl + e.profile_path} alt='' /> 
-                                 </div>})}
-                    </div>}
-                    <h1>cast</h1>
-                    <div className="cast">
-                    {cast &&cast.slice(0,10).map(obj =>
-                        <div className='profile-img' >
-                            {obj.img ? <img src={`${imageUrl}${obj.img}`} alt='' /> : <img src={unknown} alt='' />}
-                            <p>{obj.name}</p>
-                            <p>{obj.character}</p>
-                        </div>
-                    )}
-                    </div>
-                    
-                    
-                </div> */}
                 <Cast creator={movie.created_by} cast={cast}/>
             </div>
             <div className='inner-container-3'>

@@ -38,7 +38,8 @@
 }
 .loading p{
     /* transform: rotate(); */
-    transform: rotate('360');
+    /* transform: rotate('360'); */
+    transform: rotate('3600deg');
 }
 
 @media screen and (max-width:890px) {

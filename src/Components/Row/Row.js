@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import "./Row.css"
 import axios from "../../axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {imageUrl} from '../../constants/constants'
 import {IoIosMore} from 'react-icons/io'
 
@@ -32,6 +32,7 @@ function Row({title,url,isLarge=false,more=true}) {
             </div>
             <div className="posters">
                 {movies && movies.map((obj)=>
+                
                      <div className='poster'>
 
                     <img className={isLarge ? 'img-backdrop':'img-poster'}
@@ -44,7 +45,8 @@ function Row({title,url,isLarge=false,more=true}) {
                     {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
                     </div>}
-                    </div>                          
+                    </div> 
+                                      
                 )}
                 
             </div>

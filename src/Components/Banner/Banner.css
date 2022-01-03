@@ -1,4 +1,7 @@
-
+.banner{
+    min-height: 800px;
+    max-height: 85vh;
+}
 
 .banner-content{
     /* opacity: .6;

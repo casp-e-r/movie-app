@@ -12,6 +12,8 @@ import axios from "./axios";
 import { API_KEY } from "./constants/constants";
 import ViewTitle from "./Components/ViewTitle/ViewTitle";
 import Search from "./Components/Search/Search";
+import ViewHome from "./Components/ViewHome/ViewHome";
+import Cast from "./Components/ViewMovie/Cast/Cast";
 
 
 
@@ -26,8 +28,7 @@ function App() {
         
           <Navbar />
           <Route exact path='/'>
-            <Banner />
-            <Container />
+            <ViewHome/>
           </Route>
           <Route path='/search/:query'>
             <Search/>
@@ -35,6 +36,7 @@ function App() {
           <Route path='/view/:id'>
             <Tv>
             <ViewMovie />
+            <></>
             {/* <Episodes/> */}
             </Tv>
           </Route>

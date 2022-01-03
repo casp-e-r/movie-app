@@ -7,8 +7,9 @@ import { API_KEY, imageUrl } from '../../constants/constants'
 function Search() {
     // const [tvPage, setTvPage] = useState(1)
     // const [moviePage, setMoviePage] = useState(1)
-    const [tvPage, setTvPage] = useState(1)
-    const [moviePage, setMoviePage] = useState(1)
+    // const [tvPage, setTvPage] = useState(1)
+    // const [moviePage, setMoviePage] = useState(1)
+    
     const [tvResults, setTvResults] = useState([])
     const [movieResults, setMovieResults] = useState([])
     const [count, setCount] = useState(0)
@@ -16,11 +17,13 @@ function Search() {
     const history = useHistory()
     const location = useLocation()
     const { query } = useParams()
+    let moviePage=location.state.page
+    let tvPage=location.state.page
     
-    useEffect(() => {
-        setTvPage(location.state.page)
-        setMoviePage(location.state.page)
-    }, [])
+    // useEffect(() => {
+    //     setTvPage(location.state.page)
+    //     setMoviePage(location.state.page)
+    // }, [])
     useEffect(() => {
         axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${tvPage}&include_adult=false`).then(e => {
             // console.log(e.data);
@@ -32,6 +35,15 @@ function Search() {
             setMovieResults(e.data.results)
         })
     }, [query,tvPage,moviePage])
+    const handleSearchPage =() =>{
+        if (state) {
+            moviePage=moviePage+1
+            history.push(`/search/${query}`,{page:moviePage})
+        }else {
+            tvPage=tvPage+1
+            history.push(`/search/${query}`,{page:tvPage})
+        }
+    }
     console.log(query, tvResults, movieResults, tvPage,moviePage);
 
     return (
@@ -78,13 +90,15 @@ function Search() {
                 </div>
                 {state ?
                 <div><button 
-                onClick={()=>history.push(`/${query}`,{page:moviePage+1})}
+                // onClick={()=>history.push(`/search/${query}`,{page:moviePage+1})}
                 // onClick={()=>setMoviePage(moviePage+1)}
+                onClick={handleSearchPage}
                 >MvPa</button></div>
                 :
                 <div><button 
                 // onClick={()=>setTvPage(tvPage+1)}
-                onClick={()=>history.push(`/${query}`,{page:tvPage+1})}
+                onClick={handleSearchPage}
+                // onClick={()=>history.push(`/search/${query}`,{page:tvPage+1})}
                 >TvPa</button></div>
                 }
             </div>

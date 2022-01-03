@@ -26,10 +26,9 @@ function ViewTitle() {
     const delay = ms => new Promise(res => setTimeout(res, ms));
     const yourFunction = async () => {
         setLoading(true)
-        await delay(4000);
-        // setPage(page=>page+1)
+        await delay(3500);
+        setPage(page=>page+1)
         setLoading(false)
-        console.log("Waited an additional 5s");
     };
     const last=useCallback(
         (e) => {
@@ -82,7 +81,7 @@ function ViewTitle() {
             </div>
             <div className='loading-outer' >
             {loading && <div className='loading'>
-                        <p><AiOutlineLoading3Quarters/></p>
+                        <p><AiOutlineLoading3Quarters/></p>      
                         </div>}
             {/* <button 
             // onClick={()=>setPage(page+1)}
