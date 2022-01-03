@@ -23,10 +23,12 @@ function Container() {
             
                 <div className='toggle'>
                 {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
-                <button onClick={() => setCategory(1)} >
+                <button className={category===1?'active-category-toggle':'category-toggle'} onClick={() => setCategory(1)} >
                     tv
                 </button>
-                <button onClick={() => setCategory(0)}>
+                <button
+                className={category===0?'active-category-toggle':'category-toggle'}
+                onClick={() => setCategory(0)}>
                     movie
                 </button>
 
