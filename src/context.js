@@ -17,17 +17,17 @@ import { useState,createContext } from "react";
 // export const ShowContext=createContext(null)  
   
 
-export const TvContext=createContext(null)
+export const LoadingContext=createContext(null)
   
-function Tv({children}){
-  const [tv, setTv] = useState([])
-  const [s_no, setS_no] = useState([])
-  const [ep_no, setEp_no] = useState([])
+function Loading({children}){
+  const [GlobalLoading, setGlobalLoading] = useState(true)
+  // const [s_no, setS_no] = useState([])
+  // const [ep_no, setEp_no] = useState([])
   
   return (
-    <TvContext.Provider value={{ tv, setTv,s_no, setS_no,ep_no, setEp_no}}>
+    <LoadingContext.Provider value={{ GlobalLoading, setGlobalLoading}}>
       {children}
-    </TvContext.Provider>
+    </LoadingContext.Provider>
   )
 }
-export default Tv 
+export default Loading

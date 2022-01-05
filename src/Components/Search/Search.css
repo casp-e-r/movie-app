@@ -27,13 +27,22 @@
         padding: .5% 5% .5% .5%;
 }
 .search-grid-wrapper{
+    margin: auto;
     display: grid;
     justify-items: center;
     justify-content: center;
     grid-template-columns: repeat(5,20%) 
 }
 .search-grid-wrapper div{
+    margin: 5% 2%;
     padding: 0 2%;
+}
+.card-poster{
+    height: 250px;
+    width: 150px;
+}
+.img-poster{
+    width: 100%;
 }
 @media screen and (max-width:890px) {
     .search-view-container{
@@ -43,8 +52,13 @@
         padding: 2% 0 ;
     }
     .search-grid-wrapper{
-        margin: auto;
+        margin:0 1%;
+        /* margin: auto; */
         justify-content: space-around;
         grid-template-columns: repeat(3,20%);
+    }
+    .card-poster{
+        width: 100px;
+        height: 210px;
     }
 }

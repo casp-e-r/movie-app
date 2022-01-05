@@ -64,7 +64,7 @@ function Search() {
                     movieResults && movieResults.map((obj, index) =>
                     
                     // obj.poster_path && obj.backdrop_path &&
-                    <div className='poster'>
+                    <div className='card-poster'>
                         <img className='img-poster'
                             key={obj.id}
                             src={imageUrl + obj.poster_path} alt={obj.name}

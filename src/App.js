@@ -4,9 +4,9 @@ import Navbar from "./Components/NavBar/Navbar";
 import "./App.css"
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Container from './Components/Container/Container'
-import  Tv from "./context";
+import  Loading from "./context";
 import ViewMovie from "./Components/ViewMovie/ViewMovie";
-import Episodes from "./Components/Episodes/Episodes";
+
 import Footer from "./Components/Footer/Footer";
 import axios from "./axios";
 import { API_KEY } from "./constants/constants";
@@ -28,17 +28,17 @@ function App() {
         
           <Navbar />
           <Route exact path='/'>
+            <Loading>
             <ViewHome/>
+            </Loading>
           </Route>
           <Route path='/search/:query'>
             <Search/>
           </Route>
           <Route path='/view/:id'>
-            <Tv>
             <ViewMovie />
             <></>
             {/* <Episodes/> */}
-            </Tv>
           </Route>
           <Route exact path='/:title'>
             <ViewTitle/>

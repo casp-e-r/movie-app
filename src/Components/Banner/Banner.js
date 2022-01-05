@@ -1,4 +1,4 @@
-import React,{useEffect,useState}from 'react'
+import React,{useContext, useEffect,useState}from 'react'
 import "./Banner.css"
 import axios from "../../axios";
 import {imageUrl} from '../../constants/constants'
@@ -8,20 +8,46 @@ import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
 import { shuffleArray } from "../../helpers/helper";
 import { useHistory } from 'react-router';
 import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index';
+import Skeleton from 'react-loading-skeleton';
+import disableScroll from 'disable-scroll';
+import  { LoadingContext } from '../../context';
 
 function Banner() {
+    
+      const {GlobalLoading} = useContext(LoadingContext)
       const [movie, setMovie] = useState()
+      const [loading, setLoading] = useState(true)
+      const [imgLoad, setImgLoad] = useState(false)
         let history = useHistory()
-
+    
     useEffect(() => {
- 
-        axios.get(requests.Trending).then((response)=>{
-            const s=shuffleArray(response.data.results)
-            setMovie(s)
-            // const responses=response.data.results[Math.floor(Math.random()*response.data.results.length-1)]
-        }).catch(err=>{console.log(err);}) 
-        
+        async function fetch(){
+            try{
+                axios.get(requests.Trending).then((response)=>{
+                    const s=shuffleArray(response.data.results)
+                    setMovie(s)
+                })
+            }catch(e){
+                console.log(e);
+            }finally{
+                // await delay(3000)
+                 setLoading(true)
+            }
+        }
+        fetch()
     }, [])
+    const handleImageLoaded=()=> {
+        setImgLoad(true)
+    }
+    useEffect(() => {
+        if(loading){
+        document.body.style.scrollMargin='0'
+        // disableScroll.on();
+        }else{
+        disableScroll.off();
+
+        }
+    }, [loading])
     function truncate(string, n){
         return string?.length>n ?string.substr(0,n-1) +'...':string;
     }
@@ -40,6 +66,15 @@ function Banner() {
 // }
 
     return (
+        <>
+        {(loading && GlobalLoading) ? <div className='banner-skl'>
+            <Skeleton baseColor='#121212' highlightColor='#141414' height={'100%'} width={'100%'}/>
+            <div className='banner-skl-content'>
+            <Skeleton  height={'100%'} width={'50%'}/>
+            <Skeleton count={3}  height={5} width={'100%'}/>
+            </div>
+        </div> 
+        :
         <div className='banner'>
         <Carousel
         className='carousel'
@@ -63,7 +98,7 @@ function Banner() {
                 
                 return<div className='banner-content' >
                         <div className='banner-backdrop'>
-                            <img src={movie? imageUrl+movie.backdrop_path:""}/>
+                            <img src={movie? imageUrl+movie.backdrop_path:""} onLoad={()=>handleImageLoaded}/>
                         <div className='fade-bottom'></div>
                         </div>
                         <div className='banner-details'>
@@ -77,7 +112,9 @@ function Banner() {
             })}  
             
         </Carousel>
-        </div>
+        </div>}
+        </>
+
     )
 }
 

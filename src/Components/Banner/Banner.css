@@ -3,6 +3,18 @@
     max-height: 80vh;
     
 }
+.banner-skl{
+    height: 100vh;
+    position: relative;
+    width: 100%;
+}
+.banner-skl-content{
+    min-width: 300px;
+    position: absolute;
+    padding:10% 5%;
+    bottom: 0;
+    left: 0;
+}
 
 .banner-content{
     /* opacity: .6;
@@ -72,6 +84,12 @@
         min-height: 70vh;
         font-size: 1rem;
     }
+    .banner-skl{
+        height: 100vh;
+    }
+    .banner-skl-content{
+        padding-bottom: 20%;
+    }
     .banner-content{
         /* background-position-y: center; */
         
@@ -80,7 +98,7 @@
     }
     .banner-details{
         width: 100%;
-        padding: 0 0 10% 10% ;
+        padding: 0 10% 8% 10% ;
     }
     .fade-bottom{
         height: 12%;

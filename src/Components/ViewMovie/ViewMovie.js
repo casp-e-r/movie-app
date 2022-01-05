@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
 import './ViewMovie.css'
-import { TvContext } from '../../context';
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
 import unknown from "../../images/unknown.jpg"
@@ -11,6 +10,8 @@ import Row from '../Row/Row';
 import {IoIosReturnLeft} from 'react-icons/io'
 import {AiOutlineGlobal} from 'react-icons/ai'
 import Cast from './Cast/Cast';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 
 
@@ -20,7 +21,7 @@ function ViewMovie() {
     const [country, setCountry] = useState('')
     const [cast, setCast] = useState([])
     const [movie, setMovie] = useState([])
-    const { setTv } = useContext(TvContext)
+    const [loading, setLoading] = useState(true)
     const location = useLocation()
     let history = useHistory()
     const isTv=JSON.parse(window.localStorage.getItem('show'))   
@@ -47,15 +48,28 @@ function ViewMovie() {
         }
     }, [isTv,setTvMovie])
     useEffect(() => {
-        axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
-            setMovie(res.data)
-        }).catch(err=>console.log(err))
-    }, [ID, TvMovie,isTv])
-    useEffect(() => {
-        if (movie && isTv) { //state.isTv
-            setTv(movie)
+        async function fetch(){
+            try{
+                await axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {   
+                    setMovie(res.data)
+                })
+            }catch(e){
+                console.log(e);
+            }finally{
+                
+                setLoading(false)
+            }
         }
-    })
+        fetch()
+        // axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
+        //     setMovie(res.data)
+        // }).catch(err=>console.log(err))
+    }, [ID, TvMovie,isTv])
+    // useEffect(() => {
+    //     if (movie && isTv) { //state.isTv
+    //         setTv(movie)
+    //     }
+    // })
     
     
     useEffect(() => {
@@ -108,26 +122,31 @@ function ViewMovie() {
     
 
     return (
+        <div>
+           <SkeletonTheme borderRadius={3} duration={1.5} baseColor='#212121' highlightColor='#575757'> 
+
+        
         <div className="details-container" >
             <div className="inner-container-1">
                 <div className='viewbanner'>
                     <img src={imageUrl + movie.backdrop_path}></img>  
                 </div>
                 <div className='view-details-container'>
-                        <div className='back'
+                        {loading? null :<div className='back'
                                onClick={history.goBack} 
                                 >
                                 <IoIosReturnLeft size={50}/>
-                                <h1> back</h1>
-                                
-                        </div>
+                                <h1> back</h1>       
+                        </div>}
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
-                                <img src={`${imageUrl}${movie.poster_path}`} alt={unknown}></img>
+                            {loading ? <Skeleton width={'100%'} height={'100%'}/>:
+                             <img src={`${imageUrl}${movie.poster_path}`} alt={unknown}></img>}
                             </div>
                             <div className='view-details'>
                                 <div className='view-name'>
-                                    <h1>{movie ? movie.name || movie.original_name || movie.title : ""}</h1>
+                                    {loading ? <Skeleton width={'20%'} height={'5%'}/>:
+                                    <h1>{movie ? movie.name || movie.original_name || movie.title : ""}</h1>}
                                 </div>
                                 {movie.tagline &&
                                 <div className='tagline' >
@@ -139,26 +158,26 @@ function ViewMovie() {
                                     {return<p>{e.name}</p>})}
                                 </div>
                                 <div className='view-rating-genre'>
-                                        <p>rating :{movie.vote_average}</p>
+                                {!loading && <p>rating :{movie.vote_average}</p>}
                                 </div>
-                                <div className='view-overview'>
+                                {loading? <Skeleton count={5} width={'50%'} height={4}/>:<div className='view-overview'>
                                     <label>Overview</label>
                                     <h4>{movie.overview}</h4>
-                                </div>
+                                </div>}
                                 <div className='view-btns'>
-                                    <Trailer 
+                                    {loading ? <Skeleton  width={'20%'} height={40}/>:<Trailer 
                                     ID={ID} 
                                     TvMovie={TvMovie}
                                     releaseYear={movie?.release_date || movie.first_air_date ||'0'}
                                     name={movie ? movie.name || movie.original_name || movie.title : ""}
-                                    />
+                                    />}
 
                                 </div>
                             </div>
                         </div>
                 </div>
             </div>
-            <div className='inner-container-2'>
+            {loading ? null :<div className='inner-container-2'>
                 <div className='view-more-info'>
 
                     <div>
@@ -204,12 +223,14 @@ function ViewMovie() {
                    
                 </div>
                 <Cast creator={movie.created_by} cast={cast}/>
-            </div>
-            <div className='inner-container-3'>
+            </div>}
+            {loading ? null : <div className='inner-container-3'>
                 <>
                     <Row title={'Reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
                 </>
-            </div>
+            </div>}
+        </div>
+        </SkeletonTheme>
         </div>
 
     )
