@@ -6,8 +6,8 @@ import {imageUrl} from '../../constants/constants'
 import {IoIosMore} from 'react-icons/io'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { LoadingContext } from '../../context';
-
-
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/black-and-white.css'
 
 function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
@@ -60,14 +60,27 @@ function Row({title,url,isLarge=false,more=true}) {
                 
                      <div className={isLarge ? 'card-backdrop':'card-poster'}>
 
-                    {loading? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
-                    :<img className={isLarge ? 'img-backdrop':'img-poster'}
+                    {/* {loading? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>) */}
+                    :<LazyLoadImage 
+                    src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path}
+                    effect="black-and-white"
+                    threshold={50}
+                    delayTime={2000}
+                    placeholder={<Skeleton height={'100%'} width={'100%'}/>}
+                    className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
+                    onClick={()=>{
+                        history.push(`/view/${obj.id}`,{id:obj.id})     
+                    }}
+                    >
+                        {/* <img className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
                     key={obj.id}
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path} alt={obj.name}
                     onClick={()=>{
                         history.push(`/view/${obj.id}`,{id:obj.id})     
                     }}
-                    /> }
+                    /> */}
+                    </LazyLoadImage>
+                      {/* } */}
                     {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
                     </div>}

@@ -3,6 +3,10 @@ import { useHistory, useLocation, useParams } from 'react-router'
 import './Search.css'
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
+import SearchMovie from './SearchMovie'
+import SearchTv from './SearchTv'
+import { LazyLoadComponent } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function Search() {
     // const [tvPage, setTvPage] = useState(1)
@@ -21,20 +25,13 @@ function Search() {
     let tvPage=location.state.page
     
     // useEffect(() => {
-    //     setTvPage(location.state.page)
-    //     setMoviePage(location.state.page)
-    // }, [])
-    useEffect(() => {
-        axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${tvPage}&include_adult=false`).then(e => {
-            // console.log(e.data);
-            // setTvResults(tvResults=>[...tvResults,...e.data.results])
-            setTvResults(e.data.results)
-        })
-        axios.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${moviePage}&include_adult=false`).then(e => {
-            // console.log(e.data);
-            setMovieResults(e.data.results)
-        })
-    }, [query,tvPage,moviePage])
+    //     axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${tvPage}&include_adult=false`).then(e => {  
+    //         setTvResults(e.data.results)
+    //     })
+    //     axios.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${moviePage}&include_adult=false`).then(e => {
+    //         setMovieResults(e.data.results)
+    //     })
+    // }, [query,tvPage,moviePage])
     const handleSearchPage =() =>{
         if (state) {
             moviePage=moviePage+1
@@ -53,41 +50,48 @@ function Search() {
                     <p>Search Results for  {query}</p>
                 </div>
                 <div className='search-tab-container'>
+                    <LazyLoadComponent>
                     <div className={state?'active-search-tab' :'search-tab' }>
                         <p onClick={()=>setState(1)} className={state && 'active-tab'}>Movie</p>
                         <p onClick={()=>setState(0)} className={!state && 'active-tab'}>Tv Shows</p>
                     </div>
+                    </LazyLoadComponent>
                 </div>
-                <div className='search-grid-wrapper'>
+                {/* <div className='search-grid-wrapper'> */}
                     {state ? 
+                    <SearchMovie/>
+                    // movieResults && movieResults.map((obj, index) =>
                     
-                    movieResults && movieResults.map((obj, index) =>
+                    // // obj.poster_path && obj.backdrop_path &&
+                    // <div className='card-search'>
+                    // <div className='card-poster'>
+                    //     <img className='img-poster'
+                    //         key={obj.id}
+                    //         src={imageUrl + obj.poster_path} alt={obj.name}
+                    //         onClick={() => {
+                    //             history.push(`/view/${obj.id}`, { id: obj.id })
+                    //         }}
+                    //     />
+                    // </div>
                     
-                    // obj.poster_path && obj.backdrop_path &&
-                    <div className='card-poster'>
-                        <img className='img-poster'
-                            key={obj.id}
-                            src={imageUrl + obj.poster_path} alt={obj.name}
-                            onClick={() => {
-                                history.push(`/view/${obj.id}`, { id: obj.id })
-                            }}
-                        />
-                    </div>
-                    )
+                    //  </div>
+                    // )
                     :
-                    tvResults && tvResults.map((obj, index) =>
-                        obj.poster_path && obj.backdrop_path &&
-                        <div className='poster'>
-                            <img className='img-poster'
-                                key={obj.id}
-                                src={imageUrl + obj.poster_path} alt={obj.name}
-                                onClick={() => {
-                                    history.push(`/view/${obj.id}`, { id: obj.id })
-                                }}
-                            />
-                        </div>
-                    )}
-                </div>
+                    <SearchTv/>
+                    // tvResults && tvResults.map((obj, index) =>
+                    //     obj.poster_path && obj.backdrop_path &&
+                    //     <div className='poster'>
+                    //         <img className='img-poster'
+                    //             key={obj.id}
+                    //             src={imageUrl + obj.poster_path} alt={obj.name}
+                    //             onClick={() => {
+                    //                 history.push(`/view/${obj.id}`, { id: obj.id })
+                    //             }}
+                    //         />
+                    //     </div>
+                    // )
+                    }
+                {/* </div> */}
                 {state ?
                 <div><button 
                 // onClick={()=>history.push(`/search/${query}`,{page:moviePage+1})}

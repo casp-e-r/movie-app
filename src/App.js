@@ -14,6 +14,8 @@ import ViewTitle from "./Components/ViewTitle/ViewTitle";
 import Search from "./Components/Search/Search";
 import ViewHome from "./Components/ViewHome/ViewHome";
 import Cast from "./Components/ViewMovie/Cast/Cast";
+import ViewSearch from "./Components/Search/ViewSearch";
+
 
 
 
@@ -33,7 +35,8 @@ function App() {
             <ViewHome/>
           </Route>
           <Route path='/search/:query'>
-            <Search/>
+            {/* <Search/> */}
+            <ViewSearch/>
           </Route>
           <Route path='/view/:id'>
             <ViewMovie />

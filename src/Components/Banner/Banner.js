@@ -11,6 +11,8 @@ import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import disableScroll from 'disable-scroll';
 import  { LoadingContext } from '../../context';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 function Banner() {
     
@@ -68,7 +70,7 @@ function Banner() {
     return (
         <>
 
-        {(loading && GlobalLoading) ? <div className='banner-skl'>
+        {/* {(loading && GlobalLoading) ? <div className='banner-skl'>
         <SkeletonTheme baseColor=' #1c1c1c' highlightColor='#212121'>
             <Skeleton baseColor='#121212' highlightColor='#141414' height={'100%'} width={'100%'}/>
             <div className='banner-skl-content'>
@@ -77,7 +79,7 @@ function Banner() {
             </div>
          </SkeletonTheme>
         </div> 
-        :
+        : */}
         <div className='banner'>
         <Carousel
         className='carousel'
@@ -101,7 +103,11 @@ function Banner() {
                 
                 return<div className='banner-content' >
                         <div className='banner-backdrop'>
-                            <img src={movie? imageUrl+movie.backdrop_path:""} onLoad={()=>handleImageLoaded}/>
+                            <LazyLoadImage src={movie? imageUrl+movie.backdrop_path:""}
+                            effect='opacity' alt={movie.id}
+                            height={'100%'} width={'100%'}
+                            />
+                            {/* <img src={movie? imageUrl+movie.backdrop_path:""} onLoad={()=>handleImageLoaded}/> */}
                         <div className='fade-bottom'></div>
                         </div>
                         <div className='banner-details'>
@@ -115,7 +121,8 @@ function Banner() {
             })}  
             
         </Carousel>
-        </div>}
+        </div>
+        {/* } */}
         </>
 
     )

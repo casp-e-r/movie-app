@@ -15,6 +15,15 @@
    height: 100%;
    position:absolute;
 } 
+.viewbanner{
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    max-height: 960px;
+    /* min-height: 900px; */
+    width: 100%;
+}
 .viewbanner img{
     position:absolute;
     top:0;

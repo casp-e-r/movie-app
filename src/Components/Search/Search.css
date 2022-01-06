@@ -1,5 +1,6 @@
 .search-view-container{
     margin-top: 40px;
+    /* overflow-y: hidden; */
 }
 .search-view-inner{
     /* padding: 1% 2%; */
@@ -31,9 +32,15 @@
     display: grid;
     justify-items: center;
     justify-content: center;
+    max-width: 1200px;
+    min-height: 100vh;
     grid-template-columns: repeat(5,20%) 
 }
-.search-grid-wrapper div{
+/* .search-grid-wrapper div{
+    margin: 5% 2%;
+    padding: 0 2%;
+}  */
+.card-search {  
     margin: 5% 2%;
     padding: 0 2%;
 }
@@ -43,7 +50,6 @@
 }
 .img-poster{
     width: 100%;
-    
 }
 @media screen and (max-width:890px) {
     .search-view-container{

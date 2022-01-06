@@ -12,6 +12,8 @@ import {AiOutlineGlobal} from 'react-icons/ai'
 import Cast from './Cast/Cast';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 
 
@@ -129,7 +131,13 @@ function ViewMovie() {
         <div className="details-container" >
             <div className="inner-container-1">
                 <div className='viewbanner'>
-                    <img src={imageUrl + movie.backdrop_path}></img>  
+                    <LazyLoadImage 
+                        effect='opacity'
+                     src={imageUrl + movie.backdrop_path}
+                     height={'100%'} width={'100%'}/>
+                    {/* <img src={imageUrl + movie.backdrop_path}></img>  */}
+                    
+                    
                 </div>
                 <div className='view-details-container'>
                         {loading? null :<div className='back'
@@ -141,7 +149,12 @@ function ViewMovie() {
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
                             {loading ? <Skeleton width={'100%'} height={'100%'}/>:
-                             <img src={`${imageUrl}${movie.poster_path}`} alt={unknown}></img>}
+                            <LazyLoadImage 
+                            effect='opacity'
+                            src={imageUrl + movie.poster_path}
+                            />
+                            //  <img src={`${imageUrl}${movie.poster_path}`} alt={unknown}></img>
+                             }
                             </div>
                             <div className='view-details'>
                                 <div className='view-name'>

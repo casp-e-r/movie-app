@@ -16,8 +16,10 @@ body{
 
 html{
     /* overflow:auto ; */
-    /* scrollbar-width: none; */
+    scrollbar-width: none;
     scrollbar-color: #000;
+    /* overflow: -moz-scrollbars-vertical;  */
+    /* overflow-y: scroll; */
     
 }
 l::-webkit-scrollbar {

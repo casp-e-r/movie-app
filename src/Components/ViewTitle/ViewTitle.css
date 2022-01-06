@@ -23,7 +23,6 @@
     cursor: pointer;
     /* max-width: max-content;
     flex-basis: 20%; */
-    padding: 3% 4%;
 }
 
 .skl-load-grid{
@@ -35,7 +34,10 @@
     padding: 0 10px;
 
 }
+.card-view div{
+    padding: 3% 4%;
 
+}
 .loading-outer{
     margin: auto;
 }
@@ -55,10 +57,14 @@
         grid-template-columns: repeat(3,20%);
     }
     .view-title-container div{
-        padding: 6% 
+    }
+    .card-view div{
+        padding: 0 6% 
+
     }
     .card-poster{
         width: 150px;
+
     }
 }
 @media screen and (max-width:500px) {

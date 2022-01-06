@@ -6,6 +6,8 @@ import './ViewTitle.css'
 import { imageUrl } from '../../constants/constants'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
+import { LazyLoadImage } from 'react-lazy-load-image-component'
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function ViewTitle() {
     const [TvMovie, setTvMovie] = useState('movie')
@@ -84,24 +86,45 @@ function ViewTitle() {
                     {initLoading ? 
                     <Skeleton height={'100%'} width={'100%'}/>
                     
-                    :<img className='img-poster'
-                    key={obj.id}
+                    :<LazyLoadImage
                     src={imageUrl+obj.poster_path} alt={obj.name}
-                    onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})     
-                    }}
-                    />}
+                    height={'100%'} width={'100%'}
+                    effect='black-and-white'
+                    effect='blur'
+
+                    />
+                    // <img className='img-poster'
+                    // key={obj.id}
+                    // src={imageUrl+obj.poster_path} alt={obj.name}
+                    // onClick={()=>{
+                    //     history.push(`/view/${obj.id}`,{id:obj.id})     
+                    // }}
+                    // />
+                    }
                     </div>
                 }else{
-                    return <div className='card-poster'>
+                    return <div className='card-view'>
+                    <div className='card-poster'>
                     {initLoading ? 
-                    <Skeleton height={'100%'} width={'100%'}/>:<img className='img-poster'
-                    key={obj.id}
+                    <Skeleton height={'100%'} width={'100%'}/>:
+                    <LazyLoadImage
                     src={imageUrl+obj.poster_path} alt={obj.name}
-                    onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})     
-                    }}
-                    />}
+                    height={'100%'} width={'100%'}
+                    effect='blur'
+
+                    />
+                    // <img className='img-poster poster-hover-t'
+                    // key={obj.id}
+                    // src={imageUrl+obj.poster_path} alt={obj.name}
+                    // onClick={()=>{
+                    //     history.push(`/view/${obj.id}`,{id:obj.id})     
+                    // }}
+                    // />
+                    }
+                    </div>
+                    {initLoading ? null:<div className='card-name'>
+                    <p>{obj.id}</p><p>{i}</p>
+                    </div>}
                     </div>}
             })}
             </div>
