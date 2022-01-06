@@ -164,8 +164,7 @@ function ViewMovie() {
                                 {movie.tagline &&
                                 <div className='tagline' >
                                     <p>{movie.tagline}</p>
-                                </div>
-                                }
+                                </div>}
                                 <div className='genres'>
                                     {movie.genres && movie.genres.map(e=>
                                     {return<p>{e.name}</p>})}
