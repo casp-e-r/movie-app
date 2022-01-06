@@ -7,7 +7,6 @@ body{
     background-color: #111;
     font-family: 'Alata', sans-serif;
     font-family: 'Inter', sans-serif;
-    
     /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
     color: #fff;
 }
@@ -16,7 +15,7 @@ body{
 } */
 
 html{
-    overflow:auto ;
+    /* overflow:auto ; */
     /* scrollbar-width: none; */
     scrollbar-color: #000;
     
@@ -24,7 +23,6 @@ html{
 l::-webkit-scrollbar {
     width: 10px;
 }
-
 ::-webkit-scrollbar-track {
     background-color: rgb(209, 21, 21);
 }
@@ -32,9 +30,10 @@ l::-webkit-scrollbar {
 ::-webkit-scrollbar-thumb {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
-
-/* .App{
+/* .app {
+    max-height: 2900px;
    
-    position: relative;
-
-} */
+  } */
+  /* .main{
+    height: fit-content;
+  } */

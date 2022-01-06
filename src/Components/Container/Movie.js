@@ -14,13 +14,17 @@ function Movie() {
             <Row title='Top Rated' url={requests.movie.TopRated} />
             {/* <Row title='Latest' url={requests.movie.Latest} /> */}
             
-
-            <Row title='Action' url={requests.movie.Drama} />
-            <Row title='Comedy' url={requests.movie.Comedy} />
+            <Row title='Adventure' url={requests.movie.Adventure} />
+            <Row title='Action' url={requests.movie.Action} />
+            <Row title='Thriller' url={requests.movie.Thriller} />
+            <Row title='Crime' url={requests.movie.Crime} />
             <Row title='Drama' url={requests.movie.Drama} />
+            <Row title='History' url={requests.movie.History} />
             <Row title='Horror' url={requests.movie.Horror} />
             <Row title='Romance' url={requests.movie.Romance} />
             <Row title='Scifi' url={requests.movie.Scifi} />
+            <Row title='War' url={requests.movie.War} />
+
             <Row title='Animation' url={requests.movie.TvMovie} />
 
 

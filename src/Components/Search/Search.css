@@ -43,6 +43,7 @@
 }
 .img-poster{
     width: 100%;
+    
 }
 @media screen and (max-width:890px) {
     .search-view-container{
@@ -58,7 +59,12 @@
         grid-template-columns: repeat(3,20%);
     }
     .card-poster{
-        width: 100px;
+        width: 120px;
         height: 210px;
+    }
+}
+@media screen and (max-width:400px) {
+    .search-grid-wrapper{
+        grid-template-columns: repeat(2,50%);
     }
 }

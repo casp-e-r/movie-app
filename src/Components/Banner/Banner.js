@@ -8,7 +8,7 @@ import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
 import { shuffleArray } from "../../helpers/helper";
 import { useHistory } from 'react-router';
 import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index';
-import Skeleton from 'react-loading-skeleton';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import disableScroll from 'disable-scroll';
 import  { LoadingContext } from '../../context';
 
@@ -67,12 +67,15 @@ function Banner() {
 
     return (
         <>
+
         {(loading && GlobalLoading) ? <div className='banner-skl'>
+        <SkeletonTheme baseColor=' #1c1c1c' highlightColor='#212121'>
             <Skeleton baseColor='#121212' highlightColor='#141414' height={'100%'} width={'100%'}/>
             <div className='banner-skl-content'>
             <Skeleton  height={'100%'} width={'50%'}/>
             <Skeleton count={3}  height={5} width={'100%'}/>
             </div>
+         </SkeletonTheme>
         </div> 
         :
         <div className='banner'>

@@ -85,14 +85,13 @@
         font-size: 1rem;
     }
     .banner-skl{
-        height: 100vh;
+        height: 70vh;
     }
     .banner-skl-content{
         padding-bottom: 20%;
     }
     .banner-content{
         /* background-position-y: center; */
-        
         height: 65vh;
         background-position: center;
     }
