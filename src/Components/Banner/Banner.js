@@ -13,6 +13,9 @@ import disableScroll from 'disable-scroll';
 import  { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 function Banner() {
     
@@ -21,7 +24,19 @@ function Banner() {
       const [loading, setLoading] = useState(true)
       const [imgLoad, setImgLoad] = useState(false)
         let history = useHistory()
-    
+        const sliderSettings = {
+            dots: false,
+            infinite: true,
+            speed: 800,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows:false,
+            autoplay: true,
+            autoplaySpeed: 10000,
+            draggable: true,
+            easing: 'easeInOutQuad',
+            fade: true
+          };
     useEffect(() => {
         async function fetch(){
             try{
@@ -33,7 +48,7 @@ function Banner() {
                 console.log(e);
             }finally{
                 // await delay(3000)
-                 setLoading(true)
+                 setLoading(false)
             }
         }
         fetch()
@@ -57,21 +72,13 @@ function Banner() {
         history.push(`/view/${movie.id}`,{id:movie.id})
         window.localStorage.setItem('show',JSON.stringify(movie.media_type==='tv' ? 1:0))
     }
-//     let [transition, setTransition ] = useState('width-carousel')
 
-// const handleTransition= ()=>{
-//     setTransition('width-carousel fade-in-image')
-
-//     setTimeout(()=>{
-//         setTransition('width-carousel')
-//     }, 2000)
-// }
 
     return (
         <>
 
-        {/* {(loading && GlobalLoading) ? <div className='banner-skl'>
-        <SkeletonTheme baseColor=' #1c1c1c' highlightColor='#212121'>
+        {(loading) ? <div className='banner-skl'>
+        <SkeletonTheme baseColor=' #121212' highlightColor='#1c1c1c'>
             <Skeleton baseColor='#121212' highlightColor='#141414' height={'100%'} width={'100%'}/>
             <div className='banner-skl-content'>
             <Skeleton  height={'100%'} width={'50%'}/>
@@ -79,25 +86,9 @@ function Banner() {
             </div>
          </SkeletonTheme>
         </div> 
-        : */}
+        :
         <div className='banner'>
-        <Carousel
-        className='carousel'
-        autoPlay
-        infiniteLoop
-        showArrows={true}
-        showStatus={false}
-        showIndicators={false}
-        showThumbs={false}
-        interval={5000}
-        emulateTouch={true}
-        transitionTime={500}
-        swipeScrollTolerance={10}
-        swipeable={true}
-        transitionTime={500}
-        stopOnHover={true}
-        // onChange={handleTransition}
-        >
+        <Slider {...sliderSettings}>
             
         {movie && movie.map(movie=>{
                 
@@ -120,9 +111,9 @@ function Banner() {
             
             })}  
             
-        </Carousel>
+        </Slider>
         </div>
-        {/* } */}
+        }
         </>
 
     )

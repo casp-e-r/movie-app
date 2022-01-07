@@ -133,6 +133,8 @@ function ViewMovie() {
                 <div className='viewbanner'>
                     <LazyLoadImage 
                         effect='opacity'
+                        beforeLoad={()=>setLoading(true)}
+                        afterLoad={()=>setLoading(false)}
                      src={imageUrl + movie.backdrop_path}
                      height={'100%'} width={'100%'}/>
                     {/* <img src={imageUrl + movie.backdrop_path}></img>  */}

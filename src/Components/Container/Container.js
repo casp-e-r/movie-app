@@ -24,7 +24,8 @@ function Container() {
            
 
             
-                {GlobalLoading? null:
+            <div>
+                {GlobalLoading? <div className='null' style={{'height':'100px'}}></div>:
                 <div className='toggle'>
                 {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
                 <button className={category===1?'active-category-toggle':'category-toggle'} onClick={() => setCategory(1)} >
@@ -37,6 +38,7 @@ function Container() {
                 </button>
 
             </div>}
+                </div>
             
                 
             {category===0 ? <Movie /> : <Tv/> }

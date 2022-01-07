@@ -7,7 +7,7 @@ import { imageUrl } from '../../constants/constants'
 import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
 
 function ViewTitle() {
     const [TvMovie, setTvMovie] = useState('movie')
@@ -32,7 +32,7 @@ function ViewTitle() {
             }catch(e){
                 console.log(e);
             }finally{
-                await delay(1000)
+                await delay(500)
                 setInitLoading(false)
             }
         }
@@ -71,7 +71,7 @@ function ViewTitle() {
     console.log(results);
     return (
         <div className='view-title' >
-            <SkeletonTheme borderRadius={3} duration={1.5} baseColor='#212121' highlightColor='#575757'> 
+            <SkeletonTheme borderRadius={3} duration={1.5} baseColor='#121212' highlightColor='#1c1c1c'> 
             <div className='view-title-header'>
                 {initLoading ? 
                 <Skeleton width={'50%'} height={20}/>
@@ -87,12 +87,17 @@ function ViewTitle() {
                     <Skeleton height={'100%'} width={'100%'}/>
                     
                     :<LazyLoadImage
+                    className='img-poster'
                     src={imageUrl+obj.poster_path} alt={obj.name}
                     height={'100%'} width={'100%'}
                     effect='black-and-white'
                     effect='blur'
+                    onClick={()=>{
+                        history.push(`/view/${obj.id}`,{id:obj.id})     
+                    }}
 
                     />
+                    
                     // <img className='img-poster'
                     // key={obj.id}
                     // src={imageUrl+obj.poster_path} alt={obj.name}
@@ -101,6 +106,9 @@ function ViewTitle() {
                     // }}
                     // />
                     }
+                    {initLoading ? null:<div className='card-name'>
+                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p><p>{i}</p>
+                    </div>}
                     </div>
                 }else{
                     return <div className='card-view'>
@@ -108,9 +116,13 @@ function ViewTitle() {
                     {initLoading ? 
                     <Skeleton height={'100%'} width={'100%'}/>:
                     <LazyLoadImage
+                    className='img-poster'
                     src={imageUrl+obj.poster_path} alt={obj.name}
                     height={'100%'} width={'100%'}
-                    effect='blur'
+                    effect='opacity'
+                    onClick={()=>{
+                        history.push(`/view/${obj.id}`,{id:obj.id})     
+                    }}
 
                     />
                     // <img className='img-poster poster-hover-t'
@@ -123,7 +135,7 @@ function ViewTitle() {
                     }
                     </div>
                     {initLoading ? null:<div className='card-name'>
-                    <p>{obj.id}</p><p>{i}</p>
+                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p><p>{i}</p>
                     </div>}
                     </div>}
             })}

@@ -7,7 +7,7 @@ import {IoIosMore} from 'react-icons/io'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/black-and-white.css'
+import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
@@ -25,7 +25,7 @@ function Row({title,url,isLarge=false,more=true}) {
             }catch(e){
                 console.log(e);
             }finally{
-                await delay(2000)
+                // await delay(2000)
                 setLoading(false)
                 setGlobalLoading(false)
                 
@@ -46,7 +46,7 @@ function Row({title,url,isLarge=false,more=true}) {
     return (
         
         <div className="row" >
-            <SkeletonTheme baseColor=' #1c1c1c' highlightColor='#212121'>
+            <SkeletonTheme baseColor=' #121212' highlightColor='#1c1c1c'>
             {loading? <Skeleton width={200} height={25}/>:<div className='row-header'>
             {more ? <div onClick={()=>{
                         history.push(`/${title}`,{page:1,url:url })     
@@ -60,13 +60,14 @@ function Row({title,url,isLarge=false,more=true}) {
                 
                      <div className={isLarge ? 'card-backdrop':'card-poster'}>
 
-                    {/* {loading? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>) */}
+                    {loading? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
                     :<LazyLoadImage 
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path}
-                    effect="black-and-white"
+                    effect="opacity"
                     threshold={50}
                     delayTime={2000}
-                    placeholder={<Skeleton height={'100%'} width={'100%'}/>}
+                    onLoad={setGlobalLoading(false)}
+                    placeholder={isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>}
                     className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
                     onClick={()=>{
                         history.push(`/view/${obj.id}`,{id:obj.id})     
@@ -80,7 +81,7 @@ function Row({title,url,isLarge=false,more=true}) {
                     }}
                     /> */}
                     </LazyLoadImage>
-                      {/* } */}
+                       } 
                     {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
                     </div>}

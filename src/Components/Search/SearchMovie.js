@@ -5,16 +5,18 @@ import axios from '../../axios'
 import './Search.css'
 import Skeleton from 'react-loading-skeleton'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
-import 'react-lazy-load-image-component/src/effects/blur.css';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+// import PaginationComp from './Pagination/PaginationComp'
+
 
 function SearchMovie() {
-    // const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1)
     const [movieResults, setMovieResults] = useState([])
     const [loading, setLoading] = useState(true)
     const { query } = useParams()
     const history = useHistory()
-    const location=useLocation()
-    let page=location.state.page
+    // const location=useLocation()
+    // let page=location.state.page
 
 
 
@@ -26,13 +28,15 @@ useEffect(() => {
                 })}
             catch(e){console.log(e);}
             finally{
-                // await delay(1000)
                 setLoading(false)
             }
         }
         fetch()
     }, [query,page])
-    console.log(movieResults);
+    const handlePageChange=()=>{
+        setPage(page+1)
+    }
+    console.log(movieResults,page);
     return (
         <div>
         <div className='search-grid-wrapper'>
@@ -42,9 +46,13 @@ useEffect(() => {
                         <div className='card-poster'>
                             {loading ? <Skeleton height={'100%'} width={'100%'}/>:
                             <LazyLoadImage
+                            className='img-poster'
                             src={imageUrl+obj.poster_path} alt={obj.name}
                             height={'100%'} width={'100%'}
-                            effect='blur'
+                            effect='opacity'
+                            onClick={() => {
+                                history.push(`/view/${obj.id}`, { id: obj.id })
+                            }}
         
                             />
                             // <img className='img-poster'
@@ -57,12 +65,21 @@ useEffect(() => {
                             }
                         </div>
                             {loading ? null:<div className='card-name'>
-                            <p>{obj.id}</p>
+                            <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
                             </div>}
                         </div>
                     )}
         </div>
-        <div>pagination</div>
+        <div>
+        {/* <PaginationComp
+        activePage={page}
+        itemsCountPerPage={1}
+        onChange={handlePageChange}
+        pageRangeDisplayed={10}
+        totalItemsCount={movieResults.total_pages}
+        totalPage={movieResults.total_pages}
+      /> */}
+        </div>
         </div>
     )
 }

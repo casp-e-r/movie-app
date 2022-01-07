@@ -5,6 +5,7 @@ import Container from '../Container/Container'
 export default function ViewHome() {
     return (
         <div>
+        
             <Banner />
             <Container />
         </div>

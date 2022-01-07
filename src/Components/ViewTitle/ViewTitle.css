@@ -20,7 +20,7 @@
 }
 .view-title-container div{
     /* position: relative; */
-    cursor: pointer;
+    /* cursor: pointer; */
     /* max-width: max-content;
     flex-basis: 20%; */
 }
@@ -32,6 +32,19 @@
     /* justify-items: center; */
     grid-template-columns: repeat(5,20%) ;
     padding: 0 10px;
+
+}
+.card-view{
+    width: 150px;
+}
+.card-view p{
+    overflow: hidden;
+    height: min-content;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: .9rem;
+    margin: 5% 0;
+
 
 }
 .card-view div{
@@ -65,6 +78,9 @@
     .card-poster{
         width: 150px;
 
+    }
+    .card-view p{
+        font-size: .8rem;
     }
 }
 @media screen and (max-width:500px) {
