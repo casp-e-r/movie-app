@@ -92,8 +92,7 @@
 }
 @media screen and (max-width:890px) {
     .banner{
-        min-height: 70vh;
-        font-size: 1rem;
+        max-height: 70vh;    
     }
     .banner-skl{
         height: 70vh;
@@ -101,20 +100,16 @@
     .banner-skl-content{
         padding-bottom: 20%;
     }
-    /* .slick-list{
-        max-height: 600px;
-    } */
     .banner-content{
         /* background-position-y: center; */
         height: 65vh;
         background-position: center;
     }
     .banner-details{
-        align-items: flex-start;
-        /* text-align:start; */
         width: 90%;
-        padding: 0% 10% 10% 10% ;
         margin-right: 3%;
+        font-size: .8rem;
+
     }
     .fade-bottom{
 

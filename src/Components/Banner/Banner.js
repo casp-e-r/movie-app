@@ -5,7 +5,7 @@ import {imageUrl} from '../../constants/constants'
 import requests from "../../requests";
 import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
 // import { Carousel } from 'react-responsive-carousel';
-import { shuffleArray } from "../../helpers/helper";
+import { delay, shuffleArray, truncate } from "../../helpers/helper";
 import { useHistory } from 'react-router';
 import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -47,7 +47,7 @@ function Banner() {
             }catch(e){
                 console.log(e);
             }finally{
-                // await delay(3000)
+                await delay(400)
                  setLoading(false)
             }
         }
@@ -58,16 +58,13 @@ function Banner() {
     }
     useEffect(() => {
         if(loading){
-        document.body.style.scrollMargin='0'
         // disableScroll.on();
         }else{
         disableScroll.off();
 
         }
     }, [loading])
-    function truncate(string, n){
-        return string?.length>n ?string.substr(0,n-1) +'...':string;
-    }
+    
     const handleView=(movie)=>{
         history.push(`/view/${movie.id}`,{id:movie.id})
         window.localStorage.setItem('show',JSON.stringify(movie.media_type==='tv' ? 1:0))

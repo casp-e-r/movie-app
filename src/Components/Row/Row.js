@@ -8,13 +8,13 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
+import { delay } from "../../helpers/helper";
 
 function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(true)
     let history = useHistory()
     const isTv=window.localStorage.getItem('show')   
-    const delay = ms => new Promise(res => setTimeout(res, ms));  
     const {setGlobalLoading} = useContext(LoadingContext)
     useEffect(() => {       
         async function fetch(){
@@ -25,7 +25,7 @@ function Row({title,url,isLarge=false,more=true}) {
             }catch(e){
                 console.log(e);
             }finally{
-                // await delay(2000)
+                await delay(800)
                 setLoading(false)
                 setGlobalLoading(false)
                 
@@ -66,8 +66,8 @@ function Row({title,url,isLarge=false,more=true}) {
                     effect="opacity"
                     threshold={50}
                     delayTime={2000}
-                    onLoad={setGlobalLoading(false)}
-                    placeholder={isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>}
+                    // onLoad={()=>setGlobalLoading(false)}
+                    placeholder={<Skeleton height={'100%'} width={'100%'}/>}
                     className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
                     onClick={()=>{
                         history.push(`/view/${obj.id}`,{id:obj.id})     

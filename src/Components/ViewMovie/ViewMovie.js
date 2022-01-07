@@ -142,7 +142,7 @@ function ViewMovie() {
                     
                 </div>
                 <div className='view-details-container'>
-                        {loading? null :<div className='back'
+                        {loading? <div style={{'height':'100%'}}></div> :<div className='back'
                                onClick={history.goBack} 
                                 >
                                 <IoIosReturnLeft size={50}/>

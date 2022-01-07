@@ -6,7 +6,9 @@ import './Search.css'
 import Skeleton from 'react-loading-skeleton'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-// import PaginationComp from './Pagination/PaginationComp'
+import { delay, getYear } from '../../helpers/helper'
+import ReactPaginate from 'react-paginate'
+
 
 function SearchTv() {
     const [page, setPage] = useState(1)
@@ -17,54 +19,74 @@ function SearchTv() {
     // const location=useLocation()
     // let page=location.state.page
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
 
-
-useEffect(() => {
-        async function fetch(){
-            try{
-                await axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`).then(e => {  
+    }, [page])
+    useEffect(() => {
+        async function fetch() {
+            try {
+                await axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`).then(e => {
                     setTvResults(e.data)
-                    
-                })}
-            catch(e){console.log(e);}
-            finally{
+
+                })
+            }
+            catch (e) { console.log(e); }
+            finally {
+                await delay(500)
                 setLoading(false)
             }
         }
         fetch()
-    }, [query,page])
-    console.log(tvResults.total_pages);
+    }, [query, page])
+    const handlePageChange = (e) => {
+        setPage(e)
+    }
     return (
         <div>
-        <div className='search-grid-wrapper'>
-            {tvResults.results && tvResults.results.map((obj, index) =>
-            <div className='card-view'>
+            <div className='search-grid-wrapper'>
+                {tvResults.results && tvResults.results.map((obj, index) =>
+                    <div className='card-view'>
                         <div className='card-poster'>
-                            {loading ?<Skeleton height={'100%'} width={'100%'}/>:
-                            <LazyLoadImage
-                            src={imageUrl+obj.poster_path} alt={obj.name}
-                            height={'100%'} width={'100%'}
-                            effect='opacity'
-                            onClick={() => {
-                                    history.push(`/view/${obj.id}`, { id: obj.id })
-                            }}
-                            />
-                            // <img className='img-poster'
-                            //     key={obj.id}
-                            //     src={imageUrl + obj.poster_path} alt={obj.name}
-                            //     onClick={() => {
-                            //         history.push(`/view/${obj.id}`, { id: obj.id })
-                            //     }}
-                            // />
+                            {loading ? <Skeleton height={'100%'} width={'100%'} /> :
+                                <LazyLoadImage
+                                    src={imageUrl + obj.poster_path} alt={obj.name}
+                                    height={'100%'} width={'100%'}
+                                    effect='opacity'
+                                    onClick={() => {
+                                        history.push(`/view/${obj.id}`, { id: obj.id })
+                                    }} />
                             }
                         </div>
-                            {loading ? null:<div className='card-name'>
+                        {loading ? null : <div className='card-name'>
                             <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                            </div>}
-                        </div>
-                    )}
-        </div>
-        {/* <div><Pagination total={tvResults.total_pages}/></div> */}
+                            <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
+                        </div>}
+                    </div>
+                )}
+            </div>
+            <div className='pagination-outer'>
+                <ReactPaginate
+                    pageCount={Math.floor(tvResults.total_pages)}
+                    onPageChange={(e) => handlePageChange(e.selected + 1)}
+                    previousLabel="previous"
+                    nextLabel="next"
+                    breakLabel="..."
+                    breakClassName="break-me"
+                    marginPagesDisplayed={1}
+                    pageRangeDisplayed={5}
+                    subContainerClassName="pages pagination"
+                    breakLinkClassName="page-link"
+                    containerClassName="pagination"
+                    pageClassName="page-item"
+                    pageLinkClassName="page-link"
+                    previousClassName="page-item"
+                    previousLinkClassName="page-link"
+                    nextClassName="page-item"
+                    nextLinkClassName="page-link"
+                    activeClassName="active"
+                />
+            </div>
         </div>
     )
 }

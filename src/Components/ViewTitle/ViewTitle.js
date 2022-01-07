@@ -8,7 +8,7 @@ import {AiOutlineLoading3Quarters} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-
+import { delay, getYear } from "../../helpers/helper";
 function ViewTitle() {
     const [TvMovie, setTvMovie] = useState('movie')
     const [results, setResults] = useState([])
@@ -22,7 +22,6 @@ function ViewTitle() {
     // const page =location.state.page 
     const history=useHistory()
     const observer= useRef()
-    const delay = ms => new Promise(res => setTimeout(res, ms));  
     useEffect(() => {
         async function fetch(){
             try{
@@ -84,58 +83,37 @@ function ViewTitle() {
                 if(results.length===i+1){
                     return<div ref={last} className='card-poster'> 
                     {initLoading ? 
-                    <Skeleton height={'100%'} width={'100%'}/>
-                    
-                    :<LazyLoadImage
-                    className='img-poster'
-                    src={imageUrl+obj.poster_path} alt={obj.name}
-                    height={'100%'} width={'100%'}
-                    effect='black-and-white'
-                    effect='blur'
-                    onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})     
-                    }}
-
-                    />
-                    
-                    // <img className='img-poster'
-                    // key={obj.id}
-                    // src={imageUrl+obj.poster_path} alt={obj.name}
-                    // onClick={()=>{
-                    //     history.push(`/view/${obj.id}`,{id:obj.id})     
-                    // }}
-                    // />
-                    }
+                        <Skeleton height={'100%'} width={'100%'}/>
+                        :<LazyLoadImage
+                        className='img-poster'
+                        src={imageUrl+obj.poster_path} alt={obj.name}
+                        height={'100%'} width={'100%'}
+                        effect='opacity'
+                        onClick={()=>{
+                            history.push(`/view/${obj.id}`,{id:obj.id})     
+                        }}/>}
                     {initLoading ? null:<div className='card-name'>
-                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p><p>{i}</p>
+                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
+                    <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
                     </div>}
                     </div>
                 }else{
                     return <div className='card-view'>
                     <div className='card-poster'>
                     {initLoading ? 
-                    <Skeleton height={'100%'} width={'100%'}/>:
-                    <LazyLoadImage
-                    className='img-poster'
-                    src={imageUrl+obj.poster_path} alt={obj.name}
-                    height={'100%'} width={'100%'}
-                    effect='opacity'
-                    onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})     
-                    }}
-
-                    />
-                    // <img className='img-poster poster-hover-t'
-                    // key={obj.id}
-                    // src={imageUrl+obj.poster_path} alt={obj.name}
-                    // onClick={()=>{
-                    //     history.push(`/view/${obj.id}`,{id:obj.id})     
-                    // }}
-                    // />
-                    }
+                        <Skeleton height={'100%'} width={'100%'}/>
+                        :<LazyLoadImage
+                        className='img-poster'
+                        src={imageUrl+obj.poster_path} alt={obj.name}
+                        height={'100%'} width={'100%'}
+                        effect='opacity'
+                        onClick={()=>{
+                         history.push(`/view/${obj.id}`,{id:obj.id})     
+                        }} />}
                     </div>
                     {initLoading ? null:<div className='card-name'>
-                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p><p>{i}</p>
+                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
+                    <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
                     </div>}
                     </div>}
             })}

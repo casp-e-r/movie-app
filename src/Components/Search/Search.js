@@ -1,47 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router'
+import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import './Search.css'
-import axios from '../../axios'
-import { API_KEY, imageUrl } from '../../constants/constants'
 import SearchMovie from './SearchMovie'
 import SearchTv from './SearchTv'
 import { LazyLoadComponent } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 function Search() {
-    // const [tvPage, setTvPage] = useState(1)
-    // const [moviePage, setMoviePage] = useState(1)
-    // const [tvPage, setTvPage] = useState(1)
-    // const [moviePage, setMoviePage] = useState(1)
-    
-    const [tvResults, setTvResults] = useState([])
-    const [movieResults, setMovieResults] = useState([])
-    const [count, setCount] = useState(0)
+
     const [state, setState] = useState(1)
-    const history = useHistory()
-    const location = useLocation()
     const { query } = useParams()
-    let moviePage=location.state.page
-    let tvPage=location.state.page
     
-    // useEffect(() => {
-    //     axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${tvPage}&include_adult=false`).then(e => {  
-    //         setTvResults(e.data.results)
-    //     })
-    //     axios.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${moviePage}&include_adult=false`).then(e => {
-    //         setMovieResults(e.data.results)
-    //     })
-    // }, [query,tvPage,moviePage])
-    const handleSearchPage =() =>{
-        if (state) {
-            moviePage=moviePage+1
-            history.push(`/search/${query}`,{page:moviePage})
-        }else {
-            tvPage=tvPage+1
-            history.push(`/search/${query}`,{page:tvPage})
-        }
-    }
-    console.log(query, tvResults, movieResults, tvPage,moviePage);
+
 
     return (
         <div className='search-view-container'>
@@ -50,61 +20,14 @@ function Search() {
                     <p>Search Results for  {query}</p>
                 </div>
                 <div className='search-tab-container'>
-                    <LazyLoadComponent>
+                    <LazyLoadComponent effect='blur'>
                     <div className={state?'active-search-tab' :'search-tab' }>
                         <p onClick={()=>setState(1)} className={state && 'active-tab'}>Movie</p>
                         <p onClick={()=>setState(0)} className={!state && 'active-tab'}>Tv Shows</p>
                     </div>
                     </LazyLoadComponent>
-                </div>
-                {/* <div className='search-grid-wrapper'> */}
-                    {state ? 
-                    <SearchMovie/>
-                    // movieResults && movieResults.map((obj, index) =>
-                    
-                    // // obj.poster_path && obj.backdrop_path &&
-                    // <div className='card-search'>
-                    // <div className='card-poster'>
-                    //     <img className='img-poster'
-                    //         key={obj.id}
-                    //         src={imageUrl + obj.poster_path} alt={obj.name}
-                    //         onClick={() => {
-                    //             history.push(`/view/${obj.id}`, { id: obj.id })
-                    //         }}
-                    //     />
-                    // </div>
-                    
-                    //  </div>
-                    // )
-                    :
-                    <SearchTv/>
-                    // tvResults && tvResults.map((obj, index) =>
-                    //     obj.poster_path && obj.backdrop_path &&
-                    //     <div className='poster'>
-                    //         <img className='img-poster'
-                    //             key={obj.id}
-                    //             src={imageUrl + obj.poster_path} alt={obj.name}
-                    //             onClick={() => {
-                    //                 history.push(`/view/${obj.id}`, { id: obj.id })
-                    //             }}
-                    //         />
-                    //     </div>
-                    // )
-                    }
-                {/* </div> */}
-                {state ?
-                <div><button 
-                // onClick={()=>history.push(`/search/${query}`,{page:moviePage+1})}
-                // onClick={()=>setMoviePage(moviePage+1)}
-                onClick={handleSearchPage}
-                >MvPa</button></div>
-                :
-                <div><button 
-                // onClick={()=>setTvPage(tvPage+1)}
-                onClick={handleSearchPage}
-                // onClick={()=>history.push(`/search/${query}`,{page:tvPage+1})}
-                >TvPa</button></div>
-                }
+                </div>                
+                {state ? <SearchMovie/> : <SearchTv/> }         
             </div>
         </div>
     )

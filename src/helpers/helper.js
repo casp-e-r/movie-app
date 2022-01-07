@@ -13,3 +13,8 @@ export const shuffleArray = (array) => {
       return date.split('-')[0];
     }
   };
+  export  const delay = ms => new Promise(res => setTimeout(res, ms));  
+  
+  export function truncate(string, n){
+    return string?.length>n ?string.substr(0,n-1) +'...':string;
+}
