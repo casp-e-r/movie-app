@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import './Search.css'
 import SearchMovie from './SearchMovie'
@@ -10,6 +10,15 @@ function Search() {
 
     const [state, setState] = useState(1)
     const { query } = useParams()
+    const [category, setCategory] = useState(1)
+    // useEffect(() => {
+    //     const showData=window.localStorage.getItem('search')
+    //     setCategory(JSON.parse(showData))    
+    // },[])
+    // useEffect(() => {
+    //     window.localStorage.setItem('search',JSON.stringify(category))
+        
+    // })
     
 
 

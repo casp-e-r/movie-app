@@ -18,10 +18,10 @@
     position: relative;
     justify-content: space-between;
 }
-.nav_content div{
+/* .nav_content div{
   position: absolute;
   top: 0;
-}
+} */
 .logo{
     position:fixed;
     left:20px;
@@ -62,7 +62,7 @@
     border-radius: 25px;
     transition: all .5s ease-in-out;
     background-color: transparent;
-    padding-right: 40px;
+    /* padding-right: 40px; */
     color:#fff;
   }
   .input-search::placeholder{
@@ -100,11 +100,52 @@
     transition: all 0.5s cubic-bezier(0.85, 0.06, 0.39, 0.63)
   }
   .input-search:focus{
-    width: 170px;
+    position: relative;
+    width: 200px;
     padding: 1%;
     transform: translateX(-25px);
     border-radius: 0px;
     background-color: transparent;
     border-bottom:1px solid rgba(255,255,255,.5);
     transition: all 700ms cubic-bezier(0, 0.110, 0.35, 2);
+  }
+  .auto-search{
+    margin-top: 5px;
+    position: fixed;
+    display: none;
+    bottom: 10;
+    z-index: 60;
+    transition:  display  ease 2s;
+    padding: 10px 5px;
+    max-height: 300px;
+    overflow-y: scroll;
+    scrollbar-width: 0px;
+    scrollbar-color: black;
+    width: 400px;
+    transform: translateX(-200px);
+    flex-direction: column;
+    border: 1px solid rgba(219, 219, 219, 0.418);
+    background-color: rgba(0, 0, 0, 0.626);
+  }
+  .input-search:focus ~ .auto-search{
+    display: block;
+  }
+  .auto-div{
+    padding: 1%;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    height: 100px;
+    gap: 3px;
+  }
+  .auto-div:hover{
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.974);
+  }
+  .auto-suggest-poster{
+    width: 80px;
+    height: 100%;
+  }
+  .auto-sugest-poster img{
+    object-fit: contain;
   }

@@ -59,7 +59,7 @@ useEffect(() => {
                             height={'100%'} width={'100%'}
                             effect='opacity'
                             onClick={() => {
-                                history.push(`/view/${obj.id}`, { id: obj.id })
+                                history.push(`/view/${obj.id}`, { id: obj.id,media:'movie' })
                             }}/>}
                         </div>
                             {loading ? null:<div className='card-name'>

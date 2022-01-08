@@ -26,21 +26,23 @@ function ViewMovie() {
     const [loading, setLoading] = useState(true)
     const location = useLocation()
     let history = useHistory()
-    const isTv=JSON.parse(window.localStorage.getItem('show'))   
+    const [isTv, setIsTv] = useState(0)
+    // const isTv=JSON.parse(window.localStorage.getItem('show'))   
     const ID = location.state.id
     const [TvMovie, setTvMovie] = useState('tv')
     useEffect(() => {
+        if (location.state.media) {
+           location.state.media==='tv'? setIsTv(1):setIsTv(0)
+        }else{
+            setIsTv(JSON.parse(window.localStorage.getItem('show')))   
+        }
+        
+    }, [location.state])
+    useEffect(() => {
         location && window.scrollTo(0, 0);
-        // const unlisten = history.listen(() => {
-        //     window.scrollTo(0, 0);
-        //   });
-        //   return () => {
-        //     unlisten();
-        //   }
         return()=>{
             window.scrollTo(0,0)
         }
-      
       }, [location,ID]);
     useEffect(() => {
         if (isTv ===1 ) {

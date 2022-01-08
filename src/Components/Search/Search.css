@@ -45,6 +45,7 @@
     padding: 0 2%;
 }
 .card-poster{
+    cursor: pointer;
     height: 250px;
     width: 150px;
 }

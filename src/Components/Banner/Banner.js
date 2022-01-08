@@ -3,11 +3,8 @@ import "./Banner.css"
 import axios from "../../axios";
 import {imageUrl} from '../../constants/constants'
 import requests from "../../requests";
-import "react-responsive-carousel/lib/styles/carousel.css"; // requires a loader
-// import { Carousel } from 'react-responsive-carousel';
 import { delay, shuffleArray, truncate } from "../../helpers/helper";
 import { useHistory } from 'react-router';
-import Carousel from 'react-responsive-carousel/lib/js/components/Carousel/index';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import disableScroll from 'disable-scroll';
 import  { LoadingContext } from '../../context';
