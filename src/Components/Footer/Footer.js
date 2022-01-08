@@ -6,8 +6,7 @@ function Footer() {
     return (
         <div className='footer-container'>
             <div className='footer-logo'>
-            <SiThemoviedatabase/>
-
+            <SiThemoviedatabase className='logo-icon'/>
             </div>
         </div>
     )

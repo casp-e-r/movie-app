@@ -1,19 +1,19 @@
 import React from "react";
-import Banner from "./Components/Banner/Banner";
+
 import Navbar from "./Components/NavBar/Navbar";
 import "./App.css"
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Container from './Components/Container/Container'
+
 import  Loading from "./context";
 import ViewMovie from "./Components/ViewMovie/ViewMovie";
 
 import Footer from "./Components/Footer/Footer";
-import axios from "./axios";
-import { API_KEY } from "./constants/constants";
+
+
 import ViewTitle from "./Components/ViewTitle/ViewTitle";
-import Search from "./Components/Search/Search";
+
 import ViewHome from "./Components/ViewHome/ViewHome";
-import Cast from "./Components/ViewMovie/Cast/Cast";
+
 import ViewSearch from "./Components/Search/ViewSearch";
 
 
@@ -48,7 +48,7 @@ function App() {
           </Route>
           </Loading>
           </div>
-          {/* <Footer/> */}
+          <Footer/>
         
       </Router>
      
