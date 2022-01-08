@@ -42,6 +42,7 @@ function SearchTv() {
     const handlePageChange = (e) => {
         setPage(e)
     }
+
     return (
         <div>
             <div className='search-grid-wrapper'>
@@ -60,13 +61,14 @@ function SearchTv() {
                         </div>
                         {loading ? null : <div className='card-name'>
                             <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                            <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
+                            <p1>{getYear(obj?.release_date || obj.first_air_date)}</p1>
                         </div>}
                     </div>
                 )}
+                {tvResults.total_results===0 && <div> no results</div>}
             </div>
             <div className='pagination-outer'>
-                <ReactPaginate
+              {tvResults.total_pages>1 &&  <ReactPaginate
                     pageCount={Math.floor(tvResults.total_pages)}
                     onPageChange={(e) => handlePageChange(e.selected + 1)}
                     previousLabel="previous"
@@ -85,7 +87,7 @@ function SearchTv() {
                     nextClassName="page-item"
                     nextLinkClassName="page-link"
                     activeClassName="active"
-                />
+                />}
             </div>
         </div>
     )

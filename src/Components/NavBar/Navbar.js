@@ -5,7 +5,6 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import  axios  from "../../axios";
 import { API_KEY, imageUrl } from '../../constants/constants';
 import { delay, getYear } from '../../helpers/helper';
-import AutoSugg from './AutoSugg';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function Navbar() {
@@ -27,8 +26,7 @@ function Navbar() {
             // setLoading(false)
         }
     }
-    useEffect(() => {
-        
+    useEffect(() => {  
         search.length>2 && fetch(search)
         return ()=>{
             setResults([])
@@ -45,7 +43,7 @@ function Navbar() {
     const handleSubmit=(e)=>{
             search.length!=0  && 
             history.push(`/search/${search}`,{page:page})
-            return setSearch(''),setResults()
+            return()=> setSearch(''),setResults()
     }
   const handleSuggestSubmit=(e)=>{
         history.push(`/view/${e.id}`,{id:e.id,media:e.media_type})
@@ -71,19 +69,20 @@ function Navbar() {
                 </div>
                 
                 <div class="search-box">
+                    <div className='dummy'></div>
                     <button class="btn-search"
                     onClick={handleSubmit}>
                     <BiSearchAlt2 />
-                    </button>
+                    </button> 
                     <input 
                     value={search}
                     onChange={(e)=>setSearch(e.target.value)}
                     type="text" class="input-search" placeholder=" Search..." />
-                {results && results.length>0 && <section className='auto-search'>
+                    
+                {results && results.length>0 && <div className='auto-search'>
                     {results.map((e,i)=>{
-                       
-                           return <div  className='auto-div' 
-                                    onClick={()=>this.console.log('hhh')}>
+                        
+                           return <div  className='auto-div' onClick={()=>handleSuggestSubmit(e)} >
                                <div className='auto-suggest-poster'>
                                     <LazyLoadImage src={imageUrl+e.poster_path} height={'100%'} width={'100%'} />
                                </div>
@@ -93,13 +92,13 @@ function Navbar() {
                                 <p>{e.rating}</p>
                                 <p>{e.media_type}</p>
                                </div>
-                               
                                  </div>
                             
                     
                     }) }
+                    {results.length===20 && <p className='auto-suggest-search-more' onClick={()=>handleSubmit()}>Search '{search}'</p>}
                 
-                </section>}
+                </div>}
                 </div>
                 
 

@@ -69,11 +69,11 @@
         justify-content: space-around;
         grid-template-columns: repeat(3,20%);
     }
-    .view-title-container div{
-    }
     .card-view div{
         padding: 0 6% 
-
+    }
+    .view-title-header{
+        font-size: .9rem;
     }
     .card-poster{
         width: 150px;
@@ -89,5 +89,8 @@
     }
     .card-poster{
         width: 150px;
+    }
+    .view-title-header{
+        font-size: .8rem;
     }
 }

@@ -1,11 +1,14 @@
 import React from 'react'
 import './Footer.css'
+import {SiThemoviedatabase} from 'react-icons/si'
 
 function Footer() {
     return (
         <div className='footer-container'>
-            <h3>powered by tmdb api</h3>
-            
+            <div className='footer-logo'>
+            <SiThemoviedatabase/>
+
+            </div>
         </div>
     )
 }

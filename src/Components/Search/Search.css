@@ -9,23 +9,29 @@
 .search-header{
     margin: 2% 4%;
 }
-.search-tab,.active-search-tab{
+
+.search-tab{
+    padding-bottom: 3px;
     margin: 1% 4% 5% 4%;
     display: flex;
     justify-content: start;
-    border-bottom: 1px solid rgba(131, 130, 130, 0.397);
+    border-bottom: 1px solid rgba(182, 182, 182, 0.205);
 }
-.search-tab p:hover,.active-search-tab p:hover{
+.search-tab p:hover{
     cursor: pointer;
-    background-color: rgba(123, 123, 172, 0.103);
-    transition: ease-in-out all .3s;
+    background-color: rgba(214, 214, 214, 0.966);
+    transition: ease-in-out all .7s;
+    color: #000;
 }
 .active-tab {
-    background-color: rgba(123, 123, 172, 0.212);
-    transition: ease-in-out all .3s;
+    background-color: rgba(214, 214, 214, 0.966);
+    transition: ease-in-out all .7s;
+    color: #000;
 }
-.search-tab p,.active-search-tab p{
-        padding: .5% 5% .5% .5%;
+.search-tab p{
+    margin-right: .5%;
+    padding: .6% 3%;
+    border: 1px solid rgba(214, 214, 214, 0.815);
 }
 .search-grid-wrapper{
     margin: auto;
@@ -36,10 +42,6 @@
     min-height: 100vh;
     grid-template-columns: repeat(5,20%) 
 }
-/* .search-grid-wrapper div{
-    margin: 5% 2%;
-    padding: 0 2%;
-}  */
 .card-search {  
     margin: 5% 2%;
     padding: 0 2%;
@@ -48,6 +50,12 @@
     cursor: pointer;
     height: 250px;
     width: 150px;
+}
+.card-name p{
+    font-size: .9rem;
+}
+.card-name p1{
+    font-size: .7rem;
 }
 .img-poster{
     width: 100%;
@@ -69,31 +77,32 @@
     background-color: #ffffff ;
     border-color: #ffffff ;
     color: rgb(0, 0, 0);
-  }
-  .pagination > li > a{
+}
+.pagination > li > a{
     border: 0.1px solid #ffffff ;
     padding: 5px 10px;
     outline: none;
     cursor: pointer;
-  }
-  .pagination > li > a:hover{
-      background-color: #333333;
-  }
-  .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+}
+.pagination > li > a:hover{
+    background-color: #333333;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
     background-color: #ffffff ;
     border-color: #ffffff;
     outline: none ;
-  }
-  .pagination > li > a, .pagination > li > span{
+}
+.pagination > li > a, .pagination > li > span{
     color: #ffffff
-  }
-  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
+}
+.pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span{
     border-radius: unset
-  }
+}
 
 @media screen and (max-width:890px) {
     .search-view-container{
             margin-top: 20%;
+            font-size: medium;
     }
     .search-header{
         padding: 2% 0 ;
@@ -109,8 +118,24 @@
         height: 210px;
     }
 }
-@media screen and (max-width:400px) {
+@media screen and (max-width:490px) {
     .search-grid-wrapper{
         grid-template-columns: repeat(2,50%);
+    }
+    .search-view-container{
+        margin-top: 20%;
+        font-size: small;
+    }
+    .search-header{
+    padding: 2% 0 ;
+    }
+    .search-grid-wrapper{
+        margin:0 1%;
+        justify-content: space-around;
+        grid-template-columns: repeat(3,20%);
+    }
+    .card-poster{
+        width: 120px;
+        height: 210px;
     }
 }

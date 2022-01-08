@@ -16,6 +16,8 @@ function Row({title,url,isLarge=false,more=true}) {
     let history = useHistory()
     const isTv=window.localStorage.getItem('show')   
     const {setGlobalLoading} = useContext(LoadingContext)
+    const d = new Date();
+    let time = d.getTime();
     useEffect(() => {       
         async function fetch(){
             try{
@@ -35,9 +37,7 @@ function Row({title,url,isLarge=false,more=true}) {
         return()=>{
             setGlobalLoading(true)
         }
-            // axios.get(url).then(res=>{ 
-            //     setMovies(res.data.results)  
-            // }).catch(err=>console.log(err))
+
          
     }, [url,setMovies])
 
@@ -47,25 +47,27 @@ function Row({title,url,isLarge=false,more=true}) {
         
         <div className="row" >
             <SkeletonTheme baseColor=' #121212' highlightColor='#1c1c1c'>
-            {loading? <Skeleton width={200} height={25}/>:<div className='row-header'>
+            {loading ? <Skeleton width={200} height={25}/>: movies.length!==0?<div className='row-header'>
             {more ? <div onClick={()=>{
                         history.push(`/${title}`,{page:1,url:url })     
                     }}>
                 <h2>{title}</h2>
                 <p><IoIosMore size={20}/></p>
                     </div>:<h2>{title}</h2>}
-            </div>}
+            </div>:null}
             <div className="posters">
                 {movies && movies.map((obj)=>
                 
                      <div className={isLarge ? 'card-backdrop':'card-poster'}>
 
-                    {loading? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
+                    {loading&&!movies? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
                     :<LazyLoadImage 
                     src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path}
                     effect="opacity"
                     threshold={50}
                     delayTime={2000}
+                    beforeLoad={()=>setLoading(true)}
+                    afterLoad={()=>setLoading(false)}
                     // onLoad={()=>setGlobalLoading(false)}
                     placeholder={<Skeleton height={'100%'} width={'100%'}/>}
                     className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}

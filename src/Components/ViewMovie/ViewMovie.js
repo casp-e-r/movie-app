@@ -18,6 +18,7 @@ import 'react-lazy-load-image-component/src/effects/opacity.css'
 
 
 
+
 function ViewMovie() {
 
     const [country, setCountry] = useState('')
@@ -176,10 +177,10 @@ function ViewMovie() {
                                 <div className='view-rating-genre'>
                                 {!loading && <p>rating :{movie.vote_average}</p>}
                                 </div>
-                                {loading? <Skeleton count={5} width={'50%'} height={4}/>:<div className='view-overview'>
+                                {loading ?  <Skeleton count={5} width={'50%'} height={4}/>:movie.overview ? <div className='view-overview'>
                                     <label>Overview</label>
                                     <h4>{movie.overview}</h4>
-                                </div>}
+                                </div>:null}
                                 <div className='view-btns'>
                                     {loading ? <Skeleton  width={'20%'} height={40}/>:<Trailer 
                                     ID={ID} 
@@ -196,36 +197,36 @@ function ViewMovie() {
             {loading ? null :<div className='inner-container-2'>
                 <div className='view-more-info'>
 
-                    <div>
+                    {movie.release_date&& movie.release_date.length!=0  &&<div>
                         <h5>release date</h5>
                         {isTv ? <p>{movie.first_air_date}</p>:<p>{movie.release_date}</p>}
-                    </div>
+                    </div>}
                     {movie.homepage && movie.homepage.length!=0 ? <div>
                         <h5>home page</h5>
                         <a href={movie.homepage} target="_blank" rel="noopener noreferrer"><AiOutlineGlobal
                         style={{color:'#fff'}}/></a>
                     </div>:null}
-                    <div>
+                    {movie.genres && movie.genres.length!==0 &&<div>
                         <h5>genres</h5>
-                        {movie.genres && movie.genres.map(e=>
+                        { movie.genres.map(e=>
                             {return<p>{e.name}</p>})}
-                    </div>
+                    </div>}
                     <div>
                         <h5>language</h5>
                         <p>{movie.original_language}</p>
                     </div>
                     
-                        {isTv ? <div>
+                        {isTv &&movie.number_of_seasons ?  <div>
                             <h5>number of seasons</h5>
                             <p>{movie.number_of_seasons}</p>
                             </div>
-                            :<div> 
+                            :movie.runtime ?<div> 
                                 <h5>runtime</h5>
                                 <p>{movie.runtime} minutes</p>
-                            </div>}
+                            </div>:null}
                         
                     
-                    {isTv ? <div>
+                    {isTv &&country ? <div>
                         <h5>origin country</h5>
                         {country && <p>{country}</p>}
                         {/* tv only */}
@@ -238,7 +239,7 @@ function ViewMovie() {
                                 </div>})}
                    
                 </div>
-                <Cast creator={movie.created_by} cast={cast}/>
+                {cast.length!==0 && <Cast creator={movie.created_by} cast={cast}/>}
             </div>}
             {loading ? null : <div className='inner-container-3'>
                 <>
