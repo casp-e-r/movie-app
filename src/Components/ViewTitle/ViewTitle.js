@@ -4,11 +4,13 @@ import { useHistory, useLocation, useParams } from 'react-router'
 import requests from '../../requests'
 import './ViewTitle.css'
 import { imageUrl } from '../../constants/constants'
-import {AiOutlineLoading3Quarters} from 'react-icons/ai'
+import {RiMovie2Line} from 'react-icons/ri'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { delay, getYear } from "../../helpers/helper";
+import {GrStar} from 'react-icons/gr'
+
 function ViewTitle() {
     const [TvMovie, setTvMovie] = useState('movie')
     const [results, setResults] = useState([])
@@ -22,6 +24,11 @@ function ViewTitle() {
     // const page =location.state.page 
     const history=useHistory()
     const observer= useRef()
+    const [category, setCategory] = useState(0)
+    useEffect(() => {
+        const showData=window.localStorage.getItem('show')
+        setCategory(JSON.parse(showData))    
+    },[])
     useEffect(() => {
         async function fetch(){
             try{
@@ -37,17 +44,12 @@ function ViewTitle() {
         }
         fetch()
     }, [page,setResults,url])
-    // useEffect(() => {
-    //     axios.get(url+`&page=${page}`).then(e=>{
-    //             // setResults(e.data.results)            
-    //         setResults(results=>[...results,...e.data.results])
-    //     }).catch(err=>console.log(err))   
-    // }, [page,setResults,url])
+    
    
     const yourFunction = async () => {
         setLoading(true)
         await delay(3500);
-        // setPage(page=>page+1)
+        setPage(page=>page+1)
         setLoading(true)
     };
     const last=useCallback(
@@ -58,8 +60,7 @@ function ViewTitle() {
                         
                         yourFunction()
                         // setLoading(true) 
-                        // setTimeout(setPage(page=>page+1),50000)
-                        
+                        // setTimeout(setPage(page=>page+1),50000)    
                     }
             })
             if(e) observer.current.observe(e)
@@ -74,7 +75,7 @@ function ViewTitle() {
             <div className='view-title-header'>
                 {initLoading ? 
                 <Skeleton width={'50%'} height={20}/>
-                    :<h1>{title}</h1>}
+                    :<h1>{title}&nbsp;{category ===0 ? 'Movies' : 'Tv Shows'}</h1>}
             </div>
             <div className='view-title-container' >
 
@@ -93,8 +94,11 @@ function ViewTitle() {
                             history.push(`/view/${obj.id}`,{id:obj.id})     
                         }}/>}
                     {initLoading ? null:<div className='card-name'>
-                    <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                    <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
+                    <p>
+                        {obj ? obj.name || obj.original_name || obj.title : ""}</p>
+                    <p1>{getYear(obj?.release_date || obj.first_air_date)}
+                    <p1><GrStar style={{'marginLeft':'50%','color':'yellow','fontSize':'.81rem' }}/>{obj.vote_average}</p1>
+                    </p1>
                     </div>}
                     </div>
                 }else{
@@ -113,22 +117,18 @@ function ViewTitle() {
                     </div>
                     {initLoading ? null:<div className='card-name'>
                     <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                    <p>{getYear(obj?.release_date || obj.first_air_date)}</p>
+                    <p>{getYear(obj?.release_date || obj.first_air_date)}
+                    <p1><GrStar style={{'marginLeft':'50%','color':'yellow','fontSize':'.71rem' }}/>{obj.vote_average}</p1>
+                    </p>
                     </div>}
                     </div>}
             })}
             </div>
             <div className='loading-outer' >
             {loading && 
-            // <div className='loading'>
-            //             <p><AiOutlineLoading3Quarters/></p>      
-            //             </div>
-            <div className=' skl-load-grid'>
-                <Skeleton className='card-poster' height={'100%'} width={'100%'}/>
-                <Skeleton className='card-poster' height={'100%'} width={'100%'}/>
-                <Skeleton className='card-poster' height={'100%'} width={'100%'}/>
-            </div>
-                        }
+            <div className='loading'>
+                       <RiMovie2Line className='logo-loader'/>    
+            </div>}
             
             </div>
             </SkeletonTheme>

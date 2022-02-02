@@ -17,6 +17,10 @@
     gap: 2%;
 }
 .toggle button{
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: bolder;
+    font-size: .81rem;
+    letter-spacing: .1rem;
     /* border-radius: 30px; */
     width: 100px;
     box-sizing: border-box;

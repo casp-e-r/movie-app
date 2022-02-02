@@ -107,9 +107,13 @@
     .search-header{
         padding: 2% 0 ;
     }
+    .search-tab p{
+        width: 80px;
+        text-align: center;
+
+    }
     .search-grid-wrapper{
         margin:0 1%;
-        /* margin: auto; */
         justify-content: space-around;
         grid-template-columns: repeat(3,20%);
     }
@@ -118,9 +122,9 @@
         height: 210px;
     }
 }
-@media screen and (max-width:490px) {
+@media screen and (max-width:500px) {
     .search-grid-wrapper{
-        grid-template-columns: repeat(2,50%);
+        grid-template-columns: repeat(2,20%);
     }
     .search-view-container{
         margin-top: 20%;
@@ -132,10 +136,11 @@
     .search-grid-wrapper{
         margin:0 1%;
         justify-content: space-around;
-        grid-template-columns: repeat(3,20%);
+        grid-template-columns: repeat(2,20%);
     }
     .card-poster{
         width: 120px;
         height: 210px;
     }
 }
+

@@ -8,6 +8,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { delay, getYear } from '../../helpers/helper'
 import ReactPaginate from 'react-paginate';
+import {GrStar} from 'react-icons/gr'
 
 
 
@@ -64,7 +65,9 @@ useEffect(() => {
                         </div>
                             {loading ? null:<div className='card-name'>
                             <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
-                            <p1>{getYear(obj?.release_date || obj.first_air_date)}</p1>
+                            <p1>{getYear(obj?.release_date || obj.first_air_date)} 
+                            <p1><GrStar style={{'marginLeft':'50%','color':'yellow','fontSize':'.71rem' }}/>{obj.vote_average}</p1>
+                            </p1>
                             </div>}
                         </div>
                     )}

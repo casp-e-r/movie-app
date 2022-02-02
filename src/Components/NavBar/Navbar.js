@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import "./Navbar.css"
 import { BiSearchAlt2 } from "react-icons/bi";
+import { GiFilmSpool} from "react-icons/gi";
 import  axios  from "../../axios";
 import { API_KEY, imageUrl } from '../../constants/constants';
 import { delay, getYear } from '../../helpers/helper';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {GrStar} from 'react-icons/gr'
+
 
 function Navbar() {
     let history = useHistory()
@@ -63,9 +66,9 @@ function Navbar() {
     return (
         <div className={`nav ${ show && 'nav_black'}`}>
             <div className="nav_content">
-                <div className='logo-outer'>
-                    <img className="logo" src="" alt="logo" onClick={() => history.push('/')} />
-                    {/* <img className="avatar" src="" alt="avatar" /> */}
+                <div className='logo-outer' onClick={() => history.push('/')}>
+                    <GiFilmSpool className='logo-main'/>
+                    <p>FilmX</p>
                 </div>
                 
                 <div class="search-box">
@@ -89,8 +92,11 @@ function Navbar() {
                                <div>
                                <p>{e.name || e.original_name || e.title}</p>
                                <p>{getYear(e?.release_date || e.first_air_date)}</p>
-                                <p>{e.rating}</p>
-                                <p>{e.media_type}</p>
+                                <p>
+                                {e.rating}
+                                <p1><GrStar style={{'color':'yellow','fontSize':'.71rem' }}/>{e.vote_average}</p1>
+                                </p>
+                                {/* <p>{e.media_type}</p> */}
                                </div>
                                  </div>
                             

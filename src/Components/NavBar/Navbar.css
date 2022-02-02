@@ -2,8 +2,8 @@
     position: fixed;
     top:0;
     width:100%;
-    height: 20px;
-    padding: 25px;  
+    height: 40px;
+    padding: 20px 0;
     z-index: 98;
     transition-timing-function: ease-in;
     transition: all 0.5s;
@@ -12,29 +12,42 @@
     background-color: #151515;
 }
 .nav_content{
+    margin-top: 20px;
+    align-items: center;
+    height: 100%;
     width: 100%;
     margin: auto;
     display: flex;
     position: relative;
     justify-content: space-between;
-}
-/* .nav_content div{
-  position: absolute;
-  top: 0;
-} */
-.logo{
-    position:fixed;
-    left:20px;
-    width:80px;
-    color: #fff;
+    font-family: 'Roboto Condensed', sans-serif;
 
 }
 
-.avatar{
+.logo-outer{
+    cursor: pointer;
+    text-align: center;
     position:fixed;
-    right:30px;
-    width:30px;
+    display: flex;
+    flex-direction: row;
+    left:50px;
+    width:90px;
     color: #fff;
+
+}
+.logo-outer p{
+  letter-spacing: .1rem;
+  padding-top: 18%;
+  font-family: 'Bebas Neue', cursive;
+  font-weight: bolder;
+  font-size: 1.5rem;
+
+
+}
+.logo-main{
+  font-size: 50px;
+  margin-right: 6px;
+  min-width: 50px;
 }
 .search-box{
     /* position: absolute;
@@ -43,7 +56,6 @@
     right: 0;
     margin-right: 60px;
     width: fit-content;
-    /* height: 20px; */
     height: 100%;
     height: fit-content;
     cursor: pointer;   
@@ -118,25 +130,26 @@
   .auto-search{
     margin-top: 5px;
     position: fixed;
-    /* display: none; */
+    display: none;
     scrollbar-width: none;
     bottom: 10;
     z-index: 60;
     transition:  display  ease 2s;
     padding: 5px 1px;
-    max-height: 300px;
+    max-height: 320px;
     overflow-y: scroll;
     overflow-x: hidden;
     width: 410px;
     transform: translateX(-50%);
     flex-direction: column;
     border: 1px solid rgba(122, 122, 122, 0.418);
-    background-color: rgba(163, 163, 163, 0.603);
+    /* background-color: rgba(168, 168, 168, 0.932); */
+    background-color:rgb(243, 243, 243);
     opacity: 0;
     color: #000;
   }
   .input-search:focus ~  .auto-search{
-    /* display: block; */
+    display: block;
     opacity: 1;
   }
   .auto-search:hover{
@@ -145,7 +158,7 @@
   
   .auto-div{
     padding: 1%;
-    width: 100%;
+    /* width: 100%; */
     display: flex;
     height: 100px;
     gap: 3px;
@@ -179,10 +192,13 @@
       font-size: 1rem;
       width: 100px;
     }
+    
     .auto-search{
-      background-color: rgba(163, 163, 163, 0.603);
+      margin-right:100px;
+      width:350px;
+      transform: translateX(-70%);
       font-size: 1rem;
-      width: 100vw;
+    
     }
     .auto-div{
       height: 75px;
@@ -192,6 +208,9 @@
     }
   }
   @media screen and (max-width:490px) {
+    .logo-outer{
+      left: 20px;
+    }
     .search-box{
       margin-right: 10px;
     }
@@ -201,14 +220,15 @@
       letter-spacing: 1px;
     }
     .auto-search{
-      background-color: rgba(163, 163, 163, 0.603);
       font-size: .8rem;
       width: 100vw;
     }
     .auto-div{
-      height: 55px;
+      margin: 0 15px;
+      height: 88px;
+      padding: 5px 15px;
     }
     .auto-suggest-poster{
-      width: 40px;
+      width: 64px;
     }
   }

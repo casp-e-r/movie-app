@@ -29,12 +29,12 @@ function Container() {
                 <div className='toggle'>
                 {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
                 <button className={category===1?'active-category-toggle':'category-toggle'} onClick={() => setCategory(1)} >
-                    tv
+                        TV 
                 </button>
                 <button
                 className={category===0?'active-category-toggle':'category-toggle'}
                 onClick={() => setCategory(0)}>
-                    movie
+                   MOVIE
                 </button>
 
             </div>}

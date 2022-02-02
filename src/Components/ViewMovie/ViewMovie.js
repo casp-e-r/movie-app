@@ -7,7 +7,9 @@ import { useLocation, useParams } from 'react-router'
 import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
-import {IoIosReturnLeft} from 'react-icons/io'
+
+import { AiOutlineSwapLeft} from "react-icons/ai";
+import {GrStar} from 'react-icons/gr'
 import {AiOutlineGlobal} from 'react-icons/ai'
 import Cast from './Cast/Cast';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
@@ -28,7 +30,6 @@ function ViewMovie() {
     const location = useLocation()
     let history = useHistory()
     const [isTv, setIsTv] = useState(0)
-    // const isTv=JSON.parse(window.localStorage.getItem('show'))   
     const ID = location.state.id
     const [TvMovie, setTvMovie] = useState('tv')
     useEffect(() => {
@@ -140,7 +141,6 @@ function ViewMovie() {
                         afterLoad={()=>setLoading(false)}
                      src={imageUrl + movie.backdrop_path}
                      height={'100%'} width={'100%'}/>
-                    {/* <img src={imageUrl + movie.backdrop_path}></img>  */}
                     
                     
                 </div>
@@ -148,18 +148,13 @@ function ViewMovie() {
                         {loading? <div style={{'height':'100%'}}></div> :<div className='back'
                                onClick={history.goBack} 
                                 >
-                                <IoIosReturnLeft size={50}/>
+                                <AiOutlineSwapLeft className='direction-icon' size={30}/>
                                 <h1> back</h1>       
                         </div>}
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
                             {loading ? <Skeleton width={'100%'} height={'100%'}/>:
-                            <LazyLoadImage 
-                            effect='opacity'
-                            src={imageUrl + movie.poster_path}
-                            />
-                            //  <img src={`${imageUrl}${movie.poster_path}`} alt={unknown}></img>
-                             }
+                            <LazyLoadImage effect='opacity' src={imageUrl + movie.poster_path}/>}
                             </div>
                             <div className='view-details'>
                                 <div className='view-name'>
@@ -174,8 +169,11 @@ function ViewMovie() {
                                     {movie.genres && movie.genres.map(e=>
                                     {return<p>{e.name}</p>})}
                                 </div>
-                                <div className='view-rating-genre'>
-                                {!loading && <p>rating :{movie.vote_average}</p>}
+                                <div className='view-rating'>
+                                {!loading &&
+                               
+                                <p><GrStar style={{'marginRight':'1%','color':'yellow','fontSize':'1.1rem' }}/>{movie.vote_average}/10</p>
+                                }
                                 </div>
                                 {loading ?  <Skeleton count={5} width={'50%'} height={4}/>:movie.overview ? <div className='view-overview'>
                                     <label>Overview</label>

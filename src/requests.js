@@ -1,4 +1,5 @@
-const API_KEY = '57b782ed1e57b332740e30da5d75e862'
+
+import {API_KEY} from './constants/constants'
 
 const requests={
     movie:{

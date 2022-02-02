@@ -5,11 +5,11 @@ import unknown from "../../../images/unknown.jpg"
 
 
 function Cast({creator,cast}) {
-    console.log(cast);
+    
     return (
         
             <div className='view-cast-creator'>
-                {creator && <>
+                {creator && creator.length!==0 && <>
                     <h1>Created by</h1>
                     <div className='creator'>
                             {creator.map(e=>{return<div className='profile-img'>

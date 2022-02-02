@@ -4,10 +4,12 @@
     padding-top: 40px;
     margin-left: auto;
     width: auto;
+    min-height: 100vh;
+
 }
 .view-title-header{
     padding: 5%;
-    margin: auto;
+    margin-top:20px;
 }
 .view-title-container{
     padding: 0 10px;
@@ -43,24 +45,30 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: .9rem;
-    margin: 5% 0;
-
-
+    margin-top: 5% ;
+}
+.card-view{
+    margin-bottom:20%
 }
 .card-view div{
     padding: 3% 4%;
 
 }
+/* .card-name p{
+    cursor: pointer;
+} */
 .loading-outer{
     margin: auto;
 }
 .loading{
-    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin:4% 0 7% 0;
 }
-.loading p{
-    /* transform: rotate(); */
-    /* transform: rotate('360'); */
-    transform: rotate('3600deg');
+
+.logo-loader{
+    font-size: 30px;
+    animation: spin 1s infinite linear
 }
 
 @media screen and (max-width:890px) {
@@ -69,15 +77,20 @@
         justify-content: space-around;
         grid-template-columns: repeat(3,20%);
     }
+    .view-title-header{
+        margin-top:8%;
+    }
+    .card-view{
+        margin-bottom:25%;
+    }
     .card-view div{
-        padding: 0 6% 
+        padding: 0 6% ;
     }
     .view-title-header{
         font-size: .9rem;
     }
     .card-poster{
         width: 150px;
-
     }
     .card-view p{
         font-size: .8rem;
@@ -92,5 +105,13 @@
     }
     .view-title-header{
         font-size: .8rem;
+    }
+}
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
     }
 }

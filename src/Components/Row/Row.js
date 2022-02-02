@@ -1,9 +1,9 @@
 import React,{useContext, useEffect,useState} from 'react'
 import "./Row.css"
 import axios from "../../axios";
-import { Link, useHistory } from "react-router-dom";
-import {imageUrl} from '../../constants/constants'
-import {IoIosMore} from 'react-icons/io'
+import { useHistory } from "react-router-dom";
+import {imageUrl,imageUrl3} from '../../constants/constants'
+import {AiOutlineSwapRight} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -52,7 +52,7 @@ function Row({title,url,isLarge=false,more=true}) {
                         history.push(`/${title}`,{page:1,url:url })     
                     }}>
                 <h2>{title}</h2>
-                <p><IoIosMore size={20}/></p>
+                <p><AiOutlineSwapRight className='direction-icon' size={20}/></p>
                     </div>:<h2>{title}</h2>}
             </div>:null}
             <div className="posters">
@@ -62,7 +62,7 @@ function Row({title,url,isLarge=false,more=true}) {
 
                     {loading&&!movies? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
                     :<LazyLoadImage 
-                    src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path}
+                    src={isLarge ? (imageUrl3 || imageUrl) +obj.backdrop_path : (imageUrl3 || imageUrl)+obj.poster_path}
                     effect="opacity"
                     threshold={50}
                     delayTime={2000}
@@ -75,13 +75,7 @@ function Row({title,url,isLarge=false,more=true}) {
                         history.push(`/view/${obj.id}`,{id:obj.id})     
                     }}
                     >
-                        {/* <img className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
-                    key={obj.id}
-                    src={isLarge ? imageUrl+obj.backdrop_path : imageUrl+obj.poster_path} alt={obj.name}
-                    onClick={()=>{
-                        history.push(`/view/${obj.id}`,{id:obj.id})     
-                    }}
-                    /> */}
+                     
                     </LazyLoadImage>
                        } 
                     {isLarge && <div className='poster-overlay'>

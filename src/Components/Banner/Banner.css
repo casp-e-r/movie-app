@@ -66,6 +66,7 @@
     transition: ease-out all .5s;
 }
 
+
 .fade-bottom{
     z-index: 29;
     position: absolute;

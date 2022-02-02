@@ -14,8 +14,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 
+
 function Banner() {
-    
       const {GlobalLoading} = useContext(LoadingContext)
       const [movie, setMovie] = useState()
       const [loading, setLoading] = useState(true)
@@ -98,7 +98,9 @@ function Banner() {
                         <div className='banner-details'>
                             <h1>{movie ? movie.name || movie.original_name || movie.title :""}</h1>
                             <p>{truncate(movie.overview,200)}</p>
-                            <button onClick={()=>handleView(movie)}  >View Movie </button>
+                            <button onClick={()=>handleView(movie)}  >View Details
+                            </button>
+                            
                         </div>
 
                     </div>
