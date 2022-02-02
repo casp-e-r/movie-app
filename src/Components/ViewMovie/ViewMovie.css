@@ -239,3 +239,9 @@
         justify-content: center;
     }
 }
+@media screen and (max-width:490px) {
+    .back{
+        margin-top:15px
+    }
+}
+

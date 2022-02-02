@@ -20,15 +20,17 @@ function Navbar() {
     async function fetch(value){
         try{
             await axios.get(`/search/multi?api_key=${API_KEY}&language=en-US&query=${value}&page=1&include_adult=false`).then(e => {  
-                setResults(e.data.results)
-                console.log(e.data.results);
+                // console.log(e.data.results);
+                e.data.results.map(i=>{
+                    (i.media_type!=='person') && Set(setResults([...results,i]))
+                })
             })}
         catch(e){console.log(e);}
         finally{
             await delay(500)
-            // setLoading(false)
         }
     }
+    console.log(results);
     useEffect(() => {  
         search.length>2 && fetch(search)
         return ()=>{

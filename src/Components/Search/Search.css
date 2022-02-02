@@ -32,6 +32,8 @@
     margin-right: .5%;
     padding: .6% 3%;
     border: 1px solid rgba(214, 214, 214, 0.815);
+    font-size:large;
+    font-weight: 500;
 }
 .search-grid-wrapper{
     margin: auto;
@@ -52,6 +54,7 @@
     width: 150px;
 }
 .card-name p{
+    font-weight: 600;
     font-size: .9rem;
 }
 .card-name p1{
@@ -108,6 +111,7 @@
         padding: 2% 0 ;
     }
     .search-tab p{
+        font-size:medium;
         width: 80px;
         text-align: center;
 
