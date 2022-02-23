@@ -57,7 +57,7 @@ function Row({title,url,isLarge=false,more=true}) {
             </div>:null}
             <div className="posters">
                 {movies && movies.map((obj)=>
-                
+                 (isLarge ? obj.backdrop_path : obj.poster_path) &&
                      <div className={isLarge ? 'card-backdrop':'card-poster'}>
 
                     {loading&&!movies? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)

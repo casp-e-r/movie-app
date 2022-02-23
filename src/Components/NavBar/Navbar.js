@@ -8,6 +8,7 @@ import { API_KEY, imageUrl } from '../../constants/constants';
 import { delay, getYear } from '../../helpers/helper';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import {GrStar} from 'react-icons/gr'
+import po from "../../images/po.jpg"
 
 
 function Navbar() {
@@ -89,7 +90,7 @@ function Navbar() {
                         
                            return <div  className='auto-div' onClick={()=>handleSuggestSubmit(e)} >
                                <div className='auto-suggest-poster'>
-                                    <LazyLoadImage src={imageUrl+e.poster_path} height={'100%'} width={'100%'} />
+                                    <LazyLoadImage src={e.poster_path ? imageUrl+e.poster_path : po } height={'100%'} width={'100%'} />
                                </div>
                                <div>
                                <p>{e.name || e.original_name || e.title}</p>

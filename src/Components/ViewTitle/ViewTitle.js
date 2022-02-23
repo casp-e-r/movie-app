@@ -10,6 +10,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component'
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { delay, getYear } from "../../helpers/helper";
 import {GrStar} from 'react-icons/gr'
+import po from "../../images/po.jpg"
+
 
 function ViewTitle() {
     const [TvMovie, setTvMovie] = useState('movie')
@@ -87,7 +89,7 @@ function ViewTitle() {
                         <Skeleton height={'100%'} width={'100%'}/>
                         :<LazyLoadImage
                         className='img-poster'
-                        src={imageUrl+obj.poster_path} alt={obj.name}
+                        src={obj.poster_path ? imageUrl+obj.poster_path : po} alt={obj.name}
                         height={'100%'} width={'100%'}
                         effect='opacity'
                         onClick={()=>{

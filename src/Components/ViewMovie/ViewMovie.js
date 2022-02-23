@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import './ViewMovie.css'
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
-import unknown from "../../images/unknown.jpg"
+import po from "../../images/po.jpg"
 import { useLocation, useParams } from 'react-router'
 import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
@@ -16,6 +16,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
+import bd from "../../images/bd.jpg"
+
 
 
 
@@ -124,7 +126,7 @@ function ViewMovie() {
     //         setSeasons(obj)
     //     }
     // })
-    console.log(movie,imageUrl);
+    console.log(movie,loading);
     
 
     return (
@@ -139,13 +141,13 @@ function ViewMovie() {
                         effect='opacity'
                         beforeLoad={()=>setLoading(true)}
                         afterLoad={()=>setLoading(false)}
-                     src={imageUrl + movie.backdrop_path}
+                     src={movie.backdrop_path ? (imageUrl + movie.backdrop_path) : bd}
                      height={'100%'} width={'100%'}/>
                     
                     
                 </div>
                 <div className='view-details-container'>
-                        {loading? <div style={{'height':'100%'}}></div> :<div className='back'
+                        {(loading || movie.length<1) ? <div style={{'height':'100%'}}></div> :<div className='back'
                                onClick={history.goBack} 
                                 >
                                 <AiOutlineSwapLeft className='direction-icon' size={30}/>
@@ -153,8 +155,8 @@ function ViewMovie() {
                         </div>}
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
-                            {loading ? <Skeleton width={'100%'} height={'100%'}/>:
-                            <LazyLoadImage effect='opacity' src={imageUrl + movie.poster_path}/>}
+                            {(loading || movie.length<1) ? <Skeleton width={'100%'} height={'100%'}/>:
+                            <LazyLoadImage effect='opacity' src={movie.poster_path ? imageUrl + movie.poster_path: po}/>}
                             </div>
                             <div className='view-details'>
                                 <div className='view-name'>
@@ -209,10 +211,10 @@ function ViewMovie() {
                         { movie.genres.map(e=>
                             {return<p>{e.name}</p>})}
                     </div>}
-                    <div>
+                    {movie.original_language &&<div>
                         <h5>language</h5>
                         <p>{movie.original_language}</p>
-                    </div>
+                    </div>}
                     
                         {isTv &&movie.number_of_seasons ?  <div>
                             <h5>number of seasons</h5>

@@ -9,7 +9,7 @@ import 'react-lazy-load-image-component/src/effects/opacity.css';
 import { delay, getYear } from '../../helpers/helper'
 import ReactPaginate from 'react-paginate'
 import {GrStar} from 'react-icons/gr'
-
+import po from "../../images/po.jpg"
 
 
 function SearchTv() {
@@ -51,9 +51,9 @@ function SearchTv() {
                 {tvResults.results && tvResults.results.map((obj, index) =>
                     <div className='card-view'>
                         <div className='card-poster'>
-                            {loading ? <Skeleton height={'100%'} width={'100%'} /> :
+                            {loading || tvResults.results.length === 0 ? <Skeleton height={'100%'} width={'100%'} /> :
                                 <LazyLoadImage
-                                    src={imageUrl + obj.poster_path} alt={obj.name}
+                                    src={obj.poster_path ? imageUrl+obj.poster_path : po} alt={obj.name}
                                     height={'100%'} width={'100%'}
                                     effect='opacity'
                                     onClick={() => {
