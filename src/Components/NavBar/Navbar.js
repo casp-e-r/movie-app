@@ -18,12 +18,14 @@ function Navbar() {
     const [results, setResults] = useState([])
 
     const page=1
+
+    
     async function fetch(value){
         try{
             await axios.get(`/search/multi?api_key=${API_KEY}&language=en-US&query=${value}&page=1&include_adult=false`).then(e => {  
-                // console.log(e.data.results);
+ 
                 e.data.results.map(i=>{
-                    (i.media_type!=='person') && Set(setResults([...results,i]))
+                    (i.media_type!=='person') && new Set(setResults(results=>[...results,i]))
                 })
             })}
         catch(e){console.log(e);}
@@ -31,7 +33,7 @@ function Navbar() {
             await delay(500)
         }
     }
-    console.log(results);
+
     useEffect(() => {  
         search.length>2 && fetch(search)
         return ()=>{
@@ -86,9 +88,10 @@ function Navbar() {
                     type="text" class="input-search" placeholder=" Search..." />
                     
                 {results && results.length>0 && <div className='auto-search'>
+                    {console.log(results)}
                     {results.map((e,i)=>{
                         
-                           return <div  className='auto-div' onClick={()=>handleSuggestSubmit(e)} >
+                           return <div key={e.id}  className='auto-div' onClick={()=>handleSuggestSubmit(e)} >
                                <div className='auto-suggest-poster'>
                                     <LazyLoadImage src={e.poster_path ? imageUrl+e.poster_path : po } height={'100%'} width={'100%'} />
                                </div>

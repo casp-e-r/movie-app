@@ -17,6 +17,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import bd from "../../images/bd.jpg"
+import Seasons from './Seasons/Seasons'
 
 
 
@@ -30,6 +31,7 @@ function ViewMovie() {
     const [movie, setMovie] = useState([])
     const [loading, setLoading] = useState(true)
     const location = useLocation()
+    const [language, setLanguage] = useState('')
     let history = useHistory()
     const [isTv, setIsTv] = useState(0)
     const ID = location.state.id
@@ -73,11 +75,7 @@ function ViewMovie() {
         //     setMovie(res.data)
         // }).catch(err=>console.log(err))
     }, [ID, TvMovie,isTv])
-    // useEffect(() => {
-    //     if (movie && isTv) { //state.isTv
-    //         setTv(movie)
-    //     }
-    // })
+    
     
     
     useEffect(() => {
@@ -88,10 +86,6 @@ function ViewMovie() {
                 setCountry(obj.english_name)
             }).catch(err=>console.log(err))
         }
-        // axios.get(`/${TvMovie}/${ID}}/images?api_key=${API_KEY}&language=en-US&include_image_language=en,null`).then(res=>{
-        //     console.log(res.data);
-        // })
-        //cast :seperate for tv and movie to get 'character name'
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
             // console.log(res.data);
             if (isTv===1) { //state.isTv
@@ -117,7 +111,16 @@ function ViewMovie() {
                 setCast(obj)
             }
         }).catch(err=>console.log(err))
-    }, [ID, TvMovie, country,movie.origin_country])
+
+        if(movie.original_language){
+            axios.get(`/configuration/languages?api_key=${API_KEY}`).then(res => { 
+                let l=res.data
+                let obj= l.find(o=>o.iso_639_1=== movie.original_language)
+                setLanguage(obj)
+            })
+        }
+
+    }, [ID, TvMovie, country,movie.origin_country,movie.original_language])
     // useEffect(() => {
     //     if (state.isTv && movie.seasons) {
     //         const obj = movie.seasons.map((obj, index) => {
@@ -126,7 +129,6 @@ function ViewMovie() {
     //         setSeasons(obj)
     //     }
     // })
-    console.log(movie,loading);
     
 
     return (
@@ -213,7 +215,7 @@ function ViewMovie() {
                     </div>}
                     {movie.original_language &&<div>
                         <h5>language</h5>
-                        <p>{movie.original_language}</p>
+                        <p>{language.english_name}</p>
                     </div>}
                     
                         {isTv &&movie.number_of_seasons ?  <div>
@@ -241,6 +243,10 @@ function ViewMovie() {
                 </div>
                 {cast.length!==0 && <Cast creator={movie.created_by} cast={cast}/>}
             </div>}
+            <div>
+
+            {isTv ? <Seasons/> : null}
+            </div>
             {loading ? null : <div className='inner-container-3'>
                 <>
                     <Row title={'Reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
