@@ -1,10 +1,8 @@
 import React from 'react'
 import Row from '../Row/Row'
-import {API_KEY} from '../../constants/constants'
 import requests from '../../requests'
 
 function Tv() {
-    // console.log(requests.tv.Latest);
     return (
         <div>
             <Row title='Popular' url={requests.tv.Popular} isLarge />

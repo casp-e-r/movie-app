@@ -1,7 +1,6 @@
 import axios from '../../axios'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useLocation, useParams } from 'react-router'
-import requests from '../../requests'
 import './ViewTitle.css'
 import { imageUrl } from '../../constants/constants'
 import {RiMovie2Line} from 'react-icons/ri'
@@ -14,22 +13,22 @@ import po from "../../images/po.jpg"
 
 
 function ViewTitle() {
-    const [TvMovie, setTvMovie] = useState('movie')
     const [results, setResults] = useState([])
     const [page, setPage] = useState(1)
     const location = useLocation()
     const [loading, setLoading] = useState(false)
     const [initLoading, setInitLoading] = useState(true)
-
     const {title}=useParams()
     const url = location.state.url 
-    // const page =location.state.page 
     const history=useHistory()
     const observer= useRef()
     const [category, setCategory] = useState(0)
     useEffect(() => {
+        document.title = title+(category ===0 ? 'Movies' : 'Tv Shows')
+     }, [category,title]);
+    useEffect(() => {
         const showData=window.localStorage.getItem('show')
-        setCategory(JSON.parse(showData))    
+        setCategory(JSON.parse(showData))      
     },[])
     useEffect(() => {
         async function fetch(){
@@ -85,7 +84,7 @@ function ViewTitle() {
             {results && results.map((obj,i)=>{
                 if(results.length===i+1){
                     return<div ref={last} className='card-poster'> 
-                    {initLoading ? 
+                    {(initLoading || results.length===0) ? 
                         <Skeleton height={'100%'} width={'100%'}/>
                         :<LazyLoadImage
                         className='img-poster'
@@ -95,7 +94,7 @@ function ViewTitle() {
                         onClick={()=>{
                             history.push(`/view/${obj.id}`,{id:obj.id})     
                         }}/>}
-                    {initLoading ? null:<div className='card-name'>
+                    {(initLoading || results.length===0) ? null:<div className='card-name'>
                     <p>
                         {obj ? obj.name || obj.original_name || obj.title : ""}</p>
                     <p1>{getYear(obj?.release_date || obj.first_air_date)}
@@ -106,7 +105,7 @@ function ViewTitle() {
                 }else{
                     return <div className='card-view'>
                     <div className='card-poster'>
-                    {initLoading ? 
+                    {(initLoading || results.length===0)? 
                         <Skeleton height={'100%'} width={'100%'}/>
                         :<LazyLoadImage
                         className='img-poster'
@@ -117,7 +116,7 @@ function ViewTitle() {
                          history.push(`/view/${obj.id}`,{id:obj.id})     
                         }} />}
                     </div>
-                    {initLoading ? null:<div className='card-name'>
+                    {(initLoading || results.length===0) ? null:<div className='card-name'>
                     <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>
                     <p>{getYear(obj?.release_date || obj.first_air_date)}
                     <p1><GrStar style={{'marginLeft':'50%','color':'yellow','fontSize':'.71rem' }}/>{obj.vote_average}</p1>

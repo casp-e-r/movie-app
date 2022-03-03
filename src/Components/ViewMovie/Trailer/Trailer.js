@@ -20,13 +20,14 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         setVideo([])
         axios.get(`/${TvMovie}/${ID}}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
             res.data.results.map(e=>{
-                if (e.type==='Trailer' || 'Teaser'  && e.site==='Youtube') {
-                    setVideo(e)
+                if ((e.type==='Trailer' || 'Teaser' ) && e.site==='Youtube') {
+                     setVideo(e)
                 }
+                return null
             })
         }).catch(err=>console.log(err))
         
-    }, [ID,TvMovie,window])
+    }, [ID,TvMovie])
     const youtube = 'https://www.youtube.com/results?search_query=';
    
     const modalStyle = {
@@ -55,7 +56,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
             isOpen={VideoModal}
             onClose={()=>setVideoModal(false)}
             // playlist={!movie ? null : movie.videos.results[0] ? movie.videos.results.map(video => video.key) : null}
-            videoId={video.length!=0 && video.key}
+            videoId={video.length!==0 && video.key}
              />
               <Modal
                 center

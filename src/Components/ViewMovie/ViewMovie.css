@@ -233,6 +233,9 @@
         width: 200px;
         height: 10%;
     }
+    .view-more-info .networks{
+        height:fit-content;
+    }
     .view-more-info a a:link a:visited{
         color: #fff;    
     }

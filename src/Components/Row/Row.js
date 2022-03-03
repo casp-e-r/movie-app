@@ -1,11 +1,10 @@
-import React,{useContext, useEffect,useState} from 'react'
+import React,{ useEffect,useState} from 'react'
 import "./Row.css"
 import axios from "../../axios";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import {  useHistory } from "react-router-dom";
 import {imageUrl,imageUrl3} from '../../constants/constants'
 import {AiOutlineSwapRight} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
-import { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import { delay } from "../../helpers/helper";
@@ -13,12 +12,8 @@ import { delay } from "../../helpers/helper";
 function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(true)
-    let location=useLocation()
-    let history = useHistory()
-    const isTv=window.localStorage.getItem('show')   
-    const {setGlobalLoading} = useContext(LoadingContext)
-    const d = new Date();
-    let time = d.getTime();
+    let history = useHistory()   
+  
     useEffect(() => {       
         async function fetch(){
             try{
@@ -29,17 +24,12 @@ function Row({title,url,isLarge=false,more=true}) {
                 console.log(e);
             }finally{
                 await delay(800)
-                setLoading(false)
-                setGlobalLoading(false)
-                
+                setLoading(false)  
             }
         }
         fetch()
         return()=>{
-            setGlobalLoading(true)
-        }
-
-         
+        }  
     }, [url,setMovies])
 
 
@@ -70,17 +60,13 @@ function Row({title,url,isLarge=false,more=true}) {
                     delayTime={2000}
                     beforeLoad={()=>setLoading(true)}
                     afterLoad={()=>setLoading(false)}
-                    // onLoad={()=>setGlobalLoading(false)}
                     placeholder={<Skeleton height={'100%'} width={'100%'}/>}
                     className={isLarge ? 'img-backdrop':'img-poster poster-hover-t'}
                     onClick={()=>{
                         history.push(`/view/${obj.id}`,{id:obj.id})     
                     }}
                     >
-                     
                     </LazyLoadImage>
-                   
-
                        } 
                     {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>

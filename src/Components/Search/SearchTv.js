@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { API_KEY, imageUrl } from '../../constants/constants'
 import axios from '../../axios'
 import './Search.css'

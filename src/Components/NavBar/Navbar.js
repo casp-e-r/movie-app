@@ -26,6 +26,7 @@ function Navbar() {
  
                 e.data.results.map(i=>{
                     (i.media_type!=='person') && new Set(setResults(results=>[...results,i]))
+                    return null
                 })
             })}
         catch(e){console.log(e);}
@@ -49,8 +50,7 @@ function Navbar() {
         }
     }
     const handleSubmit=(e)=>{
-            search.length!=0  && 
-            history.push(`/search/${search}`,{page:page})
+            search.length!==0  && history.push(`/search/${search}`,{page:page})
             return()=> setSearch(''),setResults()
     }
   const handleSuggestSubmit=(e)=>{
@@ -77,15 +77,10 @@ function Navbar() {
                 </div>
                 
                 <div class="search-box">
-                    <div className='dummy'></div>
-                    <button class="btn-search"
-                    onClick={handleSubmit}>
-                    <BiSearchAlt2 />
-                    </button> 
-                    <input 
-                    value={search}
-                    onChange={(e)=>setSearch(e.target.value)}
-                    type="text" class="input-search" placeholder=" Search..." />
+                    <input type="text" className="input-search" value={search}
+                    onChange={(e)=>setSearch(e.target.value)} />
+                    <button className=" btn-search "onClick={handleSubmit} ><BiSearchAlt2 className='icon'/></button>
+                    
                     
                 {results && results.length>0 && <div className='auto-search'>
                     {console.log(results)}
@@ -96,11 +91,11 @@ function Navbar() {
                                     <LazyLoadImage src={e.poster_path ? imageUrl+e.poster_path : po } height={'100%'} width={'100%'} />
                                </div>
                                <div>
-                               <p>{e.name || e.original_name || e.title}</p>
+                               <p className='auto-title'>{e.name || e.original_name || e.title}</p>
                                <p>{getYear(e?.release_date || e.first_air_date)}</p>
                                 <p>
                                 {e.rating}
-                                <p1><GrStar style={{'color':'yellow','fontSize':'.71rem' }}/>{e.vote_average}</p1>
+                                <p className='p1'>{e.vote_average}<GrStar style={{'color':'yellow','fontSize':'.71rem' }}/></p>
                                 </p>
                                 {/* <p>{e.media_type}</p> */}
                                </div>

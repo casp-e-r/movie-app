@@ -1,13 +1,12 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import './ViewMovie.css'
 import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
 import po from "../../images/po.jpg"
-import { useLocation, useParams } from 'react-router'
-import { Link, useHistory } from "react-router-dom";
+import { useLocation } from 'react-router'
+import { useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
-
 import { AiOutlineSwapLeft} from "react-icons/ai";
 import {GrStar} from 'react-icons/gr'
 import {AiOutlineGlobal} from 'react-icons/ai'
@@ -18,11 +17,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import bd from "../../images/bd.jpg"
 import Seasons from './Seasons/Seasons'
-
-
-
-
-
 
 function ViewMovie() {
 
@@ -37,13 +31,13 @@ function ViewMovie() {
     const [isTv, setIsTv] = useState(0)
     const ID = location.state.id
     const [TvMovie, setTvMovie] = useState('tv')
+    
     useEffect(() => {
         if (location.state.media) {
            location.state.media==='tv'? setIsTv(1):setIsTv(0)
         }else{
             setIsTv(JSON.parse(window.localStorage.getItem('show')))   
         }
-        
     }, [location.state])
     useEffect(() => {
         location && window.scrollTo(0, 0);
@@ -66,19 +60,18 @@ function ViewMovie() {
                     console.log(res.data);
                     isTv && setSeasons(res.data.seasons)
                 })
-               
             }catch(e){
                 console.log(e);
             }finally{
-                
                 setLoading(false)
             }
         }
         fetch()
     }, [ID, TvMovie,isTv])
-    
-    
-    
+    useEffect(() => {
+        document.title =(movie ? movie.name || movie.original_name || movie.title:'')
+     }, [movie]);
+     
     useEffect(() => {
         if (movie.origin_country && movie.origin_country.length !== 0) {
             axios.get(`/configuration/countries?api_key=${API_KEY}`).then(res => {
@@ -88,8 +81,8 @@ function ViewMovie() {
             }).catch(err=>console.log(err))
         }
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
-            // console.log(res.data);
-            if (isTv===1) { //state.isTv
+
+            if (isTv===1) { 
                 let obj = res.data.cast.map(o => {
                     let ob = o.roles.map(ob => { return (ob.character) })
                     return ({
@@ -121,15 +114,7 @@ function ViewMovie() {
             })
         }
 
-    }, [ID, TvMovie, country,movie.origin_country,movie.original_language])
-    // useEffect(() => {
-    //     if (state.isTv && movie.seasons) {
-    //         const obj = movie.seasons.map((obj, index) => {
-    //             return { 'no': index + 1, 'Date': obj.air_date, 'episodes': obj.episode_count };
-    //         });
-    //         setSeasons(obj)
-    //     }
-    // })
+    }, [ID, TvMovie, country,movie.origin_country,movie.original_language,isTv])
    
     console.log(movie,seasons);
 
@@ -177,13 +162,13 @@ function ViewMovie() {
                                     {movie.genres && movie.genres.map(e=>
                                     {return<p>{e.name}</p>})}
                                 </div>
+                                {!loading && movie.vote_average &&
                                 <div className='view-rating'>
-                                {!loading &&
                                
                                 <p><GrStar style={{'marginRight':'1%','color':'yellow','fontSize':'1.1rem' }}/>{movie.vote_average}/10</p>
-                                }
                                 </div>
-                                {loading ?  <Skeleton count={5} width={'50%'} height={4}/>:movie.overview ? <div className='view-overview'>
+                                }
+                                {loading  ?  <Skeleton count={5} width={'50%'} height={4}/>:movie.overview ? <div className='view-overview'>
                                     <label>Overview</label>
                                     <h4>{movie.overview}</h4>
                                 </div>:null}
@@ -194,7 +179,6 @@ function ViewMovie() {
                                     releaseYear={movie?.release_date || movie.first_air_date ||'0'}
                                     name={movie ? movie.name || movie.original_name || movie.title : ""}
                                     />}
-
                                 </div>
                             </div>
                         </div>
@@ -203,11 +187,18 @@ function ViewMovie() {
             {loading ? null :<div className='inner-container-2'>
                 <div className='view-more-info'>
 
-                    {(movie.release_date && movie.release_date.length!=0) || (movie.first_air_date && movie.first_air_date.length!=0)  &&<div>
+                    {(movie.release_date && movie.release_date.length!==0) ? 
+                    <div>
                         <h5>release date</h5>
-                        {isTv ? <p>{movie.first_air_date}</p>:<p>{movie.release_date}</p>}
-                    </div>}
-                    {movie.homepage && movie.homepage.length!=0 ? <div>
+                        <p>{movie.release_date}</p>
+                    </div>:(movie.first_air_date && movie.first_air_date.length!==0)?
+                    <div>
+                        <h5>first air date</h5>
+                        <p>{movie.first_air_date}</p>
+                        <h5>last air date</h5>
+                        <p>{movie.last_air_date}</p>
+                    </div>:null}
+                    {movie.homepage && movie.homepage.length!==0 ? <div>
                         <h5>home page</h5>
                         <a href={movie.homepage} target="_blank" rel="noopener noreferrer"><AiOutlineGlobal
                         style={{color:'#fff'}}/></a>
@@ -237,25 +228,23 @@ function ViewMovie() {
                     {isTv &&country ? <div>
                         <h5>origin country</h5>
                         {country && <p>{country}</p>}
-                        {/* tv only */}
                     </div>:null}
                      
-                    {movie.networks &&<div>
+                    {movie.networks &&<div className="networks" >
                         <h5>networks</h5>
                         {movie.networks.map(e=>
-                            {return<div>
-                                
-                                 <img src={imageUrl + e.logo_path} width='90px'/>
+                            {return<div >
+                                <img src={imageUrl + e.logo_path} alt='' width='90px'/>
                                 <p>{e.name}</p>
                                 </div>})}</div>}
-                   
-                </div>
+                            </div>
                 {cast.length!==0 && <Cast creator={movie.created_by} cast={cast}/>}
             </div>}
             
             {isTv===1 && <div className="inner-container-4">
                 <h2 >Seasons</h2>
-            { seasons && seasons.length>0  ? <Seasons ID={movie.id} seasons={seasons}/> : null}
+                {console.log(seasons)}
+            { seasons && seasons.length!==0 && seasons[0].poster_path!==0  ? <Seasons ID={movie.id} seasons={seasons}/> : null}
             </div>}
             
             {loading ? null : <div className='inner-container-3'>

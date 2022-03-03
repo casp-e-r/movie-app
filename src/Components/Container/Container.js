@@ -1,6 +1,4 @@
-import React, { useState,useEffect, useContext } from 'react'
-import Skeleton from 'react-loading-skeleton'
-import { LoadingContext } from '../../context'
+import React, { useState,useEffect} from 'react'
 import './Container.css'
 import Movie from './Movie'
 import Tv from './Tv'
@@ -16,7 +14,6 @@ function Container() {
         window.localStorage.setItem('show',JSON.stringify(category))
         
     })
-    const {GlobalLoading} = useContext(LoadingContext)
     
     return (
         <div className='c'>
@@ -24,19 +21,18 @@ function Container() {
 
             
             <div>
-                {GlobalLoading? <div className='null' style={{'height':'100px'}}></div>:
+              
                 <div className='toggle'>
-                {/* <label type='checkbox' value='nnnn' onClick={()=>alert('?????')}>nnnnn</label> */}
-                <button className={category===1?'active-category-toggle':'category-toggle'} onClick={() => setCategory(1)} >
-                        TV 
-                </button>
                 <button
                 className={category===0?'active-category-toggle':'category-toggle'}
                 onClick={() => setCategory(0)}>
                    MOVIE
                 </button>
+                <button className={category===1?'active-category-toggle':'category-toggle'} onClick={() => setCategory(1)} >
+                        TV 
+                </button>
 
-            </div>}
+                </div>
                 </div>
             
                 

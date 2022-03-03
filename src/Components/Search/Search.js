@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import './Search.css'
 import SearchMovie from './SearchMovie'
@@ -10,7 +10,6 @@ function Search() {
 
     const [state, setState] = useState(1)
     const { query } = useParams()
-    const [category, setCategory] = useState(1)
     
 
 

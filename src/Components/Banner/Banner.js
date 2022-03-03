@@ -1,4 +1,4 @@
-import React,{useContext, useEffect,useState}from 'react'
+import React,{useEffect,useState}from 'react'
 import "./Banner.css"
 import axios from "../../axios";
 import {imageUrl} from '../../constants/constants'
@@ -7,7 +7,6 @@ import { delay, shuffleArray, truncate } from "../../helpers/helper";
 import { useHistory } from 'react-router';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import disableScroll from 'disable-scroll';
-import  { LoadingContext } from '../../context';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/opacity.css'
 import "slick-carousel/slick/slick.css";
@@ -16,10 +15,9 @@ import Slider from "react-slick";
 
 
 function Banner() {
-      const {GlobalLoading} = useContext(LoadingContext)
+
       const [movie, setMovie] = useState()
       const [loading, setLoading] = useState(true)
-      const [imgLoad, setImgLoad] = useState(false)
         let history = useHistory()
         const sliderSettings = {
             dots: false,
@@ -50,9 +48,7 @@ function Banner() {
         }
         fetch()
     }, [])
-    const handleImageLoaded=()=> {
-        setImgLoad(true)
-    }
+   
     useEffect(() => {
         if(loading){
         // disableScroll.on();
@@ -92,7 +88,7 @@ function Banner() {
                             effect='opacity' alt={movie.id}
                             height={'100%'} width={'100%'}
                             />
-                            {/* <img src={movie? imageUrl+movie.backdrop_path:""} onLoad={()=>handleImageLoaded}/> */}
+                           
                         <div className='fade-bottom'></div>
                         </div>
                         <div className='banner-details'>
