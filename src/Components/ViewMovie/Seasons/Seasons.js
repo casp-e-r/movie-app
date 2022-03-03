@@ -1,10 +1,27 @@
 import React from 'react'
 import './Seasons.css'
-function Seasons() {
+import {  imageUrl, imageUrl3 } from '../../../constants/constants'
+import { truncate } from '../../../helpers/helper'
+
+
+function Seasons({ID,seasons}) {
   return (
+  
     <div className="seasons">
-fff
+        {seasons.map(s=>{
+            return (<div className="season" key={s.season_number}>
+                <img className="season-poster" src={(imageUrl3 || imageUrl) +s.poster_path} alt='not found' />
+                <div className="s-details">
+                    <p className="number">{s.name}</p>
+                    {s.episode_count && <p className="count">{s.episode_count} episodes</p>}
+                    {s.air_date && <p className='date'>Air Date:{s.air_date}</p>}
+                    <p className='overview'>{truncate(s.overview,100)}</p>
+                </div>
+            </div>)
+            })}
+
     </div>
+
   )
 }
 

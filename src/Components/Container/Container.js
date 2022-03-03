@@ -18,7 +18,6 @@ function Container() {
     })
     const {GlobalLoading} = useContext(LoadingContext)
     
-    console.log(GlobalLoading);
     return (
         <div className='c'>
            

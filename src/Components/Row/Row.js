@@ -1,7 +1,7 @@
 import React,{useContext, useEffect,useState} from 'react'
 import "./Row.css"
 import axios from "../../axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import {imageUrl,imageUrl3} from '../../constants/constants'
 import {AiOutlineSwapRight} from 'react-icons/ai'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
@@ -13,6 +13,7 @@ import { delay } from "../../helpers/helper";
 function Row({title,url,isLarge=false,more=true}) {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(true)
+    let location=useLocation()
     let history = useHistory()
     const isTv=window.localStorage.getItem('show')   
     const {setGlobalLoading} = useContext(LoadingContext)
@@ -61,7 +62,8 @@ function Row({title,url,isLarge=false,more=true}) {
                      <div className={isLarge ? 'card-backdrop':'card-poster'}>
 
                     {loading&&!movies? (isLarge? <Skeleton height={'100%'} width={'100%'}/>:<Skeleton height={250} width={150}/>)
-                    :<LazyLoadImage 
+                    :
+                    <LazyLoadImage 
                     src={isLarge ? (imageUrl3 || imageUrl) +obj.backdrop_path : (imageUrl3 || imageUrl)+obj.poster_path}
                     effect="opacity"
                     threshold={50}
@@ -77,6 +79,8 @@ function Row({title,url,isLarge=false,more=true}) {
                     >
                      
                     </LazyLoadImage>
+                   
+
                        } 
                     {isLarge && <div className='poster-overlay'>
                         <p>{obj ? obj.name || obj.original_name || obj.title : ""}</p>

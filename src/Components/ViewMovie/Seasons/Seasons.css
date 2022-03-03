@@ -1,4 +1,108 @@
 .seasons{
-    height: 400px;
-    background-color:wheat;
+    height: 300px;
+    display: flex;
+    max-width: 1800px;
+    margin: 1% 100px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding:5px 10px; 
+    scrollbar-width: none; 
+}
+.seasons::-webkit-scrollbar{
+    display: none;
+}
+.season{
+    height: 100%;
+    position: relative;
+    margin:0 10px;
+}
+
+.season-poster{
+    transition: all 700ms ease-in-out;
+    height: 100%;
+    cursor: default;  
+    opacity: 1; 
+}
+
+.season:hover > .season-poster{
+    opacity: 0.1;
+}
+
+.season:hover .s-details{
+    opacity: 1;
+}
+.s-details{
+    cursor: default;
+    padding:0 20px 10px 0;
+    opacity: 0;
+    min-width: 100%; 
+    max-width:207px;
+    position:absolute;
+    bottom: 0;
+    transition: all 700ms ease-in-out;
+    display: flex;
+    flex-direction:column;
+    
+}
+.s-details p{
+    margin:1% 0;
+   padding: 0 10px;
+   font-size: 15px;
+}
+.s-details .overview{
+    font-size:14px;
+}
+.s-details .number{
+    font-size: 22px;
+    font-weight: 900;
+   
+}
+@media screen and (max-width:890px) {
+    .seasons{
+        height:250px;
+        margin: 0 20px;
+    }
+    .s-details p{
+        font-size:smaller;   
+    }
+    .s-details .number{
+        font-size:16px;
+    }
+    .s-details .overview{
+        font-size:small;
+    }
+
+}
+
+@media screen and (max-width:490px) {
+    .seasons{
+        position: relative;
+        display: block;
+        max-width: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        height: 700px;
+        padding:3px 14px 3px 0;     
+    }
+    .season{
+        height: 170px;
+        display: flex;
+        max-width:100vw;
+        padding: 0 5px;
+    }
+    .season:hover > .season-poster{
+        opacity: 1;
+    }
+    
+    .s-details{
+        font-size:15px;
+        opacity:1 ;
+        position: relative;
+        bottom: 0;
+        min-width: 70%;
+        padding:4px 3px;
+    }
+    .s-details .number{
+        font-size:15px;
+    }
 }

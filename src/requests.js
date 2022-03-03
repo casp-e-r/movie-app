@@ -8,8 +8,6 @@ const requests={
         Latest:`/movie/latest?api_key=${API_KEY}&language=en-US`,
         Action:`/discover/movie?api_key=${API_KEY}&with_genres=28`,
         Adventure:`/discover/movie?api_key=${API_KEY}&with_genres=12`,
-        
-        Scifi:`/discover/movie?api_key=${API_KEY}&with_genres=878`,
         Crime:`/discover/movie?api_key=${API_KEY}&with_genres=80`,
         Horror:`/discover/movie?api_key=${API_KEY}&with_genres=27`,
         Romance:`/discover/movie?api_key=${API_KEY}&with_genres=10749`,

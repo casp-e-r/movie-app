@@ -68,7 +68,8 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         <a
           className="modal__link"
           href={`${youtube + name +' '  + getYear(releaseYear)}`}
-          target="_blank">
+          target="_blank"
+          rel="noreferrer">
         <ImYoutube2 
           color='red' 
           size={70}/>  

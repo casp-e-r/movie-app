@@ -4,7 +4,7 @@ import axios from '../../axios'
 import { API_KEY, imageUrl } from '../../constants/constants'
 import po from "../../images/po.jpg"
 import { useLocation, useParams } from 'react-router'
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Trailer from './Trailer/Trailer';
 import Row from '../Row/Row';
 
@@ -32,6 +32,7 @@ function ViewMovie() {
     const [loading, setLoading] = useState(true)
     const location = useLocation()
     const [language, setLanguage] = useState('')
+    const [seasons, setSeasons] = useState([])
     let history = useHistory()
     const [isTv, setIsTv] = useState(0)
     const ID = location.state.id
@@ -62,7 +63,10 @@ function ViewMovie() {
             try{
                 await axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {   
                     setMovie(res.data)
+                    console.log(res.data);
+                    isTv && setSeasons(res.data.seasons)
                 })
+               
             }catch(e){
                 console.log(e);
             }finally{
@@ -71,9 +75,6 @@ function ViewMovie() {
             }
         }
         fetch()
-        // axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {
-        //     setMovie(res.data)
-        // }).catch(err=>console.log(err))
     }, [ID, TvMovie,isTv])
     
     
@@ -129,7 +130,8 @@ function ViewMovie() {
     //         setSeasons(obj)
     //     }
     // })
-    
+   
+    console.log(movie,seasons);
 
     return (
         <div>
@@ -149,12 +151,14 @@ function ViewMovie() {
                     
                 </div>
                 <div className='view-details-container'>
-                        {(loading || movie.length<1) ? <div style={{'height':'100%'}}></div> :<div className='back'
+                        {(loading || movie.length<1) ? <div style={{'height':'100%'}}></div> :
+                        <div className='back'
                                onClick={history.goBack} 
                                 >
                                 <AiOutlineSwapLeft className='direction-icon' size={30}/>
                                 <h1> back</h1>       
                         </div>}
+
                         <div className='view-details-wrapper'>
                             <div className='view-poster'>
                             {(loading || movie.length<1) ? <Skeleton width={'100%'} height={'100%'}/>:
@@ -184,7 +188,7 @@ function ViewMovie() {
                                     <h4>{movie.overview}</h4>
                                 </div>:null}
                                 <div className='view-btns'>
-                                    {loading ? <Skeleton  width={'20%'} height={40}/>:<Trailer 
+                                    {(loading || movie.length<1)  ? <Skeleton  width={'20%'} height={40}/>:<Trailer 
                                     ID={ID} 
                                     TvMovie={TvMovie}
                                     releaseYear={movie?.release_date || movie.first_air_date ||'0'}
@@ -199,7 +203,7 @@ function ViewMovie() {
             {loading ? null :<div className='inner-container-2'>
                 <div className='view-more-info'>
 
-                    {movie.release_date&& movie.release_date.length!=0  &&<div>
+                    {(movie.release_date && movie.release_date.length!=0) || (movie.first_air_date && movie.first_air_date.length!=0)  &&<div>
                         <h5>release date</h5>
                         {isTv ? <p>{movie.first_air_date}</p>:<p>{movie.release_date}</p>}
                     </div>}
@@ -221,6 +225,8 @@ function ViewMovie() {
                         {isTv &&movie.number_of_seasons ?  <div>
                             <h5>number of seasons</h5>
                             <p>{movie.number_of_seasons}</p>
+                            <h5>number of episodes</h5>
+                            <p>{movie.number_of_episodes}</p>
                             </div>
                             :movie.runtime ?<div> 
                                 <h5>runtime</h5>
@@ -234,19 +240,24 @@ function ViewMovie() {
                         {/* tv only */}
                     </div>:null}
                      
-                    {movie.networks && movie.networks.map(e=>
+                    {movie.networks &&<div>
+                        <h5>networks</h5>
+                        {movie.networks.map(e=>
                             {return<div>
+                                
                                  <img src={imageUrl + e.logo_path} width='90px'/>
                                 <p>{e.name}</p>
-                                </div>})}
+                                </div>})}</div>}
                    
                 </div>
                 {cast.length!==0 && <Cast creator={movie.created_by} cast={cast}/>}
             </div>}
-            <div>
-
-            {isTv ? <Seasons/> : null}
-            </div>
+            
+            {isTv===1 && <div className="inner-container-4">
+                <h2 >Seasons</h2>
+            { seasons && seasons.length>0  ? <Seasons ID={movie.id} seasons={seasons}/> : null}
+            </div>}
+            
             {loading ? null : <div className='inner-container-3'>
                 <>
                     <Row title={'Reccommended'} url={`/${TvMovie}/${ID}/recommendations?api_key=${API_KEY}&language=en-US&page=1`} more={false}/>
