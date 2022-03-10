@@ -40,18 +40,19 @@ function ViewMovie() {
         }
     }, [location.state])
     useEffect(() => {
-        location && window.scrollTo(0, 0);
-        return()=>{
-            window.scrollTo(0,0)
-        }
-      }, [location,ID]);
-    useEffect(() => {
         if (isTv ===1 ) {
             setTvMovie('tv')
         } else if(isTv===0) {
             setTvMovie('movie')  
         }
     }, [isTv,setTvMovie])
+    useEffect(() => {
+        location && window.scrollTo(0, 0);
+        return()=>{
+            window.scrollTo(0,0)
+        }
+      }, [location,ID]);
+    
     useEffect(() => {
         async function fetch(){
             try{
@@ -69,7 +70,9 @@ function ViewMovie() {
         fetch()
     }, [ID, TvMovie,isTv])
     useEffect(() => {
-        document.title =(movie ? movie.name || movie.original_name || movie.title:'')
+        if (movie) {
+            document.title = movie.name || movie.original_name || movie.title
+        }
      }, [movie]);
      
     useEffect(() => {
@@ -193,9 +196,9 @@ function ViewMovie() {
                         <p>{movie.release_date}</p>
                     </div>:(movie.first_air_date && movie.first_air_date.length!==0)?
                     <div>
-                        <h5>first air date</h5>
+                        <h5>first episode air date</h5>
                         <p>{movie.first_air_date}</p>
-                        <h5>last air date</h5>
+                        <h5>last episode air date</h5>
                         <p>{movie.last_air_date}</p>
                     </div>:null}
                     {movie.homepage && movie.homepage.length!==0 ? <div>
@@ -241,10 +244,10 @@ function ViewMovie() {
                 {cast.length!==0 && <Cast creator={movie.created_by} cast={cast}/>}
             </div>}
             
-            {isTv===1 && <div className="inner-container-4">
+            {isTv===1 && seasons && seasons.length>0 && <div className="inner-container-4">
                 <h2 >Seasons</h2>
-                {console.log(seasons)}
-            { seasons && seasons.length!==0 && seasons[0].poster_path!==0  ? <Seasons ID={movie.id} seasons={seasons}/> : null}
+                {/* {console.log(seasons)} */}
+            {seasons[0].poster_path!==0  ? <Seasons ID={movie.id} seasons={seasons}/> : null}
             </div>}
             
             {loading ? null : <div className='inner-container-3'>

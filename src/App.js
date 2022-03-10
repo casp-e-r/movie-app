@@ -17,7 +17,8 @@ function App() {
 
   return (
     <div className="app">
-      
+      <link rel="shortcut icon" href="/fs.jpeg"></link>
+      <meta name="decription" content="web app serving details of movies and tv shows made by aswin using TMDB Api" />
       <Router>
         
           <Navbar />

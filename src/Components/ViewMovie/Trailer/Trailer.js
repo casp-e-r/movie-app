@@ -20,14 +20,14 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         setVideo([])
         axios.get(`/${TvMovie}/${ID}}/videos?api_key=${API_KEY}&language=en-US`).then(res=>{
             res.data.results.map(e=>{
-                if ((e.type==='Trailer' || 'Teaser' ) && e.site==='Youtube') {
-                     setVideo(e)
+                if (e.type==='Trailer' || 'Teaser'  && e.site==='Youtube') {
+                   return setVideo(e)
                 }
-                return null
             })
         }).catch(err=>console.log(err))
         
-    }, [ID,TvMovie])
+    },[ID,TvMovie])
+    console.log(video);
     const youtube = 'https://www.youtube.com/results?search_query=';
    
     const modalStyle = {

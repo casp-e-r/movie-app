@@ -11,8 +11,8 @@ function Seasons({ID,seasons}) {
   return (
   
     <div className="seasons">
-        {seasons.map(s=>{
-            return (<div className="season" key={s.season_number}>
+        { seasons.map(s=>{
+            return (s.poster_path && <div className="season" key={s.season_number}>
                 <img className="season-poster" src={s.poster_path ?(imageUrl3 || imageUrl) +s.poster_path : po } alt='not found' />
                 <div className="s-details">
                     <p className="number">{s.name}</p>

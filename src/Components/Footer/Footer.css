@@ -11,8 +11,15 @@
     display: flex;
 
 }
+.footer-logo a, a:visited, a:hover, a:active {
+    color: inherit;
+}
+    
+
 .logo-icon{
     font-size: 45px;
+    margin: 10px;
+
 }
 @media screen and (max-width:890px) {
     .logo-icon{

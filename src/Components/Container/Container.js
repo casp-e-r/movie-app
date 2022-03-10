@@ -1,4 +1,5 @@
 import React, { useState,useEffect} from 'react'
+import { LazyLoadComponent } from 'react-lazy-load-image-component'
 import './Container.css'
 import Movie from './Movie'
 import Tv from './Tv'
@@ -20,8 +21,8 @@ function Container() {
            
 
             
+              <LazyLoadComponent>
             <div>
-              
                 <div className='toggle'>
                 <button
                 className={category===0?'active-category-toggle':'category-toggle'}
@@ -39,7 +40,7 @@ function Container() {
             {category===0 ? <Movie /> : <Tv/> }
 
 
-
+            </LazyLoadComponent>
         </div>
     )
 }

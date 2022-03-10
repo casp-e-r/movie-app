@@ -5,7 +5,7 @@ import Container from '../Container/Container'
 
 export default function ViewHome() {
     useEffect(() => {
-        document.title = 'catchy'
+        document.title = 'FX-FilimX'
      }, []);
     return (
         <div style={{'position':'relative'}}>

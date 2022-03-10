@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router'
 import "./Navbar.css"
 import { BiSearchAlt2 } from "react-icons/bi";
-import { GiFilmSpool} from "react-icons/gi";
+import { GiFilmStrip} from "react-icons/gi";
 import  axios  from "../../axios";
 import { API_KEY, imageUrl } from '../../constants/constants';
 import { delay, getYear } from '../../helpers/helper';
@@ -72,7 +72,7 @@ function Navbar() {
         <div className={`nav ${ show && 'nav_black'}`}>
             <div className="nav_content">
                 <div className='logo-outer' onClick={() => history.push('/')}>
-                    <GiFilmSpool className='logo-main'/>
+                    <GiFilmStrip className='logo-main'/>
                     <p>FilmX</p>
                 </div>
                 

@@ -36,10 +36,6 @@
     transition: transform 150ms ease;
 
 }
-.logo-outer:hover{
-  transform:scale(1.02)
-
-}
 .logo-outer p{
   letter-spacing: .1rem;
   padding-top: 18%;
