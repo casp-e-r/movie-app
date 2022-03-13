@@ -55,12 +55,16 @@
     position: fixed;
     right: 0;
     margin-right: 60px;
-    width: fit-content;
+    /* width: fit-content; */
     height: 100%;
     height: fit-content;
     cursor: pointer;
     text-align: center;
+
    
+  }
+  .search{
+    display:flex;
   }
   .search-box:focus{
     cursor: none;
@@ -87,14 +91,12 @@
     height:25px;
     width: 30px;
     border-style: none;
-
     font-size: 1.5rem;
     font-weight: bold;
     outline: none;
     cursor: pointer;
     position: absolute;
     right: 0;
-    right: 0px;
     color:#ffffff ;
     background-color:rgba(255, 254, 254, 0.918);
     pointer-events: painted; 

@@ -51,7 +51,7 @@ function Banner() {
    
     useEffect(() => {
         if(loading){
-        // disableScroll.on();
+        disableScroll.on();
         }else{
         disableScroll.off();
 
