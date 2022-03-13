@@ -77,12 +77,12 @@ function Navbar() {
                 </div>
                 
                 <div class="search-box">
-                    <div className='search'>
+                    {/* <div className='search'> */}
 
                     <input type="text" className="input-search" value={search}
                     onChange={(e)=>setSearch(e.target.value)} />
                     <button className=" btn-search "onClick={handleSubmit} ><BiSearchAlt2 className='icon'/></button>
-                    </div>
+                    {/* </div> */}
                     
                     
                 {results && results.length>0 && <div className='auto-search'>

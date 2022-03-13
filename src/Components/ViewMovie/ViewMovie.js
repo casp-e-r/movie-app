@@ -119,7 +119,7 @@ function ViewMovie() {
 
     }, [ID, TvMovie, country,movie.origin_country,movie.original_language,isTv])
    
-    console.log(movie,seasons);
+
 
     return (
         <div>

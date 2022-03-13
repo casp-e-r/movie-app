@@ -27,7 +27,7 @@ function Trailer({TvMovie,ID,name,releaseYear}) {
         }).catch(err=>console.log(err))
         
     },[ID,TvMovie])
-    console.log(video);
+
     const youtube = 'https://www.youtube.com/results?search_query=';
    
     const modalStyle = {
