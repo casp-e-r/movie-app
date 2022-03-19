@@ -29,7 +29,7 @@ function Navbar() {
                     return null
                 })
             })}
-        catch(e){console.log(e);}
+        catch(e){}
         finally{
             await delay(500)
         }
@@ -77,16 +77,12 @@ function Navbar() {
                 </div>
                 
                 <div class="search-box">
-                    {/* <div className='search'> */}
-
                     <input type="text" className="input-search" value={search}
                     onChange={(e)=>setSearch(e.target.value)} />
                     <button className=" btn-search "onClick={handleSubmit} ><BiSearchAlt2 className='icon'/></button>
-                    {/* </div> */}
                     
                     
                 {results && results.length>0 && <div className='auto-search'>
-                    {console.log(results)}
                     {results.map((e,i)=>{
                         
                            return <div key={e.id}  className='auto-div' onClick={()=>handleSuggestSubmit(e)} >

@@ -60,8 +60,7 @@ function ViewTitle() {
                     if(e[0].isIntersecting){
                         
                         yourFunction()
-                        // setLoading(true) 
-                        // setTimeout(setPage(page=>page+1),50000)    
+  
                     }
             })
             if(e) observer.current.observe(e)
@@ -69,7 +68,6 @@ function ViewTitle() {
         [],
     )
    
-    console.log(results);
     return (
         <div className='view-title' >
             <SkeletonTheme borderRadius={3} duration={1.5} baseColor='#121212' highlightColor='#1c1c1c'> 

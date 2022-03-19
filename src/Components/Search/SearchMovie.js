@@ -34,7 +34,7 @@ useEffect(() => {
                 await axios.get(`/search/movie?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`).then(e => {  
                     setMovieResults(e.data)
                 })}
-            catch(e){console.log(e);}
+            catch(e){}
             finally{
                 await delay(500)
                 setLoading(false)
@@ -43,10 +43,8 @@ useEffect(() => {
         fetch()
     }, [query,page])
     const handlePageChange=(e)=>{
-    console.log(e);
         setPage(e)
     }
-    console.log(movieResults,page);
     return (
         <div>
         <div className='search-grid-wrapper'>

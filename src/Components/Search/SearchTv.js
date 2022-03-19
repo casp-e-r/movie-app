@@ -30,10 +30,9 @@ function SearchTv() {
             try {
                 await axios.get(`/search/tv?api_key=${API_KEY}&language=en-US&query=${query}&page=${page}&include_adult=false`).then(e => {
                     setTvResults(e.data)
-
                 })
             }
-            catch (e) { console.log(e); }
+            catch (e) { }
             finally {
                 await delay(500)
                 setLoading(false)

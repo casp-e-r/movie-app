@@ -58,11 +58,10 @@ function ViewMovie() {
             try{
                 await axios.get(`/${TvMovie}/${ID}?api_key=${API_KEY}&language=en-US`).then(res => {   
                     setMovie(res.data)
-                    console.log(res.data);
                     isTv && setSeasons(res.data.seasons)
                 })
             }catch(e){
-                console.log(e);
+
             }finally{
                 setLoading(false)
             }
@@ -81,7 +80,7 @@ function ViewMovie() {
                 let c = res.data
                 let obj = c.find(o => o.iso_3166_1 === movie.origin_country[0])
                 setCountry(obj.english_name)
-            }).catch(err=>console.log(err))
+            }).catch()
         }
         axios.get(`/${TvMovie}/${ID}/${isTv===1 ? 'aggregate_' : ''}credits?api_key=${API_KEY}&language=en-US`).then(res => {
 
@@ -107,7 +106,7 @@ function ViewMovie() {
                 })
                 setCast(obj)
             }
-        }).catch(err=>console.log(err))
+        }).catch()
 
         if(movie.original_language){
             axios.get(`/configuration/languages?api_key=${API_KEY}`).then(res => { 

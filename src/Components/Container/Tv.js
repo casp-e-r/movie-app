@@ -12,7 +12,6 @@ function Tv() {
             <Row title='Drama' url={requests.tv.Drama} />
             <Row title='Family' url={requests.tv.Family} />
             <Row title='Kids' url={requests.tv.Kids} />
-            {/* <Row title='Reality' url={requests.tv.Reality} /> */}
             <Row title='Documentry' url={requests.tv.Documentary} />
             <Row title='Scifi Fantasy' url={requests.tv.ScifiFantasy} />
             <Row title='War and Politics' url={requests.tv.WarPolitics} />
